@@ -1,0 +1,131 @@
+/* MainPage */
+.MainPageBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px red;
+    margin: 20px 40px 20px 40px;
+    padding: 20px;
+}
+
+.SLiderBox {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px blue; */
+    /* margin: 10px 10px 25px 10px; */
+    min-width: 500px;
+}
+
+/* SearchResuts */
+
+.SearchBox {
+    display: flex;
+    flex-direction: column;
+    border: solid 0px black;
+    padding: 20px;
+}
+
+.PageTitle {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.SearchRowBox {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px rgb(60, 60, 60);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.SearchColumnBox {
+    display: flex;
+    flex-direction: row;
+    border: solid 1px black;
+    justify-content: left;
+    border-radius: 4px;
+    padding: 5px;
+    align-items: center;
+    align-content: center;
+}
+
+.SearchTitle {
+    margin-right: 20px;
+    margin-left: 10px;
+    /* border: solid 1px red; */
+}
+
+.MovieDetails {
+    /* border: solid 1px rgb(0, 255, 4); */
+    border-left: solid 2px rgb(87, 86, 86);
+    padding: 5px;
+}
+
+/* MiniVersion.js */
+.EachMovie {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px rgb(87, 86, 86);
+    border-radius: 2px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.slick-next,
+.slick-prev {
+    color: rgb(109, 109, 137) !important;
+    background: none !important;
+    filter: invert(0.6) !important;
+}
+
+
+.slick-disabled {
+    color: rgb(204, 195, 195) !important;
+    background: none !important;
+    filter: invert(0.6) !important;
+}
+
+#movieDetails {
+    margin-top: 10px !important;
+    color: rgb(52, 52, 52) !important;
+    border: solid 2px rgb(77, 77, 77) !important;
+}
+
+.MiniBx1{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 10px;
+}
+
+.MiniBx2{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    font-size: 13px;
+}
+
+#genreClick, #genreClick:visited{
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+}
+
+#genreClick:hover{
+    color: rgb(60, 60, 60);
+    text-decoration: underline;
+}
+
+/* SideMovies.js */
+.SideMvvies{
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px blue; */
+    flex-wrap: wrap;
+
+}
