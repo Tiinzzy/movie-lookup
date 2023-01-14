@@ -12,6 +12,16 @@ import "slick-carousel/slick/slick-theme.css";
 import BackEndConnection from './BackEndConnection';
 const backend = BackEndConnection.INSTANCE();
 
+const TITLE_LENGTH = 16;
+
+function niceTitle(t){
+    if (t.length < TITLE_LENGTH){
+        return t;
+    } else {
+        return t.substring(0,TITLE_LENGTH) + ' ...'
+    }
+}
+
 export default class CarouselSlider extends Component {
 
     constructor(props) {
@@ -24,7 +34,6 @@ export default class CarouselSlider extends Component {
     async componentDidMount() {
         let movies = await backend.get_movies();
         this.setState({ randomMovies: movies })
-        console.log(movies)
     }
 
     render() {
@@ -70,13 +79,15 @@ export default class CarouselSlider extends Component {
                         <div>
                             <Box className="EachMovieBox">
                                 <Box className="MovieTitleVoteBox">
-                                    <Typography variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{e.title}</Typography>
+                                    <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
                                     <span style={{ color: '#F5C518', marginLeft: 4, marginRight: 2 }}><StarIcon /></span>
                                     <span style={{ fontSize: 14 }}>{e.vote}</span>
                                 </Box>
                                 <Box className="GenreImdbBox">
-                                    <a href={'https://www.imdb.com/title/' + e.imdb} target="_blank" id='genreClick'> Check on IMDB </a>
-                                    <a target="_blank" href="#" id='genreClick' style={{ marginTop: 8 }}> Genres </a>
+                                    <a href={'https://www.imdb.com/title/' + e.imdb} target="_blank" id='genreClick'>
+                                        <img src="/imdb.png" height="12"/>
+                                    </a>
+                                    {/* <a target="_blank" href="#" id='genreClick' style={{ marginTop: 8 }}> Genres </a> */}
                                 </Box>
                             </Box>
                         </div>)}
