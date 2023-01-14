@@ -6,25 +6,32 @@ import StarIcon from '@mui/icons-material/Star';
 
 import './style.css';
 
+import BackEndConnection from './BackEndConnection';
+const backend = BackEndConnection.INSTANCE();
+
 class SearchResuts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
         };
-
     }
+
+    async componentDidMount() {
+        let movies = await backend.get_movies();
+        console.log(movies);
+    }
+
     render() {
         return (
             <Box className="SearchBox">
                 <Box className="PageTitle"> <Typography variant="h5" fontWeight="bold" color="rgb(87, 86, 86)"> Suggested Movies</Typography></Box>
-                <Box className="SearchRowBox">
-                    <Box className="SearchColumnBox">
+
+
+                <Box className="SearchRowBox1">
+                    <Box className="SearchColumnBox1">
                         <Box className="SearchTitle">
                             <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>The Godfather (1972)</Typography>
-                            <Box style={{ alignItems: 'center', display: 'flex' }}>
-                                <span style={{ color: '#F5C518' }}><StarIcon /> </span>9.2
-                            </Box>
+                            <span style={{ color: '#F5C518', paddingLeft: 10, paddingRight: 2 }}><StarIcon /> </span>9.2
                         </Box>
                         <Box className="MovieDetails">
                             <Typography variant="body1">
@@ -38,15 +45,16 @@ class SearchResuts extends React.Component {
                     </Box>
                 </Box >
                 <br />
+
                 <Box className="SearchRowBox">
-                    <Box className="SearchColumnBox">
+                    <Box className="SearchColumnBox1" display='flex'>
                         <Box className="SearchTitle">
                             <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>Raging Bull (1980)</Typography>
                             <Box style={{ alignItems: 'center', display: 'flex' }}>
                                 <span style={{ color: '#F5C518' }}><StarIcon /> </span>8.2
                             </Box>
                         </Box>
-                        <Box className="MovieDetails">
+                        <Box className="MovieDetails" flexGrow={1}>
                             <Typography variant="body1">
                                 The life of boxer Jake LaMotta, whose violence and temper that led him to the top in the ring destroyed his life outside of it.
                                 <br />
@@ -58,17 +66,20 @@ class SearchResuts extends React.Component {
                     </Box>
                 </Box>
                 <br />
+
+
                 <Box className="SearchRowBox">
-                    <Box className="SearchColumnBox">
+                    <Box className="SearchColumnBox1" display='flex'>
                         <Box className="SearchTitle">
                             <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>Schindler's List (1993)</Typography>
                             <Box style={{ alignItems: 'center', display: 'flex' }}>
                                 <span style={{ color: '#F5C518' }}><StarIcon /> </span>9
                             </Box>
                         </Box>
-                        <Box className="MovieDetails">
+                        <Box className="MovieDetails" flexGrow={1}>
                             <Typography variant="body1">
-                                In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.
+                                In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes
+                                concerned for his Jewish workforce after witnessing their persecution by the Nazis.
                                 <br />
                                 <span style={{ fontWeight: 'bold' }}>Director:</span> Steven Spielberg
                                 <br />
