@@ -19,7 +19,6 @@ class SearchResuts extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(new Date());
         let movies = await backend.get_movies();
         this.setState({ randomMovies: movies })
     }

@@ -12,7 +12,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const backend = BackEndConnection.INSTANCE();
-const TITLE_LENGTH = 14;
+const TITLE_LENGTH = 12;
 
 function niceTitle(t) {
     if (t.length < TITLE_LENGTH) {
