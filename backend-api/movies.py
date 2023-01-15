@@ -1,6 +1,5 @@
 from database import Database
 
-
 class Movies:
     def __init__(self):
         pass
