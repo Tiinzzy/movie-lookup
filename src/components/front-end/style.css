@@ -56,7 +56,7 @@
     flex-direction: column;
     border: solid 1px rgb(87, 86, 86);
     border-radius: 2px;
-    padding: 10px;
+    padding: 15px 10px 10px 15px;
     margin-right: 10px;
     height: 100px;
 }
@@ -107,6 +107,31 @@
 #genreClick:hover {
     color: rgb(60, 60, 60);
     text-decoration: underline;
+}
+
+.StarSpan {
+    color: #F5C518;
+    margin-left: 4px;
+    margin-right: 2px;
+}
+
+
+.GenresSlider {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.EachGenreBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+}
+
+.GenreLink{
+    font-size: 8px;
+    margin-right: 4px;
+    line-break: auto;
 }
 
 /* SideMovies.js */
