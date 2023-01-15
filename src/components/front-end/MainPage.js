@@ -3,8 +3,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import SearchResuts from './SearchResuts';
-import MiniVersion from './MiniVersion';
-import SideMovies from './SideMovies';
+import CarouselSlider from './CarouselSlider';
+import SideBarMovies from './SideBarMovies';
 
 import './style.css';
 
@@ -19,16 +19,16 @@ class MainPage extends React.Component {
     render() {
         return (
             <>
-                <Box display='flex' >
+                <Box display='flex'>
                     <Box style={{ width: 300, background: '#eaeaea' }}>
-                        <SideMovies />
+                        <SideBarMovies />
                     </Box>
-                    <Box flexGrow={1} style={{ background: '#fff' }}>
+                    <Box flexGrow={1}>
                         <SearchResuts />
                     </Box>
                 </Box>
-                <Box className="SLiderBox" style={{ margin: 100, width: '90%'}}>
-                    <MiniVersion />
+                <Box className="SLiderBox">
+                    <CarouselSlider />
                 </Box>
             </>
         );
