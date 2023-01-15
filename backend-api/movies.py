@@ -17,7 +17,7 @@ class Movies:
         cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count FROM tests.imbd_movies m 
                         join tests.movies_all_genres mal on mal.title = m.title
                         order by rand()
-                        limit 5;
+                        limit 12;
                         ''')
         rows = cur.fetchall()
         result = []

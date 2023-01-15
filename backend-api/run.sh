@@ -1,1 +1,1 @@
-flask --app main run
+python3 server.py
