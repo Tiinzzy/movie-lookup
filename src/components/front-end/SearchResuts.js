@@ -6,8 +6,17 @@ import StarIcon from '@mui/icons-material/Star';
 
 import './style.css';
 
-import BackEndConnection from './BackEndConnection';
-const backend = BackEndConnection.INSTANCE();
+import axios from 'axios';
+
+// import BackEndConnection from './BackEndConnection';
+// const backend = BackEndConnection.INSTANCE();
+
+
+async function get_movies() {
+    return fetch('/all-movies')
+        .then((response) => response.json())
+        .then((data) => { return data });
+}
 
 class SearchResuts extends React.Component {
     constructor(props) {
@@ -18,7 +27,8 @@ class SearchResuts extends React.Component {
     }
 
     async componentDidMount() {
-        let movies = await backend.get_movies();
+        console.log(new Date());
+        let movies = await get_movies();
         this.setState({ randomMovies: movies })
     }
 
@@ -26,9 +36,9 @@ class SearchResuts extends React.Component {
         return (
             <Box className="SuggestedMoviesMainBox" style={{ width: window.innerWidth - 300 }}>
                 {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                    <Box mb={2}>
+                    <Box key={i} mb={2}>
                         <Box className="MovieTitleBox">
-                            <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }} key={i}>{e.title}</Typography> 
+                            <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }} key={i}>{e.title}</Typography>
                             <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_count})</span>
                         </Box>
                         <Box className="MovieOverviewBox">

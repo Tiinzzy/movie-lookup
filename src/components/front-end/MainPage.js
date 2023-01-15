@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 import SearchResuts from './SearchResuts';
 import CarouselSlider from './CarouselSlider';
-import SideMovies from './SideMovies';
+import SideBarMovies from './SideBarMovies';
 
 import './style.css';
 
@@ -21,9 +21,9 @@ class MainPage extends React.Component {
             <>
                 <Box display='flex'>
                     <Box style={{ width: 300, background: '#eaeaea' }}>
-                        <SideMovies />
+                        <SideBarMovies />
                     </Box>
-                    <Box flexGrow={1} style={{ background: '#fff' }}>
+                    <Box flexGrow={1}>
                         <SearchResuts />
                     </Box>
                 </Box>

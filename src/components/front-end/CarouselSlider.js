@@ -32,6 +32,7 @@ export default class CarouselSlider extends Component {
     }
 
     async componentDidMount() {
+        console.log(new Date());
         let movies = await backend.get_movies();
         this.setState({ randomMovies: movies })
     }
@@ -76,7 +77,7 @@ export default class CarouselSlider extends Component {
             <div>
                 <Slider {...settings}>
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <div>
+                        <div key={i}>
                             <Box className="EachMovieBox">
                                 <Box className="MovieTitleVoteBox">
                                     <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
@@ -91,7 +92,7 @@ export default class CarouselSlider extends Component {
                                     <span className="GenresSlider">Genres:</span>
                                     <Box className="EachGenreBox">
                                         {e.genres.split(',').map((g, i) => (
-                                            <a key={i} title={e.genres} target="_blank" href="#" id='genreClick' className="GenreLink">{g}</a>
+                                            <a key={i} title={g} target="_blank" href="#" id='genreClick' className="GenreLink">{g}</a>
                                         ))}
                                     </Box>
                                 </Box>
