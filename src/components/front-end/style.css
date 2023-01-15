@@ -128,7 +128,7 @@
     margin-top: 4px;
 }
 
-.GenreLink{
+.GenreLink {
     font-size: 8px;
     margin-right: 4px;
     line-break: auto;
@@ -138,7 +138,14 @@
 .SideMvvies {
     display: flex;
     flex-direction: column;
-    /* border: solid 1px blue; */
+    background-color: #eaeaea;
     flex-wrap: wrap;
+    padding: 28px 20px 20px 20px;
+}
 
+.EachSideMovieBox{
+    /* border: solid 1px red; */
+    margin-top: 5px;
+    padding: 5px 10px 10px 0;
+    font-size: 12px;
 }
