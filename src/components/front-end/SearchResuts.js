@@ -4,19 +4,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
+import BackEndConnection from './BackEndConnection';
+
 import './style.css';
 
-import axios from 'axios';
-
-// import BackEndConnection from './BackEndConnection';
-// const backend = BackEndConnection.INSTANCE();
-
-
-async function get_movies() {
-    return fetch('/all-movies')
-        .then((response) => response.json())
-        .then((data) => { return data });
-}
+const backend = BackEndConnection.INSTANCE();
 
 class SearchResuts extends React.Component {
     constructor(props) {
@@ -27,8 +19,7 @@ class SearchResuts extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(new Date());
-        let movies = await get_movies();
+        let movies = await backend.get_movies();
         this.setState({ randomMovies: movies })
     }
 

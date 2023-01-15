@@ -5,14 +5,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
+import BackEndConnection from './BackEndConnection';
+
 import './style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import BackEndConnection from './BackEndConnection';
 const backend = BackEndConnection.INSTANCE();
-
-const TITLE_LENGTH = 14;
+const TITLE_LENGTH = 12;
 
 function niceTitle(t) {
     if (t.length < TITLE_LENGTH) {
@@ -32,7 +32,6 @@ export default class CarouselSlider extends Component {
     }
 
     async componentDidMount() {
-        console.log(new Date());
         let movies = await backend.get_movies();
         this.setState({ randomMovies: movies })
     }

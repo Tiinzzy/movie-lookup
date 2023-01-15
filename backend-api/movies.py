@@ -1,7 +1,5 @@
 from database import Database
 
-import time
-
 class Movies:
     def __init__(self):
         pass
@@ -17,7 +15,7 @@ class Movies:
         cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count FROM tests.imbd_movies m 
                         join tests.movies_all_genres mal on mal.title = m.title
                         order by rand()
-                        limit 5;
+                        limit 12;
                         ''')
         rows = cur.fetchall()
         result = []
@@ -44,14 +42,26 @@ class Movies:
         result = []
         for row in rows:
             result.append(
-                {'title': row[0], 'tagline': row[1]})
+                {'id': row[0], 'title': row[1], 'tagline': row[2], 'vote_average': row[3], 'vote_count': row[4]})
         db.close_database()
         return result
 
+    @classmethod
+    def all_genres(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select name from tests.genres;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'genre_name': row[0]})
+        db.close_database()
+        return genres
+
 
 if __name__ == "__main__":
-    for i in range(20):
-        movies = Movies.all_movies()
+    for i in range(2):
+        movies = Movies.all_genres()
         print(movies)
         print("\n>>>>>> 0", i)
-        time.sleep(1)

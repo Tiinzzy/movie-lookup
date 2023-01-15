@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import BackEndConnection from './BackEndConnection';
+import TopTenMoviesGenre from './TopTenMoviesGenre';
 
 import './style.css';
 
@@ -18,16 +19,20 @@ class SideBarMovies extends React.Component {
     }
 
     async componentDidMount() {
-        // backend.get_top_movies('comedy');   
+        let topTen = await backend.get_top_movies('');
+        this.setState({ topMovies: topTen });
     }
 
     render() {
         return (
             <Box className="SideMvvies">
-                <Typography variant="h6" fontWeight='bold'> Top Rated </Typography>
-                <Box className="EachSideMovieBox">
-                    <Typography variant="body1" fontWeight='500'> ghbgfb</Typography>
-                </Box>
+                <Typography variant="h5" fontWeight='bold' mb={1}> Top Rated </Typography>
+                <TopTenMoviesGenre />
+                {this.state.topMovies && this.state.topMovies.map((e, i) =>
+                    <Box className="EachSideMovieBox" key={i}>
+                        <Typography variant="body1" fontWeight='600'>{e.title}</Typography>
+                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px rgb(57, 57, 57)' }}>"{e.tagline}"</Typography>
+                    </Box>)}
             </Box>
         );
     }

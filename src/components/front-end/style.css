@@ -138,14 +138,15 @@
 .SideMvvies {
     display: flex;
     flex-direction: column;
-    background-color: #eaeaea;
+    /* background-color: #eaeaea; */
     flex-wrap: wrap;
     padding: 28px 20px 20px 20px;
 }
 
 .EachSideMovieBox{
     /* border: solid 1px red; */
-    margin-top: 5px;
+    margin-top: 8px;
+    margin-bottom: 15px;
     padding: 5px 10px 10px 0;
     font-size: 12px;
 }

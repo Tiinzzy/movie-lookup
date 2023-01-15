@@ -20,7 +20,7 @@ class MainPage extends React.Component {
         return (
             <>
                 <Box display='flex'>
-                    <Box style={{ width: 300, background: '#eaeaea' }}>
+                    <Box style={{ width: 300 }}>
                         <SideBarMovies />
                     </Box>
                     <Box flexGrow={1}>

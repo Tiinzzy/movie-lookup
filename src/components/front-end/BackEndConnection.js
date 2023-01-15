@@ -13,15 +13,25 @@ class BackEndConnectionImpl {
     }
 
     async get_top_movies(genre) {
-        // return axios.get('/top-ten-movies?genre=' + genre, {})
-        //     .then(function (response) {
-        //         console.log(response.data);
-        //         return response.data;
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //         return false;
-        //     })
+        return axios.get('/top-ten-movies?genre=' + genre, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async get_all_movie_genres() {
+        return axios.get('/all_movie_genres', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
     }
 }
 
