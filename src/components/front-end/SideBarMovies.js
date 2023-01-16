@@ -26,12 +26,14 @@ class SideBarMovies extends React.Component {
     render() {
         return (
             <Box className="SideMvvies">
-                <Typography variant="h5" fontWeight='bold' mb={1}> Top Rated </Typography>
-                <TopTenMoviesGenre />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Typography variant="h6" fontWeight='bold' mb={1} fontSize={25}> Top Rated </Typography>
+                    <TopTenMoviesGenre />
+                </Box>
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
                     <Box className="EachSideMovieBox" key={i}>
                         <Typography variant="body1" fontWeight='600'>{e.title}</Typography>
-                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px rgb(57, 57, 57)' }}>"{e.tagline}"</Typography>
+                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px rgb(215, 215, 215)' }}>"{e.tagline}"</Typography>
                     </Box>)}
             </Box>
         );
