@@ -52,10 +52,8 @@ class SideBarMovies extends React.Component {
     render() {
         return (
             <Box className="SideMvvies">
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Typography variant="h6" fontWeight='bold' mb={1} fontSize={25}> Top Rated </Typography>
-                    <TopTenMoviesGenre />
-                </Box>
+                <Typography variant="h6" fontWeight='bold' mb={1} fontSize={20}> Top Rated Movies</Typography>
+                <TopTenMoviesGenre />
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
                     <Box className="EachSideMovieBox" key={i}>
                         <Typography variant="body1" fontWeight='600'>{e.title}</Typography>
