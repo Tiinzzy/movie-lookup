@@ -2,9 +2,10 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 
-import SearchResuts from './SearchResuts';
+import SuggestedMovies from './SuggestedMovies';
 import CarouselSlider from './CarouselSlider';
 import SideBarMovies from './SideBarMovies';
+import SearchResult from './SearchResult';
 
 import './style.css';
 
@@ -24,12 +25,14 @@ class MainPage extends React.Component {
                         <SideBarMovies />
                     </Box>
                     <Box flexGrow={1}>
-                        <SearchResuts />
+                        <SuggestedMovies />
                     </Box>
                 </Box>
                 <Box className="SLiderBox">
                     <CarouselSlider />
                 </Box>
+{/* 
+                <SearchResult /> */}
             </>
         );
     }
