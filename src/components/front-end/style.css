@@ -149,6 +149,10 @@
     border-radius: 4px;
     margin-top: 8px;
     margin-bottom: 15px;
-    padding: 5px 0px 10px 0;
+    padding: 6px;
     font-size: 12px;
+}
+
+.MuiIconButton-root {
+    color: white;
 }
