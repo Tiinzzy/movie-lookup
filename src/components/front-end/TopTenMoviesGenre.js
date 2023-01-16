@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import BackEndConnection from './BackEndConnection';
+import { shared } from './functions';
 
 const backend = BackEndConnection.INSTANCE();
 const GENRE_LENGTH = 8;
@@ -30,12 +31,13 @@ class TopTenMoviesGenre extends React.Component {
     async componentDidMount() {
         let genres = await backend.get_all_movie_genres();
         genres = genres.map(e => e.genre_name).sort();
-        genres.unshift(this.state.selectedGenre);
+        genres.unshift('- ALL -');
         this.setState({ genres });
     }
 
     handleChange(e) {
         this.setState({ selectedGenre: e.target.value })
+        shared.callSideBarMovies({ action: 'genre-has-been-selected', data: e.target.value })
     }
 
     render() {
@@ -43,7 +45,7 @@ class TopTenMoviesGenre extends React.Component {
             <>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                     <Select
-                        style={{width: '120px'}}
+                        style={{ width: '120px' }}
                         title={this.state.selectedGenre}
                         value={this.state.selectedGenre}
                         onChange={(e) => this.handleChange(e)}>
