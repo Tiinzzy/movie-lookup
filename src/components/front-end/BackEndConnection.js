@@ -89,6 +89,17 @@ class BackEndConnectionImpl {
             })
     }
 
+    async get_selected_movie(id) {
+        return axios.get('/get_selected_movie?id=' + id, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
 }
 
 export default class BackEndConnection {
