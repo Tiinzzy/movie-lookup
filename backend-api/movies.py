@@ -13,7 +13,7 @@ class Movies:
     def all_movies(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count FROM tests.imbd_movies m 
+        cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count, m.id FROM tests.imbd_movies m
                         join tests.movies_all_genres mal on mal.title = m.title
                         order by rand()
                         limit 12;
@@ -22,7 +22,7 @@ class Movies:
         result = []
         for row in rows:
             result.append(
-                {'title': row[0], 'vote': row[1], 'overview': row[2], 'vote_count': row[3], 'imdb': row[4], 'genres': row[5]})
+                {'title': row[0], 'vote': row[1], 'overview': row[2], 'vote_count': row[3], 'imdb': row[4], 'genres': row[5], 'movie_id': row[6]})
         db.close_database()
         return result
 
@@ -51,12 +51,15 @@ class Movies:
     def all_genres(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute('select name from tests.genres;')
+        cur.execute('''select g.name, count(*) from tests.movies_genre mg
+                        join tests.genres g on mg.genre_id = g.id
+                        group by g.name
+                        order by count(*) desc;''')
 
         rows = cur.fetchall()
         genres = []
         for row in rows:
-            genres.append({'genre_name': row[0]})
+            genres.append({'genre_name': row[0], 'count': row[1]})
         db.close_database()
         return genres
 
@@ -125,9 +128,29 @@ class Movies:
         db.close_database()
         return genres
 
+    @classmethod
+    def selected_movie(self, id):
+        id_condition = " m.id =" + id 
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("""select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres  from (
+                select m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres  from tests.imbd_movies m
+                join tests.movies_genre mg on m.id = mg.movie_id
+                join tests.genres g on g.id = mg.genre_id 
+                where _ID_CONDITION_
+                ) as t2
+            group by imdb, title, overview, original_language, release_date, status, runtime, vote_average;
+                """.replace("_ID_CONDITION_", id_condition))
+
+        rows = cur.fetchall()
+        result = []
+        for row in rows:
+            result.append(
+                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': [row[8]]})
+        db.close_database()
+        return result
+
 
 if __name__ == "__main__":
-    for i in range(2):
-        movies = Movies.all_genres()
-        print(movies)
-        print("\n>>>>>> 0", i)
+    movies = Movies.selected_movie('862')
+    print(movies)
