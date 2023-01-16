@@ -1,14 +1,16 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Typography from '@mui/material/Typography';
 
 import BackEndConnection from './BackEndConnection';
 import { shared } from './functions';
 
-const backend = BackEndConnection.INSTANCE();
+import './style.css';
 
-const LIST_ITEMS = ['Genre', 'Language', 'Country', 'Release Date', 'Collections', 'Production Company'].sort();
+const backend = BackEndConnection.INSTANCE();
 
 class OpenMenu extends React.Component {
     constructor(props) {
@@ -22,25 +24,59 @@ class OpenMenu extends React.Component {
     async componentDidMount() {
         let genres = await backend.get_all_movie_genres();
         genres = genres.map(e => e.genre_name).sort();
-        this.setState({ genres });
+
+        let languages = await backend.get_spoken_languages();
+        languages = languages.map(e => e.languages).sort().filter(e => e !== '' && e !== "?????" && e !== "??????" && e !== "No Language");
+
+        let countries = await backend.get_production_countries();
+        countries = countries.map(e => e.countries).sort();
+
+        this.setState({ genres, languages, countries });
     }
 
     closeMenu() {
-        shared.callHeaderMenu({action: 'close_button_clicked'});
+        shared.callHeaderMenu({ action: 'close_button_clicked' });
     }
 
     render() {
         return (
-            <Box style={{ width: 1300, height: 800, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'column', color: 'white' }}>
-                <Box color='red' border='solid 1px red' display='flex' flexDirection='row' onClick={() => this.closeMenu()}>X</Box>
-                {LIST_ITEMS.map((e, i) =>
-                    <Box key={i} style={{ display: 'flex', flexDirection: 'row', color: '#F5C518', marginRight: 12 }}>
+            <Box style={{ width: 1300, height: 800, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'row', overflowY: 'scroll' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row' }}>
+                    <Box style={{ display: 'flex', flexDirection: 'row' }}>
                         <Box style={{ padding: 40 }}>
-                            <Typography variant='h5' fontSize="bold">
-                                {e}
+                            <Typography variant='h5' fontSize="bold" color="#F5C518">
+                                Country
                             </Typography>
+                            <Box color='white'>
+                                {this.state.countries && this.state.countries.map((e, i) =>
+                                    <li key={i}>{e}</li>)}
+                            </Box>
                         </Box>
-                    </Box>)}
+                        <Box style={{ padding: 40 }}>
+                            <Typography variant='h5' fontSize="bold" color="#F5C518">
+                                Genre
+                            </Typography>
+                            <Box color='white'>
+                                {this.state.genres && this.state.genres.map((e, i) =>
+                                    <li key={i}>{e}</li>)}
+                            </Box>
+                        </Box>
+                        <Box style={{ padding: 40 }}>
+                            <Typography variant='h5' fontSize="bold" color="#F5C518">
+                                Language
+                            </Typography>
+                            <Box color='white'>
+                                {this.state.languages && this.state.languages.map((e, i) =>
+                                    <li key={i}>{e}</li>)}
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'column', height: 50, marginTop: 5, marginLeft: 'auto' }}>
+                    <IconButton onClick={() => this.closeMenu()} size="large">
+                        <HighlightOffIcon fontSize="large" />
+                    </IconButton>
+                </Box>
             </Box>
         );
     }
