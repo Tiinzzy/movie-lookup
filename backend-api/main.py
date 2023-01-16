@@ -15,6 +15,7 @@ def all_movies():
 @app.route("/top-ten-movies", methods=['GET'])
 def top_ten_movies():
     args = request.args
+    print(args)
     return Movies.top_ten_movies(args.get('genre'))
 
 
@@ -53,3 +54,9 @@ def all_movies_collections():
     data = Movies.all_collections()
     return jsonify(data)
 
+
+@app.route("/get_selected_movie", methods=['GET'])
+def selected_movie_clicked():
+    args = request.args
+    data = Movies.selected_movie(args.get('id'))
+    return jsonify(data)
