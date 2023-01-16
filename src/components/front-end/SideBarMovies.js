@@ -18,7 +18,6 @@ function cleanUp(tag) {
     } else {
         return tag;
     }
-
 }
 
 class SideBarMovies extends React.Component {
@@ -40,7 +39,6 @@ class SideBarMovies extends React.Component {
     async callSideBarMovies(message) {
         if (message.action === 'genre-has-been-selected') {
             let topTen = await backend.get_top_movies(message.data);
-            console.log(topTen)
             this.setState({ topMovies: topTen });
         }
     }
