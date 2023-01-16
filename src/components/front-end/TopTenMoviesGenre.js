@@ -29,28 +29,28 @@ class TopTenMoviesGenre extends React.Component {
     }
 
     async componentDidMount() {
-        let genres = await backend.get_all_movie_genres();
-        genres = genres.map(e => e.genre_name).sort();
-        genres.unshift('- ALL -');
-        this.setState({ genres });
+        let data = await backend.get_all_movie_genres();
+        data.unshift({ genre_name: '- ALL -', count: data.map(d => d.count).reduce((a, b) => a + b, 0) });
+        this.setState({ genres: data });
     }
 
     handleChange(e) {
-        this.setState({ selectedGenre: e.target.value })
-        shared.callSideBarMovies({ action: 'genre-has-been-selected', data: e.target.value })
+        this.setState({ selectedGenre: e.target.value });
+        shared.callSideBarMovies({ action: 'genre-has-been-selected', data: e.target.value });
     }
 
     render() {
         return (
             <>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <FormControl sx={{ mb: 2, minWidth: 120 }} size="small">
                     <Select
-                        style={{ width: '120px' }}
                         title={this.state.selectedGenre}
                         value={this.state.selectedGenre}
                         onChange={(e) => this.handleChange(e)}>
                         {this.state.genres && this.state.genres.map((e, i) =>
-                            <MenuItem key={i} value={e} title={e}>{niceSize(e)}</MenuItem>)}
+                            <MenuItem key={i} value={e.genre_name} title={e.genre_name}>
+                                {e.genre_name}<span style={{ marginLeft: 5, color: '#bbb' }}>({e.count})</span>
+                            </MenuItem>)}
                     </Select>
                 </FormControl>
             </>
