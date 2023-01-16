@@ -40,35 +40,33 @@ class OpenMenu extends React.Component {
 
     render() {
         return (
-            <Box style={{ width: 1300, height: 800, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'row', overflowY: 'scroll' }}>
-                <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                    <Box style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Box style={{ padding: 40 }}>
-                            <Typography variant='h5' fontSize="bold" color="#F5C518">
-                                Country
-                            </Typography>
-                            <Box color='white'>
-                                {this.state.countries && this.state.countries.map((e, i) =>
-                                    <li key={i}>{e}</li>)}
-                            </Box>
+            <Box style={{ width: 1300, height: 900, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'row', overflowY: 'scroll' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 10 }}>
+                    <Box style={{ padding: 40 }}>
+                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                            Country
+                        </Typography>
+                        <Box color='white' mt={2}>
+                            {this.state.countries && this.state.countries.map((e, i) =>
+                                <li style={{ marginBottom: 10 }} key={i}>{e}</li>)}
                         </Box>
-                        <Box style={{ padding: 40 }}>
-                            <Typography variant='h5' fontSize="bold" color="#F5C518">
-                                Genre
-                            </Typography>
-                            <Box color='white'>
-                                {this.state.genres && this.state.genres.map((e, i) =>
-                                    <li key={i}>{e}</li>)}
-                            </Box>
+                    </Box>
+                    <Box style={{ padding: 40 }}>
+                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                            Genre
+                        </Typography>
+                        <Box color='white' mt={2}>
+                            {this.state.genres && this.state.genres.map((e, i) =>
+                                <li style={{ marginBottom: 10 }} key={i}>{e}</li>)}
                         </Box>
-                        <Box style={{ padding: 40 }}>
-                            <Typography variant='h5' fontSize="bold" color="#F5C518">
-                                Language
-                            </Typography>
-                            <Box color='white'>
-                                {this.state.languages && this.state.languages.map((e, i) =>
-                                    <li key={i}>{e}</li>)}
-                            </Box>
+                    </Box>
+                    <Box style={{ padding: 40 }}>
+                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                            Language
+                        </Typography>
+                        <Box color='white' mt={2}>
+                            {this.state.languages && this.state.languages.map((e, i) =>
+                                <li style={{ marginBottom: 10 }} key={i}>{e}</li>)}
                         </Box>
                     </Box>
                 </Box>
