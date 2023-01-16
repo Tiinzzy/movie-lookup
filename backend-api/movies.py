@@ -146,7 +146,7 @@ class Movies:
         result = []
         for row in rows:
             result.append(
-                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': [row[8]]})
+                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8].split(',')})
         db.close_database()
         return result
 
