@@ -33,6 +33,62 @@ class BackEndConnectionImpl {
                 return false;
             })
     }
+
+    async get_release_dates() {
+        return axios.get('/all_movies_release_dates', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async get_production_countries() {
+        return axios.get('/all_movies_production_countries', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async get_spoken_languages() {
+        return axios.get('/all_movies_all_spoken_languages', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async get_production_companies() {
+        return axios.get('/all_movies_all_production_companies', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
+    async get_collections() {
+        return axios.get('/all_movies_collections', {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
 }
 
 export default class BackEndConnection {
