@@ -4,9 +4,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
-import './style.css';
+import { shared } from "./functions";
 
-const GENRES = ['Animation', 'Comedy', 'Family', 'Adventure'];
+import './style.css';
 
 class SearchResult extends React.Component {
     constructor(props) {
@@ -14,6 +14,20 @@ class SearchResult extends React.Component {
         this.state = {
 
         };
+        this.callSearchResult = this.callSearchResult.bind(this);
+        shared.callSearchResult = this.callSearchResult;
+    }
+
+    callSearchResult(message) {
+        if (message.action === 'selected_movie_data_recieved') {
+            this.setState({
+                vote: message.movie[0].vote_average,
+                title: message.movie[0].title, status: message.movie[0].status,
+                time: message.movie[0].runtime, date: message.movie[0].release_date,
+                overview: message.movie[0].overview, lang: message.movie[0].original_language.toUpperCase(),
+                imdb: message.movie[0].imdb, genre: message.movie[0].genres
+            });
+        }
     }
 
     render() {
@@ -21,53 +35,50 @@ class SearchResult extends React.Component {
             <Box style={{ display: 'flex', flexDirection: 'column', margin: 25 }}>
                 <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 12 }}>
                     <Typography variant="h3" fontWeight="bold" fontSize="35px" >
-                        Toy Story
+                        {this.state.title}
                     </Typography>
                     <Box style={{ marginLeft: 20, display: 'flex', alignItems: 'center', fontSize: "20px", alignContent: 'center', alignSelf: 'center' }}>
                         <span style={{ color: '#F5C518' }}><StarIcon fontSize="large" /></span>
-                        <span>8.3/</span><span style={{ fontSize: 16 }}>10</span>
+                        <span>{this.state.vote}/</span><span style={{ fontSize: 16 }}>10</span>
                     </Box>
                 </Box>
-
                 <Box style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderBottom: 'solid 1px rgb(87, 86, 86)', paddingBottom: 15 }}>
                     <Typography variant="body2" mt={1} mr={1}>
-                        1995-10-30
+                        {this.state.date}
                     </Typography>
                     <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                         |
                     </Typography>
                     <Typography variant="body2" mt={1} mr={1}>
-                        1h 35m
+                        {this.state.time} min
                     </Typography>
                     <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                         |
                     </Typography>
                     <Typography variant="body2" mt={1} mr={1}>
-                        English
+                        {this.state.lang}
                     </Typography>
                     <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                         |
                     </Typography>
                     <Typography variant="body2" mt={1} mr={1}>
-                        Released
+                        {this.state.status}
                     </Typography>
                     <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                         |
                     </Typography>
                     <Box marginTop="12px">
-                        <a href={'https://www.imdb.com/title/tt0114709'} target="_blank">
+                        <a href={'https://www.imdb.com/title/' + this.state.imdb} target="_blank">
                             <img src="/imdb.png" height="20" alt="#" />
                         </a>
                     </Box>
                 </Box>
-
                 <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                    {GENRES.map((e, i) =>
+                {this.state.genre && this.state.genre.map((e,i)=>
                         <Typography key={i} mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>{e}</Typography>)}
                 </Box>
-
                 <Typography variant="body1" mt={2}>
-                    Led by Woody, Andy''s toys live happily in his room until Andy''s birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy''s heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.
+                    {this.state.overview}
                 </Typography>
             </Box>
         );
