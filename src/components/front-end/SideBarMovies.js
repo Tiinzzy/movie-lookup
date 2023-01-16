@@ -38,8 +38,14 @@ class SideBarMovies extends React.Component {
 
     async callSideBarMovies(message) {
         if (message.action === 'genre-has-been-selected') {
-            let topTen = await backend.get_top_movies(message.data);
-            this.setState({ topMovies: topTen });
+            if (message.data === '- ALL -') {
+                let topTen = await backend.get_top_movies('');
+                this.setState({ topMovies: topTen });
+            } else {
+                let topTen = await backend.get_top_movies(message.data);
+                this.setState({ topMovies: topTen });
+            }
+
         }
     }
 
