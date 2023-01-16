@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import MainPage from './MainPage';
 import Footer from "./Footer";
-import Genres from './Genres';
+import HeaderMenu from './HeaderMenu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -42,7 +42,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -67,6 +66,7 @@ export default function Body() {
             style={{ color: '#F5C518', fontWeight: '900', marginLeft: 15 }}>
             Box Office
           </Typography>
+          <HeaderMenu />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -75,10 +75,6 @@ export default function Body() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }} />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: 15 } }}>
-            <Genres />
-          </Box>
         </Toolbar>
       </AppBar>
       <MainPage />

@@ -80,7 +80,6 @@ export default class CarouselSlider extends Component {
                             <Box className="EachMovieBox">
                                 <Box className="MovieTitleVoteBox">
                                     <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
-                                    {/* <Box flexGrow={1} /> */}
                                     <span className="StarSpan"><StarIcon /></span>
                                     <span style={{ fontSize: 14 }}>{e.vote}</span>
                                 </Box>
