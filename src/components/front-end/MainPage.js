@@ -31,8 +31,7 @@ class MainPage extends React.Component {
                 <Box className="SLiderBox">
                     <CarouselSlider />
                 </Box>
-{/* 
-                <SearchResult /> */}
+                {/* <SearchResult /> */}
             </>
         );
     }
