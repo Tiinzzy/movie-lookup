@@ -1,5 +1,6 @@
 from database import Database
 
+
 class Movies:
     def __init__(self):
         pass
@@ -56,6 +57,71 @@ class Movies:
         genres = []
         for row in rows:
             genres.append({'genre_name': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def all_release_dates(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select distinct release_date from tests.imbd_movies;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'dates': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def all_production_countries(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select distinct name from tests.production_countries;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'countries': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def all_spoken_languages(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select distinct language from tests.spoken_languages;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'languages': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def all_production_companies(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select distinct name from tests.production_companies;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'companies': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def all_collections(self):
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute('select distinct name from tests.collections;')
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'collections': row[0]})
         db.close_database()
         return genres
 
