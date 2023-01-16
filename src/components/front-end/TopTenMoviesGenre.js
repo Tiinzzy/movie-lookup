@@ -1,20 +1,30 @@
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
 
 const backend = BackEndConnection.INSTANCE();
+const GENRE_LENGTH = 8;
+
+function niceSize(t) {
+    if (t.length < GENRE_LENGTH) {
+        return t;
+    } else {
+        return t.substring(0, GENRE_LENGTH) + ' ...'
+    }
+}
 
 class TopTenMoviesGenre extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedGenre: '- ALL -'
+            selectedGenre: '- ALL -',
+            anchorEl: null,
+            open: false
         };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     async componentDidMount() {
@@ -30,17 +40,18 @@ class TopTenMoviesGenre extends React.Component {
 
     render() {
         return (
-            <Box>
+            <>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                     <Select
+                        style={{width: '120px'}}
+                        title={this.state.selectedGenre}
                         value={this.state.selectedGenre}
                         onChange={(e) => this.handleChange(e)}>
                         {this.state.genres && this.state.genres.map((e, i) =>
-                            <MenuItem key={i} value={e}>{e}</MenuItem>)}
+                            <MenuItem key={i} value={e} title={e}>{niceSize(e)}</MenuItem>)}
                     </Select>
                 </FormControl>
-
-            </Box>
+            </>
         );
     }
 }
