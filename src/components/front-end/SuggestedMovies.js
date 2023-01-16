@@ -6,6 +6,8 @@ import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
 
+import { shared } from "./functions";
+
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
@@ -21,13 +23,12 @@ class SuggestedMovies extends React.Component {
 
     async componentDidMount() {
         let movies = await backend.get_movies();
-        this.setState({ randomMovies: movies })
+        this.setState({ randomMovies: movies });
     }
 
     async movieSelected(e) {
         let data = await backend.get_selected_movie(e);
-        console.log(data)
-
+        shared.callSearchResult({ action: 'selected_movie_data_recieved', movie: data });
     }
 
     render() {
