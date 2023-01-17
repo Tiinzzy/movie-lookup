@@ -100,8 +100,9 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_genres(genre) {
-        return axios.get('/get_movies_based_on_genre?genre=' + genre, {})
+    async get_movies_based_on_genres(genre, pageNum) {
+        console.log(genre, pageNum)
+        return axios.get('/get_movies_based_on_genre?genre=' + genre + '&pageNum=' + pageNum, {})
             .then(function (response) {
                 return response.data;
             })
