@@ -7,8 +7,6 @@ import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
 
-import { shared } from "./functions";
-
 import './style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -40,8 +38,7 @@ export default class CarouselSlider extends Component {
     }
 
     async movieSelected(e) {
-        let data = await backend.get_selected_movie(e);
-        shared.callSearchResult({ action: 'selected_movie_data_recieved', movie: data });
+        window.location = '/movie-clicked?movie_id=' + e
     }
 
     render() {

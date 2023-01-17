@@ -51,8 +51,7 @@ class SideBarMovies extends React.Component {
     }
 
     async movieSelected(e) {
-        let data = await backend.get_selected_movie(e);
-        shared.callSearchResult({ action: 'selected_movie_data_recieved', movie: data });
+        window.location = '/movie-clicked?movie_id=' + e
     }
 
     render() {

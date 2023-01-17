@@ -22,20 +22,24 @@ class SuggestedMovies extends React.Component {
     }
 
     async componentDidMount() {
-        let movies = await backend.get_movies();
-        this.setState({ randomMovies: movies });
+        if (shared.initial_render_count === 0) {
+            shared.initial_render_count += 1;
+            let movies = await backend.get_movies();
+            this.setState({ randomMovies: movies });
+        }
     }
 
     async movieSelected(e) {
-        let data = await backend.get_selected_movie(e);
-        shared.callSearchResult({ action: 'selected_movie_data_recieved', movie: data });
+        window.location = '/movie-clicked?movie_id=' + e
     }
 
     render() {
         return (
             <Box className="SuggestedMoviesMainBox" style={{ width: window.innerWidth - 300 }}>
                 {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                    <Box key={i} mb={2} onClick={() => this.movieSelected(e.movie_id)} style={{ cursor: 'pointer' }}>
+                    <Box key={i} mb={2}
+                        onClick={() => this.movieSelected(e.movie_id)}
+                        style={{ cursor: 'pointer' }}>
                         <Box className="MovieTitleBox">
                             <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }} key={i}>{e.title}</Typography>
                             <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_count})</span>
