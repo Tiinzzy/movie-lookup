@@ -7,6 +7,8 @@ import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
 
+import { shared } from "./functions";
+
 import './style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -29,11 +31,18 @@ export default class CarouselSlider extends Component {
         this.state = {
 
         };
+        this.movieSelected = this.movieSelected.bind(this);
     }
 
     async componentDidMount() {
         let movies = await backend.get_movies();
+        console.log(movies)
         this.setState({ randomMovies: movies })
+    }
+
+    async movieSelected(e) {
+        let data = await backend.get_selected_movie(e);
+        shared.callSearchResult({ action: 'selected_movie_data_recieved', movie: data });
     }
 
     render() {
@@ -76,8 +85,8 @@ export default class CarouselSlider extends Component {
             <div>
                 <Slider {...settings}>
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <div key={i}>
-                            <Box className="EachMovieBox">
+                        <div key={i} onClick={() => this.movieSelected(e.movie_id)}>
+                            <Box className="EachMovieBox" style={{ cursor: 'pointer' }}>
                                 <Box className="MovieTitleVoteBox">
                                     <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
                                     <span className="StarSpan"><StarIcon /></span>
