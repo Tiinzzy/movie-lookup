@@ -6,6 +6,7 @@ import SuggestedMovies from './SuggestedMovies';
 import CarouselSlider from './CarouselSlider';
 import SideBarMovies from './SideBarMovies';
 import MovieClicked from './MovieClicked';
+import SearchResult from './SearchResult';
 
 import './style.css';
 
@@ -21,7 +22,6 @@ class MainPage extends React.Component {
     render() {
         return (
             <>
-
                 <Box display='flex'>
                     <Box style={{ width: 500 }}>
                         <SideBarMovies />
@@ -33,8 +33,9 @@ class MainPage extends React.Component {
                 <Box className="SLiderBox">
                     <CarouselSlider />
                 </Box>
-
+{/* 
                 <MovieClicked />
+                <SearchResult /> */}
             </>
         );
     }
