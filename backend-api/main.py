@@ -60,3 +60,10 @@ def selected_movie_clicked():
     args = request.args
     data = Movies.selected_movie(args.get('id'))
     return jsonify(data)
+
+
+@app.route("/get_movies_based_on_genre", methods=['GET'])
+def all_movies_based_on_genre():
+    args = request.args
+    data = Movies.movies_based_on_genre(args.get('genre'))
+    return jsonify(data)
