@@ -20,6 +20,7 @@ class OpenMenu extends React.Component {
         this.closeMenu = this.closeMenu.bind(this);
         this.genreClicked = this.genreClicked.bind(this);
         this.countryClicked = this.countryClicked.bind(this);
+        this.languageClicked = this.languageClicked.bind(this);
     }
 
 
@@ -42,12 +43,16 @@ class OpenMenu extends React.Component {
 
     async genreClicked(e) {
         let genreMovies = await backend.get_movies_based_on_genres(e);
-        console.log(genreMovies);
+        // console.log(genreMovies);
     }
 
     async countryClicked(e) {
         let countryMovies = await backend.get_movies_based_on_countries(e)
-        console.log(countryMovies);
+        // console.log(countryMovies);
+    }
+    async languageClicked(e) {
+        let languageMovies = await backend.get_movies_based_on_spoken_languages(e);
+        // console.log(languageMovies);
     }
 
     render() {
@@ -60,7 +65,7 @@ class OpenMenu extends React.Component {
                         </Typography>
                         <Box color='white' mt={2}>
                             {this.state.countries && this.state.countries.map((e, i) =>
-                                <li style={{ marginBottom: 10 }} key={i} onClick={() => this.countryClicked(e)}>{e}</li>)}
+                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.countryClicked(e)}>{e}</li>)}
                         </Box>
                     </Box>
                     <Box style={{ padding: 40 }}>
@@ -69,7 +74,7 @@ class OpenMenu extends React.Component {
                         </Typography>
                         <Box color='white' mt={2}>
                             {this.state.genres && this.state.genres.map((e, i) =>
-                                <li style={{ marginBottom: 10 }} key={i} onClick={() => this.genreClicked(e)}>{e}</li>)}
+                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.genreClicked(e)}>{e}</li>)}
                         </Box>
                     </Box>
                     <Box style={{ padding: 40 }}>
@@ -78,7 +83,7 @@ class OpenMenu extends React.Component {
                         </Typography>
                         <Box color='white' mt={2}>
                             {this.state.languages && this.state.languages.map((e, i) =>
-                                <li style={{ marginBottom: 10 }} key={i}>{e}</li>)}
+                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.languageClicked(e)}>{e}</li>)}
                         </Box>
                     </Box>
                 </Box>
