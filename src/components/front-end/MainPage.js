@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import SuggestedMovies from './SuggestedMovies';
 import CarouselSlider from './CarouselSlider';
 import SideBarMovies from './SideBarMovies';
-import SearchResult from './SearchResult';
+import MovieClicked from './MovieClicked';
 
 import './style.css';
 
@@ -34,7 +34,7 @@ class MainPage extends React.Component {
                     <CarouselSlider />
                 </Box>
 
-                <SearchResult />
+                <MovieClicked />
             </>
         );
     }

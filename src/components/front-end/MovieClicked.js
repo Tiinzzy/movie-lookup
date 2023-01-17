@@ -8,7 +8,7 @@ import { shared } from "./functions";
 
 import './style.css';
 
-class SearchResult extends React.Component {
+class MovieClicked extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,4 +85,4 @@ class SearchResult extends React.Component {
     }
 }
 
-export default SearchResult;
+export default MovieClicked;
