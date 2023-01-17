@@ -15,11 +15,13 @@ class MainPage extends React.Component {
         this.state = {
 
         };
+
     }
 
     render() {
         return (
             <>
+
                 <Box display='flex'>
                     <Box style={{ width: 500 }}>
                         <SideBarMovies />
@@ -31,7 +33,8 @@ class MainPage extends React.Component {
                 <Box className="SLiderBox">
                     <CarouselSlider />
                 </Box>
-                {/* <SearchResult /> */}
+
+                <SearchResult />
             </>
         );
     }
