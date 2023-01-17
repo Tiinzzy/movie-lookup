@@ -18,6 +18,7 @@ class OpenMenu extends React.Component {
         this.state = {
         };
         this.closeMenu = this.closeMenu.bind(this);
+        this.genreClicked = this.genreClicked.bind(this);
     }
 
 
@@ -36,6 +37,10 @@ class OpenMenu extends React.Component {
 
     closeMenu() {
         shared.callHeaderMenu({ action: 'close_button_clicked' });
+    }
+
+    async genreClicked(e) {
+        let genreMovies = await backend.get_movies_based_on_genres(e);
     }
 
     render() {
@@ -57,7 +62,7 @@ class OpenMenu extends React.Component {
                         </Typography>
                         <Box color='white' mt={2}>
                             {this.state.genres && this.state.genres.map((e, i) =>
-                                <li style={{ marginBottom: 10 }} key={i}>{e}</li>)}
+                                <li style={{ marginBottom: 10 }} key={i} onClick={() => this.genreClicked(e)}>{e}</li>)}
                         </Box>
                     </Box>
                     <Box style={{ padding: 40 }}>
