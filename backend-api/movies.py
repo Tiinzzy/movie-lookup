@@ -130,7 +130,7 @@ class Movies:
 
     @classmethod
     def selected_movie(self, id):
-        id_condition = " m.id =" + id 
+        id_condition = " m.id =" + id
         db = Database()
         con, cur = db.open_database()
         cur.execute("""select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres  from (
@@ -150,7 +150,29 @@ class Movies:
         db.close_database()
         return result
 
+    @classmethod
+    def movies_based_on_genre(self, genre):
+        genre_condition = " g.name =" + '"' + genre + '"'
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("""select id, imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres  from (
+                select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres  from tests.imbd_movies m
+                join tests.movies_genre mg on m.id = mg.movie_id
+                join tests.genres g on g.id = mg.genre_id 
+                where _GENRE_CONDITION_
+                ) as t5
+            group by id, imdb, title, overview, original_language, release_date, status, runtime, vote_average;
+                """.replace("_GENRE_CONDITION_", genre_condition))
+
+        rows = cur.fetchall()
+        result = []
+        for row in rows:
+            result.append(
+                {'id': row[0], 'imdb': row[1], 'title': row[2], 'overview': row[3], 'original_language': row[4], 'release_date': row[5], 'status': row[6], 'runtime': row[7], 'vote_average': row[8], 'genres': row[9]})
+        db.close_database()
+        return result
+
 
 if __name__ == "__main__":
-    movies = Movies.selected_movie('862')
+    movies = Movies.movies_based_on_genre('Action')
     print(movies)
