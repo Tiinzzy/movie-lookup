@@ -67,3 +67,9 @@ def all_movies_based_on_genre():
     args = request.args
     data = Movies.movies_based_on_genre(args.get('genre'))
     return jsonify(data)
+
+@app.route("/get_movies_based_on_country", methods=['GET'])
+def all_movies_based_on_country():
+    args = request.args
+    data = Movies.movies_based_on_country(args.get('country'))
+    return jsonify(data)
