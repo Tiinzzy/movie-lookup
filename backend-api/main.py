@@ -60,3 +60,24 @@ def selected_movie_clicked():
     args = request.args
     data = Movies.selected_movie(args.get('id'))
     return jsonify(data)
+
+
+@app.route("/get_movies_based_on_genre", methods=['GET'])
+def all_movies_based_on_genre():
+    args = request.args
+    data = Movies.movies_based_on_genre(args.get('genre'), args.get('pageNum'))
+    return jsonify(data)
+
+
+@app.route("/get_movies_based_on_country", methods=['GET'])
+def all_movies_based_on_country():
+    args = request.args
+    data = Movies.movies_based_on_country(args.get('country'))
+    return jsonify(data)
+
+
+@app.route("/get_movies_based_on_spoken_languages", methods=['GET'])
+def all_movies_based_on_spoken_languages():
+    args = request.args
+    data = Movies.movies_based_on_spoken_languages(args.get('language'))
+    return jsonify(data)

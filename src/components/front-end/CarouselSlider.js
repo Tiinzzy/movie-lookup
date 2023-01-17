@@ -29,11 +29,16 @@ export default class CarouselSlider extends Component {
         this.state = {
 
         };
+        this.movieSelected = this.movieSelected.bind(this);
     }
 
     async componentDidMount() {
         let movies = await backend.get_movies();
-        this.setState({ randomMovies: movies })
+        this.setState({ randomMovies: movies });
+    }
+
+    async movieSelected(e) {
+        window.location = '/movie-clicked?movie_id=' + e
     }
 
     render() {
@@ -76,8 +81,8 @@ export default class CarouselSlider extends Component {
             <div>
                 <Slider {...settings}>
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <div key={i}>
-                            <Box className="EachMovieBox">
+                        <div key={i} onClick={() => this.movieSelected(e.movie_id)}>
+                            <Box className="EachMovieBox" style={{ cursor: 'pointer' }}>
                                 <Box className="MovieTitleVoteBox">
                                     <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
                                     <span className="StarSpan"><StarIcon /></span>

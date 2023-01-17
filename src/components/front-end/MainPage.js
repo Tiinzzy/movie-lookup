@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import SuggestedMovies from './SuggestedMovies';
 import CarouselSlider from './CarouselSlider';
 import SideBarMovies from './SideBarMovies';
+import MovieClicked from './MovieClicked';
 import SearchResult from './SearchResult';
 
 import './style.css';
@@ -15,6 +16,7 @@ class MainPage extends React.Component {
         this.state = {
 
         };
+
     }
 
     render() {
@@ -31,7 +33,9 @@ class MainPage extends React.Component {
                 <Box className="SLiderBox">
                     <CarouselSlider />
                 </Box>
-                {/* <SearchResult /> */}
+{/* 
+                <MovieClicked />
+                <SearchResult /> */}
             </>
         );
     }
