@@ -3,8 +3,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Pagination from '@mui/material/Pagination';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
 
@@ -12,42 +12,53 @@ import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
 
+const PAGE_SIZE = 5;
+
+function getPageCount(rowCount, pageSize) {
+    let pageCount = Math.floor(rowCount / pageSize);
+    if (pageCount * pageSize < rowCount) {
+        pageCount += 1;
+    }
+    return pageCount;
+}
+
+
 class SearchResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             countBegin: 0,
-            countCut: 5,
+            countCut: 6,
             showForwardArrow: false,
-            showBackwardArrow: false
+            showBackwardArrow: false,
+            showProgress: false
         };
-        this.forwardClicked = this.forwardClicked.bind(this);
-        this.backwardClicked = this.backwardClicked.bind(this);
     }
 
     async componentDidMount() {
-        let movies = await backend.get_movies();
-        this.setState({ randomMovies: movies });
+        this.getDataForDisplay(1);
     }
 
-    forwardClicked() {
-        let total = this.state.randomMovies.length;
-        console.log(total)
-        this.setState({ countBegin: this.state.countBegin + 5, countCut: this.state.countCut + 5 });
-        if (this.state.countBegin === 0 || this.state.countBegin) {
-            this.setState({ showBackwardArrow: true });
-        } else {
-            this.setState({ showBackwardArrow: false });
-        }
-    }
-
-    backwardClicked() {
-        this.setState({ countBegin: this.state.countBegin - 5, countCut: this.state.countCut - 5 });
+    async getDataForDisplay(e) {
+        this.setState({ showProgress: true }, async function () {
+            let pageNumber = (e - 1) * 5;
+            let result = await backend.get_movies_based_on_genres('comedy', pageNumber);
+            this.setState({
+                showProgress: false,
+                randomMovies: result.rows,
+                length: getPageCount(result.row_count, PAGE_SIZE)
+            });
+            console.log(result)
+        });
     }
 
     render() {
         return (
-            <>
+            <Box>
+                {this.state.showProgress ?
+                    <Box sx={{ color: 'grey.500' }}><LinearProgress color="inherit" /></Box> :
+                    <div style={{ height: 4 }}></div>
+                }
                 <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
                     {this.state.randomMovies && this.state.randomMovies.slice(this.state.countBegin, this.state.countCut).map((e, i) =>
                         <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
@@ -65,16 +76,13 @@ class SearchResult extends React.Component {
                                     </Typography>))}
                             </Box>
                         </Box>)}
-                    <Box style={{ display: 'flex', flexDirection: 'row', alignContent: 'center' }}>
-                        {this.state.showBackwardArrow && <Box style={{ marginRight: 'auto' }}>
-                            <ArrowBackIosIcon onClick={() => this.backwardClicked()} fontSize="large" />
-                        </Box>}
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                         <Box style={{ marginLeft: 'auto' }}>
-                            <ArrowForwardIosIcon cursor="pointer" onClick={() => this.forwardClicked()} fontSize="large" />
+                            <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                         </Box>
                     </Box>
                 </Box>
-            </>
+            </Box>
         );
     }
 }
