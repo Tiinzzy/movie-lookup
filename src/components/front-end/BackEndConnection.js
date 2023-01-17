@@ -122,6 +122,18 @@ class BackEndConnectionImpl {
             })
     }
 
+    async get_movies_based_on_spoken_languages(language) {
+        console.log(language)
+        return axios('/get_movies_based_on_spoken_languages?language=' + language, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
 }
 
 export default class BackEndConnection {
