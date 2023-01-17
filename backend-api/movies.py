@@ -136,7 +136,7 @@ class Movies:
         cur.execute("""select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres  from (
                 select m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres  from tests.imbd_movies m
                 join tests.movies_genre mg on m.id = mg.movie_id
-                join tests.genres g on g.id = mg.genre_id 
+                join tests.genres g on g.id = mg.genre_id
                 where _ID_CONDITION_
                 ) as t2
             group by imdb, title, overview, original_language, release_date, status, runtime, vote_average;
@@ -170,7 +170,7 @@ class Movies:
 
     @classmethod
     def movies_based_on_country(self, country):
-        country_condition = " mac.countries like" "'%" + country + "%';"
+        country_condition = " mac.countries like" + "'%" + country + "%';"
         db = Database()
         con, cur = db.open_database()
         cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mac.countries as country from tests.imbd_movies m
@@ -186,7 +186,25 @@ class Movies:
         db.close_database()
         return result
 
+    @classmethod
+    def movies_based_on_spoken_languages(self, language):
+        spoken_language_condition = " where masl.languages like " + "'%" + language + "%'"
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute(""" select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, masl.languages languages from tests.imbd_movies m
+                        join tests.movies_all_spoken_languages masl on masl.id = m.id
+                        _SPOKEN_LANGUAGE_CONDITION_
+                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition))
+
+        rows = cur.fetchall()
+        result = []
+        for row in rows:
+            result.append(
+                {'id': row[0], 'imdb': row[1], 'title': row[2], 'overview': row[3], 'original_language': row[4], 'release_date': row[5], 'status': row[6], 'runtime': row[7], 'vote_average': row[8], 'languages': row[9]})
+        db.close_database()
+        return result
+
 
 if __name__ == "__main__":
-    movies = Movies.movies_based_on_country('france')
+    movies = Movies.movies_based_on_spoken_languages('Hrvats')
     print(movies)
