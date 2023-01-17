@@ -4,30 +4,30 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
-import { shared } from "./functions";
+import BackEndConnection from './BackEndConnection';
 
 import './style.css';
+
+const backend = BackEndConnection.INSTANCE();
 
 class MovieClicked extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            movie_id: props.movie_id
         };
-        this.callSearchResult = this.callSearchResult.bind(this);
-        shared.callSearchResult = this.callSearchResult;
-    }
 
-    callSearchResult(message) {
-        if (message.action === 'selected_movie_data_recieved') {
-            this.setState({
-                vote: message.movie[0].vote_average,
-                title: message.movie[0].title, status: message.movie[0].status,
-                time: message.movie[0].runtime, date: message.movie[0].release_date,
-                overview: message.movie[0].overview, lang: message.movie[0].original_language.toUpperCase(),
-                imdb: message.movie[0].imdb, genre: message.movie[0].genres
-            });
-        }
+    }
+    async componentDidMount() {
+        let data = await backend.get_selected_movie(this.state.movie_id);
+        this.setState({
+            vote: data[0].vote_average,
+            title: data[0].title, status: data[0].status,
+            time: data[0].runtime, date: data[0].release_date,
+            overview: data[0].overview, lang: data[0].original_language.toUpperCase(),
+            imdb: data[0].imdb, genre: data[0].genres
+        });
+
     }
 
     render() {
@@ -74,7 +74,7 @@ class MovieClicked extends React.Component {
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                {this.state.genre && this.state.genre.map((e,i)=>
+                    {this.state.genre && this.state.genre.map((e, i) =>
                         <Typography key={i} mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>{e}</Typography>)}
                 </Box>
                 <Typography variant="body1" mt={2}>
