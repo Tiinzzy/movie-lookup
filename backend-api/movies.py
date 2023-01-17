@@ -151,24 +151,46 @@ class Movies:
         return result
 
     @classmethod
-    def movies_based_on_genre(self, genre):
-        genre_condition = "mag.genre_count like" + "'%" + genre + "%';"
+    def movies_based_on_genre(self, genre, pageNum):
+        genre_condition = "mag.genre_count like" + "'%" + genre + "%'"
+        limit_condition = "limit " + pageNum + ",5"
         db = Database()
         con, cur = db.open_database()
+
+        result = {}
+        cur.execute("""select count(*) from tests.imbd_movies m
+                        join tests.movies_all_genres mag on mag.id = m.id
+                        where _GENRE_CONDITION_ and m.title <> '0'
+                """.replace("_GENRE_CONDITION_", genre_condition))
+        rows = cur.fetchall()
+        result['row_count'] = rows[0][0]
+
         cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mag.genre_count as genre from tests.imbd_movies m
                         join tests.movies_all_genres mag on mag.id = m.id
-                        where _GENRE_CONDITION_
-                """.replace("_GENRE_CONDITION_", genre_condition))
-
+                        where _GENRE_CONDITION_ and m.title <> '0'
+                        order by m.id
+                        _LIMIT_CONDITION_
+                """.replace("_GENRE_CONDITION_", genre_condition).replace("_LIMIT_CONDITION_", limit_condition))
         rows = cur.fetchall()
-        result = []
+        row_result = []
         for row in rows:
-            result.append(
-                {'id': row[0], 'imdb': row[1], 'title': row[2], 'overview': row[3], 'original_language': row[4], 'release_date': row[5], 'status': row[6], 'runtime': row[7], 'vote_average': row[8], 'genres': row[9]})
+            row_result.append(
+                {'id': row[0],
+                 'imdb': row[1],
+                 'title': row[2],
+                 'overview': row[3],
+                 'original_language': row[4],
+                 'release_date': row[5],
+                 'status': row[6],
+                 'runtime': row[7],
+                 'vote_average': row[8],
+                 'genres': row[9]})
+
         db.close_database()
+        result['rows'] = row_result
         return result
 
-    @classmethod
+    @ classmethod
     def movies_based_on_country(self, country):
         country_condition = " mac.countries like" + "'%" + country + "%';"
         db = Database()
@@ -186,7 +208,7 @@ class Movies:
         db.close_database()
         return result
 
-    @classmethod
+    @ classmethod
     def movies_based_on_spoken_languages(self, language):
         spoken_language_condition = " where masl.languages like " + "'%" + language + "%'"
         db = Database()
@@ -206,5 +228,5 @@ class Movies:
 
 
 if __name__ == "__main__":
-    movies = Movies.movies_based_on_spoken_languages('Hrvats')
+    movies = Movies.movies_based_on_genre('comedy', '5')
     print(movies)
