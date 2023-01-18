@@ -42,13 +42,13 @@ class OpenMenu extends React.Component {
     }
 
     async genreClicked(e) {
-        window.location = '/search-result?selected_genre=' + e;
+        window.location = '/genre-result?selected_genre=' + e;
     }
 
     async countryClicked(e) {
-        let countryMovies = await backend.get_movies_based_on_countries(e)
-        // console.log(countryMovies);
+        window.location = '/country-result?selected_country=' + e;
     }
+
     async languageClicked(e) {
         let languageMovies = await backend.get_movies_based_on_spoken_languages(e);
         // console.log(languageMovies);
