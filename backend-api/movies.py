@@ -232,24 +232,46 @@ class Movies:
         return result
 
     @ classmethod
-    def movies_based_on_spoken_languages(self, language):
+    def movies_based_on_spoken_languages(self, language, pageNum):
         spoken_language_condition = " where masl.languages like " + "'%" + language + "%'"
+        limit_condition = "limit " + pageNum + ",6"
         db = Database()
         con, cur = db.open_database()
+
+        result = {}
+        cur.execute(""" select count(*) from tests.imbd_movies m
+                        join tests.movies_all_spoken_languages masl on masl.id = m.id
+                        _SPOKEN_LANGUAGE_CONDITION_ and m.title <> '0'
+                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition))
+        rows = cur.fetchall()
+        result['row_count'] = rows[0][0]
+
         cur.execute(""" select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, masl.languages languages from tests.imbd_movies m
                         join tests.movies_all_spoken_languages masl on masl.id = m.id
-                        _SPOKEN_LANGUAGE_CONDITION_
-                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition))
+                        _SPOKEN_LANGUAGE_CONDITION_ and m.title <> '0'
+                        order by m.id
+                        _LIMIT_CONDITION_
+                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition).replace("_LIMIT_CONDITION_", limit_condition))
 
         rows = cur.fetchall()
-        result = []
+        row_result = []
         for row in rows:
-            result.append(
-                {'id': row[0], 'imdb': row[1], 'title': row[2], 'overview': row[3], 'original_language': row[4], 'release_date': row[5], 'status': row[6], 'runtime': row[7], 'vote_average': row[8], 'languages': row[9]})
+            row_result.append(
+                {'id': row[0],
+                 'imdb': row[1],
+                 'title': row[2],
+                 'overview': row[3],
+                 'original_language': row[4],
+                 'release_date': row[5],
+                 'status': row[6],
+                 'runtime': row[7],
+                 'vote_average': row[8],
+                 'languages': row[9]})
         db.close_database()
+        result['rows'] = row_result
         return result
 
 
 if __name__ == "__main__":
-    movies = Movies.movies_based_on_country('brazil', '0')
+    movies = Movies.movies_based_on_spoken_languages('francais', '0')
     print(movies)
