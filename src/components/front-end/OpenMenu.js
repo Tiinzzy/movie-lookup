@@ -42,8 +42,7 @@ class OpenMenu extends React.Component {
     }
 
     async genreClicked(e) {
-        let genreMovies = await backend.get_movies_based_on_genres(e);
-        // console.log(genreMovies);
+        window.location = '/search-result?selected_genre=' + e;
     }
 
     async countryClicked(e) {
