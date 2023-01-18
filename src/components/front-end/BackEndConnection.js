@@ -111,8 +111,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_countries(country) {
-        return axios('/get_movies_based_on_country?country=' + country, {})
+    async get_movies_based_on_countries(country, pageNum) {
+        return axios('/get_movies_based_on_country?country=' + country + '&pageNum=' + pageNum, {})
             .then(function (response) {
                 return response.data;
             })
