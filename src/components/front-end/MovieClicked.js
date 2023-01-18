@@ -32,7 +32,7 @@ class MovieClicked extends React.Component {
 
     render() {
         return (
-            <Box style={{ padding: '40px 20px 20px 20px', width: 800, height: 800, border: 'solid 0px red', margin: 'auto' }}>
+            <Box style={{ padding: '20px', width: 800, height: 800, border: 'solid 0px red', margin: 'auto' }}>
                 <Box style={{ display: 'flex', flexDirection: 'column', margin: 25 }}>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 12 }}>
                         <Typography variant="h3" fontWeight="bold" fontSize="35px" >
