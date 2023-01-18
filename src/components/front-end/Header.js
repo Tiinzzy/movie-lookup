@@ -53,6 +53,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+
+  function clickedHome() {
+    window.location = "/home";
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky" style={{ backgroundColor: '#333433' }}>
@@ -61,7 +66,7 @@ export default function Header() {
             variant="h6"
             noWrap
             component="div"
-            style={{ color: '#F5C518', fontWeight: '900', marginLeft: 15 }}>
+            style={{ color: '#F5C518', fontWeight: '900', marginLeft: 15, cursor: 'pointer' }} onClick={clickedHome}>
             Box Office
           </Typography>
           <HeaderMenu />
