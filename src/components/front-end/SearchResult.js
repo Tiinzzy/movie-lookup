@@ -27,7 +27,8 @@ class SearchResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showProgress: false
+            showProgress: false,
+            selected_genre: props.selected_genre
         };
     }
 
@@ -38,7 +39,7 @@ class SearchResult extends React.Component {
     async getDataForDisplay(e) {
         this.setState({ showProgress: true }, async function () {
             let pageNumber = (e - 1) * 6;
-            let result = await backend.get_movies_based_on_genres('comedy', pageNumber);
+            let result = await backend.get_movies_based_on_genres(this.state.selected_genre, pageNumber);
             this.setState({
                 showProgress: false,
                 randomMovies: result.rows,
