@@ -28,7 +28,7 @@ class GenreResult extends React.Component {
         super(props);
         this.state = {
             showProgress: false,
-            selected_country: props.selected_country
+            selected_country: props.selected_country.trim()
         };
         console.log(props.selected_country)
     }
@@ -68,9 +68,9 @@ class GenreResult extends React.Component {
                                     {e.overview}
                                 </Typography>
                                 <span style={{ fontWeight: 'bold', fontSize: 14, marginRight: 6 }}>Production Countries:</span>
-                                {e.country.split(',').map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ marginRight: 4, fontSize: 12, color: g === this.state.selected_country ? 'red' : 'black' }}>
-                                        {g}
+                                {e.country.split(',').map(e => e.trim()).map((g, i) => (
+                                    <Typography key={i} variant="caption" style={{ marginRight: 6, fontSize: 12 }}>
+                                        <a className={g === this.state.selected_country ? 'SearchedClass' : 'NormalClass'} href={'/country-result?selected_country=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
                         </Box>)}
