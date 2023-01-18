@@ -67,7 +67,7 @@ class GenreResult extends React.Component {
                                     {e.overview}
                                 </Typography>
                                 {e.genres.split(',').map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
+                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10, color: g === this.state.selected_genre ? 'red' : 'black' }}>
                                         {g}
                                     </Typography>))}
                             </Box>
