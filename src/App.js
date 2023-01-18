@@ -10,7 +10,8 @@ import SearchResult from "./components/front-end/SearchResult";
 const queryParameters = new URLSearchParams(window.location.search)
 
 export default function App() {
-  let movie_id = queryParameters.get("movie_id")
+  let movie_id = queryParameters.get("movie_id");
+  let selected_genre = queryParameters.get("selected_genre");
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/movie-clicked/" element={<MovieClicked movie_id={movie_id} />} />
-          <Route path="/search-result" element={<SearchResult />} />
+          <Route path="/search-result" element={<SearchResult selected_genre={selected_genre}/>} />
           <Route path='*' element={<h3>Error</h3>} />
         </Routes>
       </BrowserRouter>
