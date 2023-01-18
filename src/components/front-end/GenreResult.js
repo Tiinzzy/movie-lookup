@@ -23,7 +23,7 @@ function getPageCount(rowCount, pageSize) {
 }
 
 
-class SearchResult extends React.Component {
+class GenreResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,11 +39,11 @@ class SearchResult extends React.Component {
     async getDataForDisplay(e) {
         this.setState({ showProgress: true }, async function () {
             let pageNumber = (e - 1) * 6;
-            let result = await backend.get_movies_based_on_genres(this.state.selected_genre, pageNumber);
+            let genreResult = await backend.get_movies_based_on_genres(this.state.selected_genre, pageNumber);
             this.setState({
                 showProgress: false,
-                randomMovies: result.rows,
-                length: getPageCount(result.row_count, PAGE_SIZE)
+                randomMovies: genreResult.rows,
+                length: getPageCount(genreResult.row_count, PAGE_SIZE)
             });
         });
     }
@@ -56,7 +56,7 @@ class SearchResult extends React.Component {
                     <div style={{ height: 4 }}></div>
                 }
                 <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
-                    {this.state.randomMovies && this.state.randomMovies.slice(this.state.countBegin, this.state.countCut).map((e, i) =>
+                    {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
                         <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
                             <Box className="MovieTitleBox">
                                 <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
@@ -81,4 +81,4 @@ class SearchResult extends React.Component {
     }
 }
 
-export default SearchResult;
+export default GenreResult;
