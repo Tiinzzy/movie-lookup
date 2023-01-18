@@ -28,7 +28,7 @@ class GenreResult extends React.Component {
         super(props);
         this.state = {
             showProgress: false,
-            selected_genre: props.selected_genre
+            selected_genre: props.selected_genre.trim()
         };
     }
 
@@ -66,9 +66,9 @@ class GenreResult extends React.Component {
                                 <Typography variant="body1" mb={2}>
                                     {e.overview}
                                 </Typography>
-                                {e.genres.split(',').map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10, color: g === this.state.selected_genre ? 'red' : 'black' }}>
-                                        {g}
+                                {e.genres.split(',').map(e => e.trim()).map((g, i) => (
+                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
+                                        <a className={g === this.state.selected_genre ? 'SearchedClass' : 'NormalClass'} href={'/genre-result?selected_genre=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
                         </Box>)}
