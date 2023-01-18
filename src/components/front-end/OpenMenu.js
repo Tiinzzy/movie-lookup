@@ -50,8 +50,7 @@ class OpenMenu extends React.Component {
     }
 
     async languageClicked(e) {
-        let languageMovies = await backend.get_movies_based_on_spoken_languages(e);
-        // console.log(languageMovies);
+        window.location = '/language-result?selected_language=' + e;
     }
 
     render() {
