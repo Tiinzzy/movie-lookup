@@ -7,6 +7,7 @@ import Header from './components/front-end/Header';
 import MovieClicked from './components/front-end/MovieClicked';
 import GenreResult from "./components/front-end/GenreResult";
 import CountryResult from "./components/front-end/CountryResult";
+import LanguageResult from "./components/front-end/LanguageResult";
 
 const queryParameters = new URLSearchParams(window.location.search)
 
@@ -14,7 +15,7 @@ export default function App() {
   let movie_id = queryParameters.get("movie_id");
   let selected_genre = queryParameters.get("selected_genre");
   let selected_country = queryParameters.get("selected_country");
-  console.log(selected_country)
+  let selected_language = queryParameters.get("selected_language");
 
   return (
     <>
@@ -24,8 +25,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/movie-clicked/" element={<MovieClicked movie_id={movie_id} />} />
-          <Route path="/genre-result" element={<GenreResult selected_genre={selected_genre}/>} />
-          <Route path="/country-result" element={<CountryResult selected_country={selected_country}/>} />
+          <Route path="/genre-result" element={<GenreResult selected_genre={selected_genre} />} />
+          <Route path="/country-result" element={<CountryResult selected_country={selected_country} />} />
+          <Route path="/language-result" element={<LanguageResult selected_language={selected_language}/>} />
           <Route path='*' element={<h3>Error</h3>} />
         </Routes>
       </BrowserRouter>
