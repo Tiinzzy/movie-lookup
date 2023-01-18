@@ -56,7 +56,11 @@ export default function Header() {
   }
 
   function allowSearch(e) {
-    setSearch(e.target.value);
+    if (e.key === 'Enter') {
+      searchTyped()
+    } else if (!e.key) {
+      setSearch(e.target.value);
+    }
   }
 
   return (
@@ -74,7 +78,7 @@ export default function Header() {
           <Search>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }} onChange={allowSearch} />
+              inputProps={{ 'aria-label': 'search' }} onKeyDown={allowSearch} onChange={allowSearch} />
             <IconButton size="large" aria-label="search" color="inherit" onClick={searchTyped}>
               <SearchIcon />
             </IconButton>
