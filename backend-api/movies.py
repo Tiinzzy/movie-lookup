@@ -192,7 +192,7 @@ class Movies:
 
     @ classmethod
     def movies_based_on_country(self, country, pageNum):
-        country_condition = " mac.countries like" + "'%" + country + "%';"
+        country_condition = "  mac.countries like" + "'%" + country + "%'"
         limit_condition = "limit " + pageNum + ",6"
         db = Database()
         con, cur = db.open_database()
@@ -201,7 +201,7 @@ class Movies:
         cur.execute("""select count(*) from tests.imbd_movies m
                         join tests.movies_all_countries mac on mac.id = m.id
                         where _COUNTRY_CONDITION_ and m.title <> '0'
-                """.replace("_GENRE_CONDITION_", country_condition))
+                """.replace("_COUNTRY_CONDITION_", country_condition))
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
@@ -251,5 +251,5 @@ class Movies:
 
 
 if __name__ == "__main__":
-    movies = Movies.movies_based_on_genre('comedy', '5')
+    movies = Movies.movies_based_on_country('brazil', '0')
     print(movies)
