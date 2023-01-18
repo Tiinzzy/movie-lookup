@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
-import MainPage from './MainPage';
-import Footer from "./Footer";
 import HeaderMenu from './HeaderMenu';
 
 const Search = styled('div')(({ theme }) => ({
@@ -54,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Body() {
+export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky" style={{ backgroundColor: '#333433' }}>
@@ -77,8 +75,6 @@ export default function Body() {
           </Search>
         </Toolbar>
       </AppBar>
-      <MainPage />
-      <Footer />
     </Box>
   );
 }
