@@ -72,12 +72,14 @@ def all_movies_based_on_genre():
 @app.route("/get_movies_based_on_country", methods=['GET'])
 def all_movies_based_on_country():
     args = request.args
-    data = Movies.movies_based_on_country(args.get('country'), args.get('pageNum'))
+    data = Movies.movies_based_on_country(
+        args.get('country'), args.get('pageNum'))
     return jsonify(data)
 
 
 @app.route("/get_movies_based_on_spoken_languages", methods=['GET'])
 def all_movies_based_on_spoken_languages():
     args = request.args
-    data = Movies.movies_based_on_spoken_languages(args.get('language'))
+    data = Movies.movies_based_on_spoken_languages(
+        args.get('language'), args.get('pageNum'))
     return jsonify(data)
