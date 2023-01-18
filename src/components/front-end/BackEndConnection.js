@@ -101,7 +101,6 @@ class BackEndConnectionImpl {
     }
 
     async get_movies_based_on_genres(genre, pageNum) {
-        console.log(genre, pageNum)
         return axios.get('/get_movies_based_on_genre?genre=' + genre + '&pageNum=' + pageNum, {})
             .then(function (response) {
                 return response.data;
@@ -112,8 +111,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_countries(country) {
-        return axios('/get_movies_based_on_country?country=' + country, {})
+    async get_movies_based_on_countries(country, pageNum) {
+        return axios('/get_movies_based_on_country?country=' + country + '&pageNum=' + pageNum, {})
             .then(function (response) {
                 return response.data;
             })
@@ -123,9 +122,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_spoken_languages(language) {
-        console.log(language)
-        return axios('/get_movies_based_on_spoken_languages?language=' + language, {})
+    async get_movies_based_on_spoken_languages(language, pageNum) {
+        return axios('/get_movies_based_on_spoken_languages?language=' + language + '&pageNum=' + pageNum, {})
             .then(function (response) {
                 return response.data;
             })
