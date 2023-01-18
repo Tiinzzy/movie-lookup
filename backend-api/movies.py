@@ -191,21 +191,44 @@ class Movies:
         return result
 
     @ classmethod
-    def movies_based_on_country(self, country):
+    def movies_based_on_country(self, country, pageNum):
         country_condition = " mac.countries like" + "'%" + country + "%';"
+        limit_condition = "limit " + pageNum + ",6"
         db = Database()
         con, cur = db.open_database()
+
+        result = {}
+        cur.execute("""select count(*) from tests.imbd_movies m
+                        join tests.movies_all_countries mac on mac.id = m.id
+                        where _COUNTRY_CONDITION_ and m.title <> '0'
+                """.replace("_GENRE_CONDITION_", country_condition))
+        rows = cur.fetchall()
+        result['row_count'] = rows[0][0]
+
         cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mac.countries as country from tests.imbd_movies m
                         join tests.movies_all_countries mac on mac.id = m.id
-                        where _COUNTRY_CONDITION_
-                """.replace("_COUNTRY_CONDITION_", country_condition))
+                        where _COUNTRY_CONDITION_ and m.title <> '0'
+                        order by m.id
+                        _LIMIT_CONDITION_
+                """.replace("_COUNTRY_CONDITION_", country_condition).replace("_LIMIT_CONDITION_", limit_condition))
 
         rows = cur.fetchall()
-        result = []
+        row_result = []
         for row in rows:
-            result.append(
-                {'id': row[0], 'imdb': row[1], 'title': row[2], 'overview': row[3], 'original_language': row[4], 'release_date': row[5], 'status': row[6], 'runtime': row[7], 'vote_average': row[8], 'country': row[9].split(',')})
+            row_result.append(
+                {'id': row[0],
+                 'imdb': row[1],
+                 'title': row[2],
+                 'overview': row[3],
+                 'original_language': row[4],
+                 'release_date': row[5],
+                 'status': row[6],
+                 'runtime': row[7],
+                 'vote_average': row[8],
+                 'country': row[9]})
+
         db.close_database()
+        result['rows'] = row_result
         return result
 
     @ classmethod
