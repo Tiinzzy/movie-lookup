@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -7,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
 
 import HeaderMenu from './HeaderMenu';
 
@@ -26,21 +28,11 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(0)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -53,9 +45,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const [search, setSearch] = useState('');
 
   function clickedHome() {
     window.location = "/home";
+  }
+
+  function searchTyped() {
+    window.location = '/search-result?searched_item=' + search;
+  }
+
+  function allowSearch(e) {
+    setSearch(e.target.value);
   }
 
   return (
@@ -71,12 +72,12 @@ export default function Header() {
           </Typography>
           <HeaderMenu />
           <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }} />
+              inputProps={{ 'aria-label': 'search' }} onChange={allowSearch} />
+            <IconButton size="large" aria-label="search" color="inherit" onClick={searchTyped}>
+              <SearchIcon />
+            </IconButton>
           </Search>
         </Toolbar>
       </AppBar>
