@@ -26,7 +26,7 @@ class LanguageResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected_language: props.selected_language,
+            selected_language: props.selected_language.trim(),
             showProgress: false
         };
     }
@@ -68,9 +68,9 @@ class LanguageResult extends React.Component {
                                     {e.overview}
                                 </Typography>
                                 <span style={{ fontWeight: 'bold', fontSize: 14, marginRight: 6 }}>Available Languages:</span>
-                                {e.languages.split(',').map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ marginRight: 4, fontSize: 12, color: g === this.state.selected_country ? 'red' : 'black' }}>
-                                        {g}
+                                {e.languages.split(',').map(e => e.trim()).map((g, i) => (
+                                    <Typography key={i} variant="caption" style={{ marginRight: 4, fontSize: 12 }}>
+                                        <a className={g === this.state.selected_language ? 'SearchedClass' : 'NormalClass'} href={'/language-result?selected_language=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
                         </Box>)}
