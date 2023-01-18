@@ -38,11 +38,9 @@ class GenreResult extends React.Component {
     }
 
     async getDataForDisplay(e) {
-        console.log(e)
         this.setState({ showProgress: true }, async function () {
             let pageNumber = (e - 1) * 6;
             let countryResult = await backend.get_movies_based_on_countries(this.state.selected_country, pageNumber);
-            console.log(countryResult.rows)
             this.setState({
                 showProgress: false,
                 randomMovies: countryResult.rows,
@@ -69,8 +67,9 @@ class GenreResult extends React.Component {
                                 <Typography variant="body1" mb={2}>
                                     {e.overview}
                                 </Typography>
+                                <span style={{ fontWeight: 'bold', fontSize: 14, marginRight: 6 }}>Production Countries:</span>
                                 {e.country.split(',').map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
+                                    <Typography key={i} variant="caption" style={{ marginRight: 4, fontSize: 12, color: g === this.state.selected_country ? 'red' : 'black' }}>
                                         {g}
                                     </Typography>))}
                             </Box>
