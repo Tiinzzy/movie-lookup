@@ -57,7 +57,7 @@ class SideBarMovies extends React.Component {
     render() {
         return (
             <Box className="SideMvvies">
-                <Typography variant="h6" fontWeight='bold' mb={1} fontSize={20}> Top Rated Movies</Typography>
+                <Typography variant="h6" fontWeight='bold' mb={1} fontSize={16}> Top Rated Movies</Typography>
                 <TopTenMoviesGenre />
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
                     <Box className="EachSideMovieBox" key={i} onClick={() => this.movieSelected(e.id)} style={{ cursor: 'pointer' }}>
