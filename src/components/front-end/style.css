@@ -157,3 +157,19 @@
 .MuiIconButton-root {
     color: white;
 }
+
+
+.SearchedClass {
+    color: red; 
+    text-decoration: none;   
+}
+
+
+.NormalClass {
+    color: gray;
+    text-decoration: none;   
+}
+
+.NormalClass:hover, .SearchedClass:hover {
+    text-decoration: underline;
+}
