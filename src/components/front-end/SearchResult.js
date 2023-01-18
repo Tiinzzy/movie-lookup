@@ -12,7 +12,7 @@ import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 6;
 
 function getPageCount(rowCount, pageSize) {
     let pageCount = Math.floor(rowCount / pageSize);
@@ -27,10 +27,6 @@ class SearchResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            countBegin: 0,
-            countCut: 6,
-            showForwardArrow: false,
-            showBackwardArrow: false,
             showProgress: false
         };
     }
@@ -41,14 +37,13 @@ class SearchResult extends React.Component {
 
     async getDataForDisplay(e) {
         this.setState({ showProgress: true }, async function () {
-            let pageNumber = (e - 1) * 5;
+            let pageNumber = (e - 1) * 6;
             let result = await backend.get_movies_based_on_genres('comedy', pageNumber);
             this.setState({
                 showProgress: false,
                 randomMovies: result.rows,
                 length: getPageCount(result.row_count, PAGE_SIZE)
             });
-            console.log(result)
         });
     }
 
@@ -64,7 +59,7 @@ class SearchResult extends React.Component {
                         <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
                             <Box className="MovieTitleBox">
                                 <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
-                                <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_count})</span>
+                                <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
                             </Box>
                             <Box className="MovieOverviewBox">
                                 <Typography variant="body1" mb={2}>
@@ -77,9 +72,7 @@ class SearchResult extends React.Component {
                             </Box>
                         </Box>)}
                     <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                        <Box style={{ marginLeft: 'auto' }}>
-                            <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
-                        </Box>
+                        <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
             </Box>

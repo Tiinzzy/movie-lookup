@@ -153,7 +153,7 @@ class Movies:
     @classmethod
     def movies_based_on_genre(self, genre, pageNum):
         genre_condition = "mag.genre_count like" + "'%" + genre + "%'"
-        limit_condition = "limit " + pageNum + ",5"
+        limit_condition = "limit " + pageNum + ",6"
         db = Database()
         con, cur = db.open_database()
 
