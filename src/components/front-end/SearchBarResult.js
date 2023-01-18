@@ -2,8 +2,6 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 
-import { shared } from "./functions";
-
 import './style.css';
 
 class SearchBarResult extends React.Component {
