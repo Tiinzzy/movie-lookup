@@ -1,9 +1,12 @@
 import axios from 'axios';
 
 class BackEndConnectionImpl {
-    async get_movies() {
+    async get_movies(callback) {
         return axios.get('/all-movies', {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -12,9 +15,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_top_movies(genre) {
+    async get_top_movies(genre, callback) {
         return axios.get('/top-ten-movies?genre=' + genre, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
