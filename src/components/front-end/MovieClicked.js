@@ -15,8 +15,13 @@ class MovieClicked extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            movie_id: props.movie_id,
-            showProgress: false
+            movie_id: props.movie_id.trim(),
+            showProgress: false,
+            company: null,
+            languages: null,
+            genre: null,
+            language: null,
+            countries: null
         };
 
     }
@@ -24,8 +29,14 @@ class MovieClicked extends React.Component {
 
         this.setState({ showProgress: true }, async function () {
             let data = await backend.get_selected_movie(this.state.movie_id);
+            if (data[0].language.length > 0) {
+                this.setState({
+                    language: data[0].language.charAt(0).toUpperCase() + data[0].language.slice(1)
+                });
+            } else {
+                this.setState({ language: null })
+            }
             this.setState({
-                language: data[0].language.charAt(0).toUpperCase() + data[0].language.slice(1),
                 vote: data[0].vote_average,
                 title: data[0].title, status: data[0].status,
                 time: data[0].runtime, date: data[0].release_date,
@@ -34,13 +45,25 @@ class MovieClicked extends React.Component {
             });
 
             let pc = await backend.if_production_country(this.state.movie_id);
-            this.setState({ countries: pc[0].countries.split(','), showProgress: false });
+            if (pc.length > 0) {
+                this.setState({ countries: pc[0].countries.split(','), showProgress: false });
+            } else {
+                this.setState({ countries: null });
+            }
 
-            let al = await backend.if_spoken_languages(this.state.movie_id);
-            this.setState({ languages: al[0].languages.split(','), showProgress: false });
+            let sl = await backend.if_spoken_languages(this.state.movie_id);
+            if (sl.length > 0) {
+                this.setState({ languages: sl[0].languages.split(','), showProgress: false });
+            } else {
+                this.setState({ languages: null });
+            }
 
             let prc = await backend.if_production_company(this.state.movie_id);
-            this.setState({ company: prc[0].company.split(','), showProgress: false });
+            if (prc.length > 0) {
+                this.setState({ company: prc[0].company.split(','), showProgress: false });
+            } else {
+                this.setState({ company: null });
+            }
         });
     }
 
@@ -76,12 +99,15 @@ class MovieClicked extends React.Component {
                             <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                                 |
                             </Typography>
-                            <Typography variant="body2" mt={1} mr={1}>
-                                {this.state.language}
-                                <span id="langSelectedMovie">
-                                    ({this.state.lang})
-                                </span>
-                            </Typography>
+                            {this.state.language !== null &&
+                                <Typography variant="body2" mt={1} mr={1}>
+                                    <a href={'/language-result?selected_language=' + this.state.language}
+                                        className="linkedClass">{this.state.language}
+                                    </a>
+                                    <span id="langSelectedMovie">
+                                        ({this.state.lang})
+                                    </span>
+                                </Typography>}
                             <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                                 |
                             </Typography>
@@ -97,39 +123,40 @@ class MovieClicked extends React.Component {
                                 </a>
                             </Box>
                         </Box>
-                        <Box className="SelectedMovieGenreBox">
-                            {this.state.genre && this.state.genre.map((e, i) =>
+                        {this.state.genre !== null && <Box className="SelectedMovieGenreBox">
+                            {this.state.genre.split(',').map((e, i) =>
                                 <a key={i} href={'/genre-result?selected_genre=' + e} className="GenreLink">
                                     <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
                                         {e}
                                     </Typography>
                                 </a>
                             )}
-                        </Box>
+                        </Box>}
                         <Typography variant="body1" mt={2}>
                             {this.state.overview}
                         </Typography>
-                        <Box className="SelectedMovieDataBox">
-                            <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
-                            {this.state.countries && this.state.countries.map((e, i) =>
-                                <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
-                                    <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
-                                </Typography>)}
-                        </Box>
-                        <Box className="SelectedMovieDataBox">
+                        {this.state.countries !== null &&
+                            <Box className="SelectedMovieDataBox">
+                                <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
+                                {this.state.countries.map((e, i) =>
+                                    <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
+                                        <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
+                                    </Typography>)}
+                            </Box>}
+                        {this.state.languages !== null && <Box className="SelectedMovieDataBox">
                             <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available in:</Typography>
-                            {this.state.languages && this.state.languages.map((e, i) =>
+                            {this.state.languages.map((e, i) =>
                                 <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                     <a href={'/language-result?selected_language=' + e} className="linkedClass">{e}</a>
                                 </Typography>)}
-                        </Box>
-                        <Box className="SelectedMovieDataBox">
+                        </Box>}
+                        {this.state.company !== null && <Box className="SelectedMovieDataBox">
                             <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Company:</Typography>
-                            {this.state.company && this.state.company.map((e, i) =>
+                            {this.state.company.map((e, i) =>
                                 <Typography fontSize={15} key={i} style={{ marginRight: 8, marginTop: 10 }}>
                                     {e}
                                 </Typography>)}
-                        </Box>
+                        </Box>}
                     </Box>
                 </Box >
             </Box>
