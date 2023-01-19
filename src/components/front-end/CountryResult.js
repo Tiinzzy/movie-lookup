@@ -7,20 +7,12 @@ import Pagination from '@mui/material/Pagination';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
+import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-
 const PAGE_SIZE = 6;
-
-function getPageCount(rowCount, pageSize) {
-    let pageCount = Math.floor(rowCount / pageSize);
-    if (pageCount * pageSize < rowCount) {
-        pageCount += 1;
-    }
-    return pageCount;
-}
 
 class CountryResult extends React.Component {
     constructor(props) {

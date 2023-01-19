@@ -7,19 +7,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
+import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
 const PAGE_SIZE = 6;
-
-function getPageCount(rowCount, pageSize) {
-    let pageCount = Math.floor(rowCount / pageSize);
-    if (pageCount * pageSize < rowCount) {
-        pageCount += 1;
-    }
-    return pageCount;
-}
 
 class SearchBarResult extends React.Component {
     constructor(props) {
@@ -67,7 +60,7 @@ class SearchBarResult extends React.Component {
                                 </Typography>
                             </Box>
                         </Box>)}
-                        <Box className="PaginationStyle">
+                    <Box className="PaginationStyle">
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>

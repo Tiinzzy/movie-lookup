@@ -6,21 +6,13 @@ import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
+import { niceTitle } from './functions';
 
 import './style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const backend = BackEndConnection.INSTANCE();
-const TITLE_LENGTH = 12;
-
-function niceTitle(t) {
-    if (t.length < TITLE_LENGTH) {
-        return t;
-    } else {
-        return t.substring(0, TITLE_LENGTH) + ' ...'
-    }
-}
 
 export default class CarouselSlider extends Component {
 

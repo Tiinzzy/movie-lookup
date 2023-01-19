@@ -5,11 +5,8 @@ import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import Backdrop from '@mui/material/Backdrop';
 
-import BackEndConnection from './BackEndConnection';
 import OpenMenu from './OpenMenu';
 import { shared } from './functions';
-
-const backend = BackEndConnection.INSTANCE();
 
 class HeaderMenu extends React.Component {
     constructor(props) {
