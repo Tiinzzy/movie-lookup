@@ -15,6 +15,7 @@ class Movies:
         con, cur = db.open_database()
         cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count, m.id FROM tests.imbd_movies m
                         join tests.movies_all_genres mal on mal.title = m.title
+                        where m.title <> '0' and m.vote_average <> '0' and m.overview <> '0'
                         order by rand()
                         limit 12;
                         ''')
@@ -34,7 +35,7 @@ class Movies:
         cur.execute("""
         select distinct m.id, m.title, m.tagline, m.vote_average, m.vote_count from tests.imbd_movies m
             join tests.movies_genre mg on m.id = mg.movie_id
-            join tests.genres g on g.id = mg.genre_id _MORE_CONDITION_
+            join tests.genres g on g.id = mg.genre_id _MORE_CONDITION_ and m.title <> '0' and m.vote_average <> '0'
             order by m.vote_average*m.vote_count desc
             limit 10;
         """.replace("_MORE_CONDITION_", more_condition))
