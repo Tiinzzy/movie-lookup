@@ -374,3 +374,27 @@
     font-size: 14px;
     margin-right: 8px;
 }
+
+/* SearchBarResult.js */
+.SearchBarMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.SearchBarDetailBox{
+    margin-bottom: 20px;
+}
+
+.SearchBarTitleBox{
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.SearchBarOverviewBox{
+    border-left: solid 2px rgb(185, 185, 185);
+    padding-left: 6px;
+    padding-top: 6px;
+}
