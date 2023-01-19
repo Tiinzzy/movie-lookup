@@ -96,4 +96,11 @@ def get_all_search_results():
 def if_movie_has_production_country():
     args = request.args
     data = Movies.if_production_company(args.get('id'))
-    return jsonify(data)    
+    return jsonify(data)
+
+
+@app.route("/if_movie_has_languages", methods=['GET'])
+def if_movie_has_languages():
+    args = request.args
+    data = Movies.if_spoken_languages(args.get('id'))
+    return jsonify(data)
