@@ -166,7 +166,7 @@
 
 
 .NormalClass {
-    color: gray;
+    color: black;
     text-decoration: none;
 }
 
@@ -189,11 +189,81 @@
     color: black;
 }
 
+.linkedClass:hover {
+    text-decoration: underline;
+}
+
+/* MovieClicked */
+.SelectedMovieMainBox {
+    padding: 20px;
+    width: 1000px;
+    height: 800px;
+    border: solid 0px red;
+    margin: auto;
+}
+
+.SelectedMovieBox {
+    display: flex;
+    flex-direction: column;
+    margin: 25px
+}
+
+.SelectedMovieTitleBox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.SelectedMovieVoteBox {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    align-content: center;
+    align-self: center;
+}
+
+#starSelectedMovie {
+    color: #F5C518;
+}
+
+#voteSelectedMovie {
+    font-size: 16px
+}
+
+.SelectedMovieMiniDataBox {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-bottom: solid 1px rgb(87, 86, 86);
+    padding-bottom: 15px;
+}
+
+#langSelectedMovie {
+    padding-left: 5px;
+}
+
+.SelectedMovieImdbBox {
+    margin-top: 12px;
+}
+
+.SelectedMovieGenreBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.SelectedMovieDataBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    align-items: center;
+    font-size: 14px;
+    align-content: center;
+}
+
 .linkedClass {
     text-decoration: none;
     color: black;
-}
-
-.linkedClass:hover {
-    text-decoration: underline;
 }
