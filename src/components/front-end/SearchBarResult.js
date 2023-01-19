@@ -40,7 +40,7 @@ class SearchBarResult extends React.Component {
             console.log(searchResult);
             this.setState({
                 showProgress: false,
-                randomMovies: searchResult.rows,
+                result: searchResult.rows,
                 length: getPageCount(searchResult.row_count, PAGE_SIZE)
             });
         });
@@ -54,7 +54,7 @@ class SearchBarResult extends React.Component {
                     <div style={{ height: 4 }}></div>
                 }
                 <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
-                    {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
+                    {this.state.result && this.state.result.map((e, i) =>
                         <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
                             <Box className="MovieTitleBox">
                                 <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
