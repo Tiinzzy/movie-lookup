@@ -134,7 +134,7 @@ class Movies:
         return genres
 
     @classmethod
-    def if_production_company(self, id):
+    def if_production_country(self, id):
         id_condition = 'where m.id = ' + id
         db = Database()
         con, cur = db.open_database()
@@ -147,6 +147,23 @@ class Movies:
         genres = []
         for row in rows:
             genres.append({'countries': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
+    def if_production_company(self, id):
+        id_condition = 'where m.id = ' + id
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("""select mapc.companies as companies from tests.imbd_movies m
+                        join tests.movies_all_production_companies mapc on mapc.id = m.id
+                        _ID_
+                    """.replace('_ID_', id_condition))
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'company': row[0]})
         db.close_database()
         return genres
 
