@@ -271,6 +271,125 @@ class Movies:
         result['rows'] = row_result
         return result
 
+    @ classmethod
+    def search_result(self, search, pageNum):
+        title_condition = " where m.title like " + "'%" + search + "%'"
+        country_condition = " and pc.name like " + "'%" + search + "%'"
+        genre_condition = " and g.name like " + "'%" + search + "%'"
+        lang_condition = " and sl.language like " + "'%" + search + "%'"
+        company_condition = " and prc.name like " + "'%" + search + "%'"
+        collection_condition = " and c.name like " + "'%" + search + "%'"
+        limit_condition = "limit " + pageNum + ",6"
+
+        db = Database()
+        con, cur = db.open_database()
+
+        result = {}
+        cur.execute("""
+        select count(*) from (
+                    select m.id AS id
+                    from tests.imbd_movies m 
+                    _TITLE_ 
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movie_production_countries mpc on m.id = mpc.movie_id
+                    join tests.production_countries pc on pc.initials = mpc.country_initial _COUNTRY_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_genre mg on m.id = mg.movie_id
+                    join tests.genres g on g.id = mg.genre_id _GENRE_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_spoken_languages msl on m.id = msl.movie_id
+                    join tests.spoken_languages sl on sl.initial = msl.language_initial _LANGUAGE_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_production_companies mprc on m.id = mprc.movie_id
+                    join tests.production_companies prc on prc.id = mprc.production_company_id _COMPANY_
+                    union
+                    select m.id as id
+                    from tests.imbd_movies m 
+                    join tests.movie_collections mc on mc.movie_id = m.id
+                    join tests.collections c on mc.collection_id = c.id _COLLECTION_
+                    order by id 
+                    _LIMIT_
+                        ) all_ids
+                        join tests.imbd_movies m 
+                        on all_ids.id= m.id 
+                """.replace('_TITLE_', title_condition)
+                    .replace('_COUNTRY_', country_condition)
+                    .replace('_GENRE_', genre_condition)
+                    .replace('_LANGUAGE_', lang_condition)
+                    .replace('_COMPANY_', company_condition)
+                    .replace('_COLLECTION_', collection_condition)
+                    .replace('_LIMIT_', limit_condition))
+        rows = cur.fetchall()
+        result['row_count'] = rows[0][0]
+
+        cur.execute("""
+        select * from (
+                    select m.id AS id
+                    from tests.imbd_movies m 
+                    _TITLE_ 
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movie_production_countries mpc on m.id = mpc.movie_id
+                    join tests.production_countries pc on pc.initials = mpc.country_initial _COUNTRY_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_genre mg on m.id = mg.movie_id
+                    join tests.genres g on g.id = mg.genre_id _GENRE_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_spoken_languages msl on m.id = msl.movie_id
+                    join tests.spoken_languages sl on sl.initial = msl.language_initial _LANGUAGE_
+                    union
+                    select m.id AS id
+                    from tests.imbd_movies m
+                    join tests.movies_production_companies mprc on m.id = mprc.movie_id
+                    join tests.production_companies prc on prc.id = mprc.production_company_id _COMPANY_
+                    union
+                    select m.id as id
+                    from tests.imbd_movies m 
+                    join tests.movie_collections mc on mc.movie_id = m.id
+                    join tests.collections c on mc.collection_id = c.id _COLLECTION_
+                    order by id 
+                    _LIMIT_
+                        ) all_ids
+                        join tests.imbd_movies m 
+                        on all_ids.id= m.id 
+                """.replace('_TITLE_', title_condition)
+                    .replace('_COUNTRY_', country_condition)
+                    .replace('_GENRE_', genre_condition)
+                    .replace('_LANGUAGE_', lang_condition)
+                    .replace('_COMPANY_', company_condition)
+                    .replace('_COLLECTION_', collection_condition)
+                    .replace('_LIMIT_', limit_condition))
+
+        rows = cur.fetchall()
+        row_result = []
+        for row in rows:
+            row_result.append(
+                {'id': row[1],
+                 'imdb': row[2],
+                 'title': row[4],
+                 'overview': row[6],
+                 'original_language': row[5],
+                 'release_date': row[8],
+                 'status': row[9],
+                 'runtime': row[12],
+                 'vote_average': row[15]})
+        db.close_database()
+        result['rows'] = row_result
+        return result
+
 
 if __name__ == "__main__":
     movies = Movies.movies_based_on_spoken_languages('francais', '0')
