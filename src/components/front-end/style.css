@@ -41,11 +41,6 @@
     margin-right: 2px;
 }
 
-.VoteCountStyle {
-    margin-left: 1px;
-    color: rgb(150, 150, 150);
-}
-
 .MovieOverviewBox {
     border-left: solid 2px rgb(185, 185, 185);
     padding: 6px;
@@ -158,23 +153,6 @@
     color: white;
 }
 
-
-.SearchedClass {
-    color: red;
-    text-decoration: none;
-}
-
-
-.NormalClass {
-    color: black;
-    text-decoration: none;
-}
-
-.NormalClass:hover,
-.SearchedClass:hover {
-    text-decoration: underline;
-}
-
 .MovieTitleLink {
     color: black;
     text-decoration: none;
@@ -193,7 +171,7 @@
     text-decoration: underline;
 }
 
-/* MovieClicked */
+/* MovieClicked.js */
 .SelectedMovieMainBox {
     padding: 20px;
     width: 1000px;
@@ -266,4 +244,81 @@
 .linkedClass {
     text-decoration: none;
     color: black;
+}
+
+/* CountryResult.js */
+.LoadingBarBox {
+    color: grey.500;
+}
+
+.LoadingBarBoxSize {
+    height: 4px;
+}
+
+.CountryResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.CountryResDetailBox {
+    margin-bottom: 20px;
+}
+
+.CountryResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.MovieTitleLink {
+    color: black;
+    text-decoration: none;
+}
+
+.MovieTitleLink:hover {
+    text-decoration: underline;
+}
+
+.countStar {
+    color: #F5C518;
+}
+
+.VoteCountStyle {
+    margin-left: 1px;
+    color: rgb(150, 150, 150);
+}
+
+.CountryResCountBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
+
+.CountryResProCountTitle {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.SearchedClass {
+    color: #e9bc16;
+    text-decoration: none;
+}
+
+
+.NormalClass {
+    color: black;
+    text-decoration: none;
+}
+
+.NormalClass:hover,
+.SearchedClass:hover {
+    text-decoration: underline;
+}
+
+.PaginationStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
