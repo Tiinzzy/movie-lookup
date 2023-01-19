@@ -133,6 +133,17 @@ class BackEndConnectionImpl {
             })
     }
 
+    async get_search_results(search, pageNum) {
+        return axios('/get_search_result?search=' + search + '&pageNum=' + pageNum, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
 }
 
 export default class BackEndConnection {
