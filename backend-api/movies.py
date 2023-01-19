@@ -104,6 +104,23 @@ class Movies:
         return genres
 
     @classmethod
+    def if_spoken_languages(self, id):
+        id_condition = 'where m.id = ' + id
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("""select masl.languages as languages from tests.imbd_movies m
+                        join tests.movies_all_spoken_languages masl on masl.id = m.id
+                        _ID_
+                        """.replace('_ID_', id_condition))
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'languages': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
     def all_production_companies(self):
         db = Database()
         con, cur = db.open_database()
@@ -164,7 +181,7 @@ class Movies:
         result = []
         for row in rows:
             result.append(
-                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8].split(','),'id': row[9]})
+                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8].split(','), 'id': row[9]})
         db.close_database()
         return result
 
