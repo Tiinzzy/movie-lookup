@@ -183,3 +183,8 @@
 .MovieTitleLink:hover {
     text-decoration: underline;
 }
+
+.GenreLink {
+    text-decoration: none;
+    color: black;
+}
