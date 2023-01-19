@@ -22,6 +22,7 @@ class MovieClicked extends React.Component {
         let data = await backend.get_selected_movie(this.state.movie_id);
         console.log(data[0])
         this.setState({
+            language: data[0].language.toUpperCase(),
             vote: data[0].vote_average,
             title: data[0].title, status: data[0].status,
             time: data[0].runtime, date: data[0].release_date,
@@ -63,7 +64,10 @@ class MovieClicked extends React.Component {
                             |
                         </Typography>
                         <Typography variant="body2" mt={1} mr={1}>
-                            {this.state.lang}
+                            {this.state.language}
+                            <span style={{ paddingLeft: 5 }}>
+                                ({this.state.lang})
+                            </span>
                         </Typography>
                         <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                             |
@@ -98,7 +102,7 @@ class MovieClicked extends React.Component {
                             </Typography>)}
                     </Box>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
-                        <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available languages:</Typography>
+                        <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available in:</Typography>
                         {this.state.languages && this.state.languages.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                 <a href={'/language-result?selected_language=' + e}>{e}</a>
