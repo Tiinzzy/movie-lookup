@@ -49,25 +49,25 @@ class SearchBarResult extends React.Component {
         return (
             <Box>
                 {this.state.showProgress ?
-                    <Box sx={{ color: 'grey.500' }}><LinearProgress color="inherit" /></Box> :
-                    <div style={{ height: 4 }}></div>
+                    <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
+                    <Box className="LoadingBarBoxSize"></Box>
                 }
-                <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
+                <Box className="SearchBarMainBox">
                     {this.state.result && this.state.result.map((e, i) =>
-                        <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
-                            <Box className="MovieTitleBox">
+                        <Box key={i} className="SearchBarDetailBox">
+                            <Box className="SearchBarTitleBox">
                                 <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
                                 <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
                             </Box>
-                            <Box className="MovieOverviewBox">
+                            <Box className="SearchBarOverviewBox">
                                 <Typography variant="body1" mb={2}>
                                     {e.overview}
                                 </Typography>
                             </Box>
                         </Box>)}
-                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                        <Box className="PaginationStyle">
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
