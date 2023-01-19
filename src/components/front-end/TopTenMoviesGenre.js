@@ -7,15 +7,6 @@ import BackEndConnection from './BackEndConnection';
 import { shared } from './functions';
 
 const backend = BackEndConnection.INSTANCE();
-const GENRE_LENGTH = 8;
-
-function niceSize(t) {
-    if (t.length < GENRE_LENGTH) {
-        return t;
-    } else {
-        return t.substring(0, GENRE_LENGTH) + ' ...'
-    }
-}
 
 class TopTenMoviesGenre extends React.Component {
     constructor(props) {
