@@ -37,7 +37,6 @@ class SearchBarResult extends React.Component {
         this.setState({ showProgress: true }, async function () {
             let pageNumber = (e - 1) * 6;
             let searchResult = await backend.get_search_results(this.state.searched_item, pageNumber);
-            console.log(searchResult);
             this.setState({
                 showProgress: false,
                 result: searchResult.rows,
