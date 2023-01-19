@@ -20,7 +20,6 @@ class MovieClicked extends React.Component {
     }
     async componentDidMount() {
         let data = await backend.get_selected_movie(this.state.movie_id);
-        console.log(data[0])
         this.setState({
             language: data[0].language.toUpperCase(),
             vote: data[0].vote_average,
@@ -42,18 +41,18 @@ class MovieClicked extends React.Component {
 
     render() {
         return (
-            <Box style={{ padding: '20px', width: 1000, height: 800, border: 'solid 0px red', margin: 'auto' }}>
-                <Box style={{ display: 'flex', flexDirection: 'column', margin: 25 }}>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 12 }}>
+            <Box className="SelectedMovieMainBox">
+                <Box className="SelectedMovieBox">
+                    <Box className="SelectedMovieTitleBox">
                         <Typography variant="h3" fontWeight="bold" fontSize="35px" >
                             {this.state.title}
                         </Typography>
-                        <Box style={{ marginLeft: 20, display: 'flex', alignItems: 'center', fontSize: "20px", alignContent: 'center', alignSelf: 'center' }}>
-                            <span style={{ color: '#F5C518' }}><StarIcon fontSize="large" /></span>
-                            <span>{this.state.vote}/</span><span style={{ fontSize: 16 }}>10</span>
+                        <Box className="SelectedMovieVoteBox">
+                            <span id="starSelectedMovie"><StarIcon fontSize="large" /></span>
+                            <span>{this.state.vote}/</span><span id="voteSelectedMovie">10</span>
                         </Box>
                     </Box>
-                    <Box style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderBottom: 'solid 1px rgb(87, 86, 86)', paddingBottom: 15 }}>
+                    <Box className="SelectedMovieMiniDataBox">
                         <Typography variant="body2" mt={1} mr={1}>
                             {this.state.date}
                         </Typography>
@@ -68,7 +67,7 @@ class MovieClicked extends React.Component {
                         </Typography>
                         <Typography variant="body2" mt={1} mr={1}>
                             {this.state.language}
-                            <span style={{ paddingLeft: 5 }}>
+                            <span id="langSelectedMovie">
                                 ({this.state.lang})
                             </span>
                         </Typography>
@@ -81,37 +80,39 @@ class MovieClicked extends React.Component {
                         <Typography variant="body1" fontWeight="bold" mt={1} mr={1}>
                             |
                         </Typography>
-                        <Box marginTop="12px">
+                        <Box className="SelectedMovieImdbBox">
                             <a href={'https://www.imdb.com/title/' + this.state.imdb} target="_blank">
                                 <img src="/imdb.png" height="20" alt="#" />
                             </a>
                         </Box>
                     </Box>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
+                    <Box className="SelectedMovieGenreBox">
                         {this.state.genre && this.state.genre.map((e, i) =>
-                            <a key={i} href={'/genre-result?selected_genre=' + e} className="GenreLink"> <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
-                                {e}</Typography>
+                            <a key={i} href={'/genre-result?selected_genre=' + e} className="GenreLink">
+                                <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
+                                    {e}
+                                </Typography>
                             </a>
                         )}
                     </Box>
                     <Typography variant="body1" mt={2}>
                         {this.state.overview}
                     </Typography>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                    <Box className="SelectedMovieDataBox">
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
                         {this.state.countries && this.state.countries.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                 <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
                             </Typography>)}
                     </Box>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                    <Box className="SelectedMovieDataBox">
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available in:</Typography>
                         {this.state.languages && this.state.languages.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                 <a href={'/language-result?selected_language=' + e} className="linkedClass">{e}</a>
                             </Typography>)}
                     </Box>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                    <Box className="SelectedMovieDataBox">
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Company:</Typography>
                         {this.state.company && this.state.company.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 8, marginTop: 10 }}>
