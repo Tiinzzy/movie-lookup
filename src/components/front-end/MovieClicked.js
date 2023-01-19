@@ -20,6 +20,7 @@ class MovieClicked extends React.Component {
     }
     async componentDidMount() {
         let data = await backend.get_selected_movie(this.state.movie_id);
+        console.log(data[0])
         this.setState({
             vote: data[0].vote_average,
             title: data[0].title, status: data[0].status,
@@ -76,13 +77,16 @@ class MovieClicked extends React.Component {
                     </Box>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                         {this.state.genre && this.state.genre.map((e, i) =>
-                            <Typography key={i} mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>{e}</Typography>)}
+                            <a key={i} className="GenreLink" href={'/genre-result?selected_genre=' + e}> <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
+                                {e}</Typography>
+                            </a>
+                        )}
                     </Box>
                     <Typography variant="body1" mt={2}>
                         {this.state.overview}
                     </Typography>
                 </Box>
-            </Box>
+            </Box >
         );
     }
 }
