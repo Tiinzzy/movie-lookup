@@ -22,6 +22,7 @@ class MovieClicked extends React.Component {
         let data = await backend.get_selected_movie(this.state.movie_id);
         console.log(data[0])
         this.setState({
+            id: data[0].id,
             vote: data[0].vote_average,
             title: data[0].title, status: data[0].status,
             time: data[0].runtime, date: data[0].release_date,
@@ -29,6 +30,9 @@ class MovieClicked extends React.Component {
             imdb: data[0].imdb, genre: data[0].genres
         });
 
+        let pc = await backend.if_production_country(this.state.movie_id);
+        console.log(pc)
+        this.setState({ countries: pc[0].countries.split(',') })
     }
 
     render() {
@@ -77,7 +81,7 @@ class MovieClicked extends React.Component {
                     </Box>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                         {this.state.genre && this.state.genre.map((e, i) =>
-                            <a key={i} className="GenreLink" href={'/genre-result?selected_genre=' + e}> <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
+                            <a key={i} href={'/genre-result?selected_genre=' + e} className="GenreLink"> <Typography mr={1} style={{ border: 'solid 1px rgb(87, 86, 86)', padding: 8, borderRadius: 30, fontSize: 12 }}>
                                 {e}</Typography>
                             </a>
                         )}
@@ -85,6 +89,10 @@ class MovieClicked extends React.Component {
                     <Typography variant="body1" mt={2}>
                         {this.state.overview}
                     </Typography>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                        <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
+                        {this.state.countries && this.state.countries.map((e, i) => <Typography fontSize={15} key={i} mr={2}>{e}</Typography>)}
+                    </Box>
                 </Box>
             </Box >
         );
