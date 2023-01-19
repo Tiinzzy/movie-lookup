@@ -34,12 +34,15 @@ class MovieClicked extends React.Component {
         this.setState({ countries: pc[0].countries.split(',') });
 
         let al = await backend.if_spoken_languages(this.state.movie_id);
-        this.setState({ languages: al[0].languages.split(',') })
+        this.setState({ languages: al[0].languages.split(',') });
+
+        let prc = await backend.if_production_company(this.state.movie_id);
+        this.setState({ company: prc[0].company.split(',') });
     }
 
     render() {
         return (
-            <Box style={{ padding: '20px', width: 800, height: 800, border: 'solid 0px red', margin: 'auto' }}>
+            <Box style={{ padding: '20px', width: 1000, height: 800, border: 'solid 0px red', margin: 'auto' }}>
                 <Box style={{ display: 'flex', flexDirection: 'column', margin: 25 }}>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 12 }}>
                         <Typography variant="h3" fontWeight="bold" fontSize="35px" >
@@ -98,14 +101,21 @@ class MovieClicked extends React.Component {
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
                         {this.state.countries && this.state.countries.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
-                                <a href={'/country-result?selected_country=' + e}>{e}</a>
+                                <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
                             </Typography>)}
                     </Box>
                     <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available in:</Typography>
                         {this.state.languages && this.state.languages.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
-                                <a href={'/language-result?selected_language=' + e}>{e}</a>
+                                <a href={'/language-result?selected_language=' + e} className="linkedClass">{e}</a>
+                            </Typography>)}
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                        <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Company:</Typography>
+                        {this.state.company && this.state.company.map((e, i) =>
+                            <Typography fontSize={15} key={i} style={{ marginRight: 8, marginTop: 10 }}>
+                                {e}
                             </Typography>)}
                     </Box>
                 </Box>
