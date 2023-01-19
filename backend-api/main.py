@@ -90,3 +90,10 @@ def get_all_search_results():
     args = request.args
     data = Movies.search_result(args.get('search'), args.get('pageNum'))
     return jsonify(data)
+
+
+@app.route("/if_movie_has_production_country", methods=['GET'])
+def if_movie_has_production_country():
+    args = request.args
+    data = Movies.if_production_company(args.get('id'))
+    return jsonify(data)    
