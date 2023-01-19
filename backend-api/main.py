@@ -83,3 +83,10 @@ def all_movies_based_on_spoken_languages():
     data = Movies.movies_based_on_spoken_languages(
         args.get('language'), args.get('pageNum'))
     return jsonify(data)
+
+
+@app.route("/get_search_result", methods=['GET'])
+def get_all_search_results():
+    args = request.args
+    data = Movies.search_result(args.get('search'), args.get('pageNum'))
+    return jsonify(data)
