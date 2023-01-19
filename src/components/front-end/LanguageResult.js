@@ -60,7 +60,9 @@ class LanguageResult extends React.Component {
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
                         <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
                             <Box className="MovieTitleBox">
-                                <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
+                                <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
+                                    <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
+                                </a>
                                 <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
                             </Box>
                             <Box className="MovieOverviewBox">
