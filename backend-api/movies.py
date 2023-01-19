@@ -317,17 +317,13 @@ class Movies:
                     join tests.movie_collections mc on mc.movie_id = m.id
                     join tests.collections c on mc.collection_id = c.id _COLLECTION_
                     order by id 
-                    _LIMIT_
                         ) all_ids
-                        join tests.imbd_movies m 
-                        on all_ids.id= m.id 
                 """.replace('_TITLE_', title_condition)
                     .replace('_COUNTRY_', country_condition)
                     .replace('_GENRE_', genre_condition)
                     .replace('_LANGUAGE_', lang_condition)
                     .replace('_COMPANY_', company_condition)
-                    .replace('_COLLECTION_', collection_condition)
-                    .replace('_LIMIT_', limit_condition))
+                    .replace('_COLLECTION_', collection_condition))
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
