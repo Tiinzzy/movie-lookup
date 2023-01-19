@@ -322,3 +322,26 @@
     flex-direction: row;
     justify-content: center;
 }
+
+/* GenreResult.js */
+.GenreResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.GenreResDetailBox{
+    margin-bottom: 20px;
+}
+
+.GenreResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.GenreResOverviewBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
