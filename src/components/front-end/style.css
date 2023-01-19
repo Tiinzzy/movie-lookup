@@ -330,7 +330,7 @@
     padding: 45px;
 }
 
-.GenreResDetailBox{
+.GenreResDetailBox {
     margin-bottom: 20px;
 }
 
@@ -344,4 +344,33 @@
 .GenreResOverviewBox {
     border-left: solid 2px rgb(185, 185, 185);
     padding: 6px;
+}
+
+/* LanguageResult.js */
+.LangResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.LangResDetailBox {
+    margin-bottom: 20px;
+}
+
+.LangResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.LangResOverviewBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
+
+.LangAvailable {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px;
 }
