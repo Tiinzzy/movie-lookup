@@ -188,3 +188,12 @@
     text-decoration: none;
     color: black;
 }
+
+.linkedClass {
+    text-decoration: none;
+    color: black;
+}
+
+.linkedClass:hover {
+    text-decoration: underline;
+}
