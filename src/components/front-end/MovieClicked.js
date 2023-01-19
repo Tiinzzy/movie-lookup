@@ -30,8 +30,10 @@ class MovieClicked extends React.Component {
         });
 
         let pc = await backend.if_production_country(this.state.movie_id);
-        console.log(pc)
-        this.setState({ countries: pc[0].countries.split(',') })
+        this.setState({ countries: pc[0].countries.split(',') });
+
+        let al = await backend.if_spoken_languages(this.state.movie_id);
+        this.setState({ languages: al[0].languages.split(',') })
     }
 
     render() {
@@ -93,6 +95,13 @@ class MovieClicked extends React.Component {
                         {this.state.countries && this.state.countries.map((e, i) =>
                             <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                 <a href={'/country-result?selected_country=' + e}>{e}</a>
+                            </Typography>)}
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                        <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available languages:</Typography>
+                        {this.state.languages && this.state.languages.map((e, i) =>
+                            <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
+                                <a href={'/language-result?selected_language=' + e}>{e}</a>
                             </Typography>)}
                     </Box>
                 </Box>
