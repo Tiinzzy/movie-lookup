@@ -69,7 +69,7 @@ class GenreResult extends React.Component {
                                     {e.overview}
                                 </Typography>
                                 {e.genres.split(',').map(e => e.trim()).map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ border: 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
+                                    <Typography key={i} variant="caption" style={{ border: g === this.state.selected_genre ? 'solid 1px red' : 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
                                         <a className={g === this.state.selected_genre ? 'SearchedClass' : 'NormalClass'} href={'/genre-result?selected_genre=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
@@ -78,7 +78,7 @@ class GenreResult extends React.Component {
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
-            </Box>
+            </Box >
         );
     }
 }
