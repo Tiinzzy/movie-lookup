@@ -117,6 +117,23 @@ class Movies:
         return genres
 
     @classmethod
+    def if_production_company(self, id):
+        id_condition = 'where m.id = ' + id
+        db = Database()
+        con, cur = db.open_database()
+        cur.execute("""select mac.countries as country from tests.imbd_movies m
+                join tests.movies_all_countries mac on mac.id = m.id
+                _ID_
+                """.replace('_ID_', id_condition))
+
+        rows = cur.fetchall()
+        genres = []
+        for row in rows:
+            genres.append({'countries': row[0]})
+        db.close_database()
+        return genres
+
+    @classmethod
     def all_collections(self):
         db = Database()
         con, cur = db.open_database()
@@ -134,20 +151,20 @@ class Movies:
         id_condition = " m.id =" + id
         db = Database()
         con, cur = db.open_database()
-        cur.execute("""select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres  from (
-                select m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres  from tests.imbd_movies m
+        cur.execute("""select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres, id from (
+                select m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres, m.id as id from tests.imbd_movies m
                 join tests.movies_genre mg on m.id = mg.movie_id
                 join tests.genres g on g.id = mg.genre_id
                 where _ID_CONDITION_
                 ) as t2
-            group by imdb, title, overview, original_language, release_date, status, runtime, vote_average;
+            group by imdb, title, overview, original_language, release_date, status, runtime, vote_average, id;
                 """.replace("_ID_CONDITION_", id_condition))
 
         rows = cur.fetchall()
         result = []
         for row in rows:
             result.append(
-                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8].split(',')})
+                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8].split(','),'id': row[9]})
         db.close_database()
         return result
 
