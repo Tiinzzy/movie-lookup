@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* border: solid 1px red; */
+    border: solid 0px red;
     margin: 20px 40px 20px 40px;
     padding: 20px;
 }
@@ -17,7 +17,7 @@
 
 /* SearchResuts */
 .SuggestedMoviesMainBox {
-    /* border: solid 1px blue; */
+    border: solid 0px blue;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -132,7 +132,7 @@
 
 /* SideMovies.js */
 .SideMvvies {
-    /* border: solid 1px red; */
+    border: solid 0px red;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -174,7 +174,7 @@
 /* MovieClicked.js */
 .SelectedMovieMainBox {
     padding: 20px;
-    width: 1000px;
+    width: 1200px;
     height: 800px;
     border: solid 0px red;
     margin: auto;
