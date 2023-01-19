@@ -34,7 +34,7 @@ class SearchBarResult extends React.Component {
                 showProgress: false,
                 result: searchResult.rows,
                 length: getPageCount(searchResult.row_count, PAGE_SIZE)
-            });
+            }, () => { window.scrollTo(0, 0); });
         });
     }
 

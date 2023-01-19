@@ -35,7 +35,7 @@ class GenreResult extends React.Component {
                 showProgress: false,
                 randomMovies: genreResult.rows,
                 length: getPageCount(genreResult.row_count, PAGE_SIZE)
-            });
+            }, () => { window.scrollTo(0, 0); });
         });
     }
 

@@ -36,7 +36,7 @@ class CountryResult extends React.Component {
                 showProgress: false,
                 countries: countryResult.rows,
                 length: getPageCount(countryResult.row_count, PAGE_SIZE)
-            });
+            }, () => { window.scrollTo(0, 0); });
         });
     }
 

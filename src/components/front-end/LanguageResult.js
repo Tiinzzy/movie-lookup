@@ -35,7 +35,7 @@ class LanguageResult extends React.Component {
                 showProgress: false,
                 randomMovies: languageResult.rows,
                 length: getPageCount(languageResult.row_count, PAGE_SIZE)
-            });
+            }, () => { window.scrollTo(0, 0); });
         });
     }
 
