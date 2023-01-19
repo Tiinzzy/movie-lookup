@@ -34,15 +34,15 @@ class TopTenMoviesGenre extends React.Component {
         return (
             <>
                 <FormControl sx={{ mb: 2, minWidth: 120 }} size="small">
-                    <Select
+                    {this.state.genres && <Select
                         title={this.state.selectedGenre}
                         value={this.state.selectedGenre}
                         onChange={(e) => this.handleChange(e)}>
-                        {this.state.genres && this.state.genres.map((e, i) =>
+                        {this.state.genres.map((e, i) =>
                             <MenuItem key={i} value={e.genre_name} title={e.genre_name}>
                                 {e.genre_name}<span style={{ marginLeft: 5, color: '#bbb' }}>({e.count})</span>
                             </MenuItem>)}
-                    </Select>
+                    </Select>}
                 </FormControl>
             </>
         );
