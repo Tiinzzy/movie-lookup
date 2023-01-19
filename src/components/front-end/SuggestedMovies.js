@@ -21,11 +21,13 @@ class SuggestedMovies extends React.Component {
         this.movieSelected = this.movieSelected.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         if (shared.initial_render_count === 0) {
             shared.initial_render_count += 1;
-            let movies = await backend.get_movies();
-            this.setState({ randomMovies: movies });
+            let that = this;
+            backend.get_movies((data) => {
+                that.setState({ randomMovies: data });
+            });
         }
     }
 
@@ -37,11 +39,10 @@ class SuggestedMovies extends React.Component {
         return (
             <Box className="SuggestedMoviesMainBox" style={{ width: window.innerWidth - 300 }}>
                 {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                    <Box key={i} mb={2}
-                        onClick={() => this.movieSelected(e.movie_id)}
-                        style={{ cursor: 'pointer' }}>
+                    <Box key={i} mb={2}>
                         <Box className="MovieTitleBox">
-                            <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }} key={i}>{e.title}</Typography>
+                            <Typography onClick={() => this.movieSelected(e.movie_id)} variant="h6" fontWeight="bold"
+                                style={{ display: 'inline-block', cursor: 'pointer' }} key={i}>{e.title}</Typography>
                             <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_count})</span>
                         </Box>
                         <Box className="MovieOverviewBox">

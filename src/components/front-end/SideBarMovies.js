@@ -25,10 +25,11 @@ class SideBarMovies extends React.Component {
         shared.callSideBarMovies = this.callSideBarMovies;
     }
 
-    async componentDidMount() {
-        let topTen = await backend.get_top_movies('');
-        // console.log(topTen)
-        this.setState({ topMovies: topTen });
+    componentDidMount() {
+        let that = this;
+        backend.get_top_movies('', function(data) {
+            that.setState({ topMovies: data });
+        });
     }
 
     async callSideBarMovies(message) {

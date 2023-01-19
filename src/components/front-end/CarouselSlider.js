@@ -24,9 +24,11 @@ export default class CarouselSlider extends Component {
         this.movieSelected = this.movieSelected.bind(this);
     }
 
-    async componentDidMount() {
-        let movies = await backend.get_movies();
-        this.setState({ randomMovies: movies });
+    componentDidMount() {
+        let that = this;
+        backend.get_movies(function(data) {
+            that.setState({ randomMovies: data });
+        });
     }
 
     async movieSelected(e) {
