@@ -22,7 +22,6 @@ class MovieClicked extends React.Component {
         let data = await backend.get_selected_movie(this.state.movie_id);
         console.log(data[0])
         this.setState({
-            id: data[0].id,
             vote: data[0].vote_average,
             title: data[0].title, status: data[0].status,
             time: data[0].runtime, date: data[0].release_date,
@@ -89,9 +88,12 @@ class MovieClicked extends React.Component {
                     <Typography variant="body1" mt={2}>
                         {this.state.overview}
                     </Typography>
-                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 10, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
+                    <Box style={{ display: 'flex', flexDirection: 'row', marginTop: 5, alignItems: 'center', fontSize: 14, alignContent: 'center' }}>
                         <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
-                        {this.state.countries && this.state.countries.map((e, i) => <Typography fontSize={15} key={i} mr={2}>{e}</Typography>)}
+                        {this.state.countries && this.state.countries.map((e, i) =>
+                            <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
+                                <a href={'/country-result?selected_country=' + e}>{e}</a>
+                            </Typography>)}
                     </Box>
                 </Box>
             </Box >
