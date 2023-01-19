@@ -78,6 +78,17 @@ class BackEndConnectionImpl {
             })
     }
 
+    async if_spoken_languages(id) {
+        return axios.get('/if_movie_has_languages?id=' + id, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
     async get_production_companies() {
         return axios.get('/all_movies_all_production_companies', {})
             .then(function (response) {
