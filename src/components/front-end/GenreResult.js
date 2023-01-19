@@ -52,29 +52,29 @@ class GenreResult extends React.Component {
         return (
             <Box>
                 {this.state.showProgress ?
-                    <Box sx={{ color: 'grey.500' }}><LinearProgress color="inherit" /></Box> :
-                    <div style={{ height: 4 }}></div>
+                    <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
+                    <Box className="LoadingBarBoxSize"></Box>
                 }
-                <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
+                <Box className="GenreResMainBox">
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
-                            <Box className="MovieTitleBox">
+                        <Box key={i} className="GenreResDetailBox">
+                            <Box className="GenreResTitleBox">
                                 <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
                                 <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
                             </Box>
-                            <Box className="MovieOverviewBox">
+                            <Box className="GenreResOverviewBox">
                                 <Typography variant="body1" mb={2}>
                                     {e.overview}
                                 </Typography>
                                 {e.genres.split(',').map(e => e.trim()).map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ border: g === this.state.selected_genre ? 'solid 1px red' : 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
+                                    <Typography key={i} variant="caption" style={{ border: g === this.state.selected_genre ? 'solid 1px #e9bc16' : 'solid 1px black', borderRadius: 6, padding: 6, marginRight: 10 }}>
                                         <a className={g === this.state.selected_genre ? 'SearchedClass' : 'NormalClass'} href={'/genre-result?selected_genre=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
                         </Box>)}
-                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                    <Box className="PaginationStyle">
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
