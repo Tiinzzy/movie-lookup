@@ -144,7 +144,7 @@
     padding: 21px;
 }
 
-.EachSideMovieBox{
+.EachSideMovieBox {
     background-color: #f8f8f8;
     border: none;
     border-radius: 4px;
@@ -160,16 +160,26 @@
 
 
 .SearchedClass {
-    color: red; 
-    text-decoration: none;   
+    color: red;
+    text-decoration: none;
 }
 
 
 .NormalClass {
     color: gray;
-    text-decoration: none;   
+    text-decoration: none;
 }
 
-.NormalClass:hover, .SearchedClass:hover {
+.NormalClass:hover,
+.SearchedClass:hover {
+    text-decoration: underline;
+}
+
+.MovieTitleLink {
+    color: black;
+    text-decoration: none;
+}
+
+.MovieTitleLink:hover {
     text-decoration: underline;
 }
