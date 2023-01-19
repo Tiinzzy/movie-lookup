@@ -89,6 +89,17 @@ class BackEndConnectionImpl {
             })
     }
 
+    async if_production_company(id) {
+        return axios.get('/if_movie_has_production_company?id=' + id, {})
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
     async get_production_companies() {
         return axios.get('/all_movies_all_production_companies', {})
             .then(function (response) {
