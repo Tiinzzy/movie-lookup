@@ -7,15 +7,6 @@ import BackEndConnection from './BackEndConnection';
 import { shared } from './functions';
 
 const backend = BackEndConnection.INSTANCE();
-const GENRE_LENGTH = 8;
-
-function niceSize(t) {
-    if (t.length < GENRE_LENGTH) {
-        return t;
-    } else {
-        return t.substring(0, GENRE_LENGTH) + ' ...'
-    }
-}
 
 class TopTenMoviesGenre extends React.Component {
     constructor(props) {
@@ -43,15 +34,15 @@ class TopTenMoviesGenre extends React.Component {
         return (
             <>
                 <FormControl sx={{ mb: 2, minWidth: 120 }} size="small">
-                    <Select
+                    {this.state.genres && <Select
                         title={this.state.selectedGenre}
                         value={this.state.selectedGenre}
                         onChange={(e) => this.handleChange(e)}>
-                        {this.state.genres && this.state.genres.map((e, i) =>
+                        {this.state.genres.map((e, i) =>
                             <MenuItem key={i} value={e.genre_name} title={e.genre_name}>
                                 {e.genre_name}<span style={{ marginLeft: 5, color: '#bbb' }}>({e.count})</span>
                             </MenuItem>)}
-                    </Select>
+                    </Select>}
                 </FormControl>
             </>
         );

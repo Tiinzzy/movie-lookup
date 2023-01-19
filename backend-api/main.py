@@ -83,3 +83,31 @@ def all_movies_based_on_spoken_languages():
     data = Movies.movies_based_on_spoken_languages(
         args.get('language'), args.get('pageNum'))
     return jsonify(data)
+
+
+@app.route("/get_search_result", methods=['GET'])
+def get_all_search_results():
+    args = request.args
+    data = Movies.search_result(args.get('search'), args.get('pageNum'))
+    return jsonify(data)
+
+
+@app.route("/if_movie_has_production_country", methods=['GET'])
+def if_movie_has_production_country():
+    args = request.args
+    data = Movies.if_production_country(args.get('id'))
+    return jsonify(data)
+
+
+@app.route("/if_movie_has_languages", methods=['GET'])
+def if_movie_has_languages():
+    args = request.args
+    data = Movies.if_spoken_languages(args.get('id'))
+    return jsonify(data)
+
+@app.route("/if_movie_has_production_company", methods=['GET'])
+def if_movie_has_company():
+    args = request.args
+    data = Movies.if_production_company(args.get('id'))
+    return jsonify(data)
+

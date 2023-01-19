@@ -7,23 +7,14 @@ import Pagination from '@mui/material/Pagination';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
+import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-
 const PAGE_SIZE = 6;
 
-function getPageCount(rowCount, pageSize) {
-    let pageCount = Math.floor(rowCount / pageSize);
-    if (pageCount * pageSize < rowCount) {
-        pageCount += 1;
-    }
-    return pageCount;
-}
-
-
-class GenreResult extends React.Component {
+class CountryResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,9 +34,9 @@ class GenreResult extends React.Component {
             let countryResult = await backend.get_movies_based_on_countries(this.state.selected_country, pageNumber);
             this.setState({
                 showProgress: false,
-                randomMovies: countryResult.rows,
+                countries: countryResult.rows,
                 length: getPageCount(countryResult.row_count, PAGE_SIZE)
-            });
+            }, () => { window.scrollTo(0, 0); });
         });
     }
 
@@ -53,28 +44,33 @@ class GenreResult extends React.Component {
         return (
             <Box>
                 {this.state.showProgress ?
-                    <Box sx={{ color: 'grey.500' }}><LinearProgress color="inherit" /></Box> :
-                    <div style={{ height: 4 }}></div>
+                    <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
+                    <Box className="LoadingBarBoxSize"></Box>
                 }
-                <Box style={{ display: 'flex', flexDirection: 'column', padding: 45 }}>
-                    {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <Box key={i} mb={2} style={{ cursor: 'pointer' }}>
-                            <Box className="MovieTitleBox">
-                                <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
-                                <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
+                <Box className="CountryResMainBox">
+                    {this.state.countries && this.state.countries.map((e, i) =>
+                        <Box className="CountryResDetailBox" key={i}>
+                            <Box className="CountryResTitleBox">
+                                <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
+                                    <Typography variant="h6" fontWeight="bold"
+                                        style={{ display: 'inline-block', cursor: 'pointer' }}>
+                                        {e.title}
+                                    </Typography>
+                                </a>
+                                <span className="countStar"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
                             </Box>
-                            <Box className="MovieOverviewBox">
+                            <Box className="CountryResCountBox">
                                 <Typography variant="body1" mb={2}>
                                     {e.overview}
                                 </Typography>
-                                <span style={{ fontWeight: 'bold', fontSize: 14, marginRight: 6 }}>Production Countries:</span>
+                                <span className="CountryResProCountTitle">Production Countries:</span>
                                 {e.country.split(',').map(e => e.trim()).map((g, i) => (
-                                    <Typography key={i} variant="caption" style={{ marginRight: 6, fontSize: 12 }}>
+                                    <Typography key={i} variant="caption" style={{ marginRight: 7, fontSize: 13 }}>
                                         <a className={g === this.state.selected_country ? 'SearchedClass' : 'NormalClass'} href={'/country-result?selected_country=' + g}>{g}</a>
                                     </Typography>))}
                             </Box>
                         </Box>)}
-                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                    <Box className="PaginationStyle">
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
@@ -83,4 +79,4 @@ class GenreResult extends React.Component {
     }
 }
 
-export default GenreResult;
+export default CountryResult;

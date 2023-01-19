@@ -6,19 +6,13 @@ import Typography from "@mui/material/Typography";
 import BackEndConnection from './BackEndConnection';
 import TopTenMoviesGenre from './TopTenMoviesGenre';
 
-import { shared } from './functions';
+import { shared, cleanUp } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
 
-function cleanUp(tag) {
-    if (tag === '0') {
-        return 'No Tagline Available';
-    } else {
-        return tag;
-    }
-}
+
 
 class SideBarMovies extends React.Component {
     constructor(props) {
@@ -31,10 +25,11 @@ class SideBarMovies extends React.Component {
         shared.callSideBarMovies = this.callSideBarMovies;
     }
 
-    async componentDidMount() {
-        let topTen = await backend.get_top_movies('');
-        // console.log(topTen)
-        this.setState({ topMovies: topTen });
+    componentDidMount() {
+        let that = this;
+        backend.get_top_movies('', function(data) {
+            that.setState({ topMovies: data });
+        });
     }
 
     async callSideBarMovies(message) {

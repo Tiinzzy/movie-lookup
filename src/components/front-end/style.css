@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* border: solid 1px red; */
+    border: solid 0px red;
     margin: 20px 40px 20px 40px;
     padding: 20px;
 }
@@ -17,7 +17,7 @@
 
 /* SearchResuts */
 .SuggestedMoviesMainBox {
-    /* border: solid 1px blue; */
+    border: solid 0px blue;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -39,11 +39,6 @@
     color: #F5C518;
     margin-left: 10px;
     margin-right: 2px;
-}
-
-.VoteCountStyle {
-    margin-left: 1px;
-    color: rgb(150, 150, 150);
 }
 
 .MovieOverviewBox {
@@ -137,14 +132,14 @@
 
 /* SideMovies.js */
 .SideMvvies {
-    /* border: solid 1px red; */
+    border: solid 0px red;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     padding: 21px;
 }
 
-.EachSideMovieBox{
+.EachSideMovieBox {
     background-color: #f8f8f8;
     border: none;
     border-radius: 4px;
@@ -158,18 +153,248 @@
     color: white;
 }
 
+.MovieTitleLink {
+    color: black;
+    text-decoration: none;
+}
+
+.MovieTitleLink:hover {
+    text-decoration: underline;
+}
+
+.GenreLink {
+    text-decoration: none;
+    color: black;
+}
+
+.linkedClass:hover {
+    text-decoration: underline;
+}
+
+/* MovieClicked.js */
+.SelectedMovieMainBox {
+    padding: 20px;
+    width: 1200px;
+    height: 800px;
+    border: solid 0px red;
+    margin: auto;
+}
+
+.SelectedMovieBox {
+    display: flex;
+    flex-direction: column;
+    margin: 25px
+}
+
+.SelectedMovieTitleBox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.SelectedMovieVoteBox {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    align-content: center;
+    align-self: center;
+}
+
+#starSelectedMovie {
+    color: #F5C518;
+}
+
+#voteSelectedMovie {
+    font-size: 16px
+}
+
+.SelectedMovieMiniDataBox {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-bottom: solid 1px rgb(87, 86, 86);
+    padding-bottom: 15px;
+}
+
+#langSelectedMovie {
+    padding-left: 5px;
+}
+
+.SelectedMovieImdbBox {
+    margin-top: 12px;
+}
+
+.SelectedMovieGenreBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.SelectedMovieDataBox {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    align-items: center;
+    font-size: 14px;
+    align-content: center;
+}
+
+.linkedClass {
+    text-decoration: none;
+    color: black;
+}
+
+/* CountryResult.js */
+.LoadingBarBox {
+    color: grey.500;
+}
+
+.LoadingBarBoxSize {
+    height: 4px;
+}
+
+.CountryResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.CountryResDetailBox {
+    margin-bottom: 20px;
+}
+
+.CountryResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.MovieTitleLink {
+    color: black;
+    text-decoration: none;
+}
+
+.MovieTitleLink:hover {
+    text-decoration: underline;
+}
+
+.countStar {
+    color: #F5C518;
+}
+
+.VoteCountStyle {
+    margin-left: 1px;
+    color: rgb(150, 150, 150);
+}
+
+.CountryResCountBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
+
+.CountryResProCountTitle {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px;
+}
 
 .SearchedClass {
-    color: red; 
-    text-decoration: none;   
+    color: #e9bc16;
+    text-decoration: none;
 }
 
 
 .NormalClass {
-    color: gray;
-    text-decoration: none;   
+    color: black;
+    text-decoration: none;
 }
 
-.NormalClass:hover, .SearchedClass:hover {
+.NormalClass:hover,
+.SearchedClass:hover {
     text-decoration: underline;
+}
+
+.PaginationStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* GenreResult.js */
+.GenreResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.GenreResDetailBox {
+    margin-bottom: 20px;
+}
+
+.GenreResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.GenreResOverviewBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
+
+/* LanguageResult.js */
+.LangResMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.LangResDetailBox {
+    margin-bottom: 20px;
+}
+
+.LangResTitleBox {
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.LangResOverviewBox {
+    border-left: solid 2px rgb(185, 185, 185);
+    padding: 6px;
+}
+
+.LangAvailable {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+/* SearchBarResult.js */
+.SearchBarMainBox {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+}
+
+.SearchBarDetailBox{
+    margin-bottom: 20px;
+}
+
+.SearchBarTitleBox{
+    display: flex;
+    margin-bottom: 2px;
+    align-items: center;
+    align-content: center;
+}
+
+.SearchBarOverviewBox{
+    border-left: solid 2px rgb(185, 185, 185);
+    padding-left: 6px;
+    padding-top: 6px;
 }
