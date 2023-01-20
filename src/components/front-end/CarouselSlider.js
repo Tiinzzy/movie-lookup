@@ -31,7 +31,7 @@ export default class CarouselSlider extends Component {
         });
     }
 
-    async movieSelected(e) {
+    movieSelected(e) {
         window.location = '/movie-clicked?movie_id=' + e
     }
 

@@ -25,45 +25,57 @@ class MovieClicked extends React.Component {
         };
 
     }
-    async componentDidMount() {
+
+    componentDidMount() {
 
         this.setState({ showProgress: true }, async function () {
-            let data = await backend.get_selected_movie(this.state.movie_id);
-            if (data[0].language.length > 0) {
-                this.setState({
-                    language: data[0].language.charAt(0).toUpperCase() + data[0].language.slice(1)
+            backend.get_selected_movie(this.state.movie_id, (data) => {
+                let that = this;
+                if (data[0].language.length > 0) {
+                    that.setState({
+                        language: data[0].language.charAt(0).toUpperCase() + data[0].language.slice(1)
+                    });
+                } else {
+                    that.setState({ language: null })
+                }
+                that.setState({
+                    vote: data[0].vote_average,
+                    title: data[0].title, status: data[0].status,
+                    time: data[0].runtime, date: data[0].release_date,
+                    overview: data[0].overview, lang: data[0].original_language.toUpperCase(),
+                    imdb: data[0].imdb, genre: data[0].genres, showProgress: false
                 });
-            } else {
-                this.setState({ language: null })
-            }
-            this.setState({
-                vote: data[0].vote_average,
-                title: data[0].title, status: data[0].status,
-                time: data[0].runtime, date: data[0].release_date,
-                overview: data[0].overview, lang: data[0].original_language.toUpperCase(),
-                imdb: data[0].imdb, genre: data[0].genres, showProgress: false
             });
 
-            let pc = await backend.if_production_country(this.state.movie_id);
-            if (pc.length > 0) {
-                this.setState({ countries: pc[0].countries.split(','), showProgress: false });
-            } else {
-                this.setState({ countries: null });
-            }
 
-            let sl = await backend.if_spoken_languages(this.state.movie_id);
-            if (sl.length > 0) {
-                this.setState({ languages: sl[0].languages.split(','), showProgress: false });
-            } else {
-                this.setState({ languages: null });
-            }
+            backend.if_production_country(this.state.movie_id, (data) => {
+                let that = this;
+                if (data.length > 0) {
+                    that.setState({ countries: data[0].countries.split(','), showProgress: false });
+                } else {
+                    that.setState({ countries: null });
+                }
+            });
 
-            let prc = await backend.if_production_company(this.state.movie_id);
-            if (prc.length > 0) {
-                this.setState({ company: prc[0].company.split(','), showProgress: false });
-            } else {
-                this.setState({ company: null });
-            }
+
+            backend.if_spoken_languages(this.state.movie_id, (data) => {
+                let that = this;
+                if (data.length > 0) {
+                    that.setState({ languages: data[0].languages.split(','), showProgress: false });
+                } else {
+                    that.setState({ languages: null });
+                }
+            });
+
+
+            backend.if_production_company(this.state.movie_id, (data) => {
+                let that = this;
+                if (data.length > 0) {
+                    that.setState({ company: data[0].company.split(','), showProgress: false });
+                } else {
+                    that.setState({ company: null });
+                }
+            });
         });
     }
 

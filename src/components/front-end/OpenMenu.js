@@ -16,6 +16,7 @@ class OpenMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
         };
         this.closeMenu = this.closeMenu.bind(this);
         this.genreClicked = this.genreClicked.bind(this);
@@ -24,32 +25,37 @@ class OpenMenu extends React.Component {
     }
 
 
-    async componentDidMount() {
-        let genres = await backend.get_all_movie_genres();
-        genres = genres.map(e => e.genre_name).sort();
+    componentDidMount() {
+        let that = this;
+        backend.get_all_movie_genres((data) => {
+            data = data.map(e => e.genre_name).sort();
+            that.setState({ genres: data });
+        });
 
-        let languages = await backend.get_spoken_languages();
-        languages = languages.map(e => e.languages).sort().filter(e => e !== '' && e !== "?????" && e !== "??????" && e !== "No Language");
+        backend.get_spoken_languages((data) => {
+            data = data.map(e => e.languages).sort().filter(e => e !== '' && e !== "?????" && e !== "??????" && e !== "No Language");
+            that.setState({ languages: data });
+        });
 
-        let countries = await backend.get_production_countries();
-        countries = countries.map(e => e.countries).sort();
-
-        this.setState({ genres, languages, countries });
+        backend.get_production_countries((data) => {
+            data = data.map(e => e.countries).sort();
+            that.setState({ countries: data });
+        });
     }
 
     closeMenu() {
         shared.callHeaderMenu({ action: 'close_button_clicked' });
     }
 
-    async genreClicked(e) {
+    genreClicked(e) {
         window.location = '/genre-result?selected_genre=' + e;
     }
 
-    async countryClicked(e) {
+    countryClicked(e) {
         window.location = '/country-result?selected_country=' + e;
     }
 
-    async languageClicked(e) {
+    languageClicked(e) {
         window.location = '/language-result?selected_language=' + e;
     }
 

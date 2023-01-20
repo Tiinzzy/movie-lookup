@@ -16,7 +16,6 @@ class HeaderMenu extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
         this.callHeaderMenu = this.callHeaderMenu.bind(this);
-        shared.callHeaderMenu = this.callHeaderMenu;
     }
 
     handleClick() {

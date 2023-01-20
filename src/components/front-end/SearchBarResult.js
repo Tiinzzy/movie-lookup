@@ -21,20 +21,24 @@ class SearchBarResult extends React.Component {
             searched_item: props.searched_item,
             showProgress: false
         };
+        this.getDataForDisplay = this.getDataForDisplay.bind(this);
     }
-    async componentDidMount() {
+
+    componentDidMount() {
         this.getDataForDisplay(1);
     }
 
-    async getDataForDisplay(e) {
-        this.setState({ showProgress: true }, async function () {
+    getDataForDisplay(e) {
+        this.setState({ showProgress: true }, function () {
             let pageNumber = (e - 1) * 6;
-            let searchResult = await backend.get_search_results(this.state.searched_item, pageNumber);
-            this.setState({
-                showProgress: false,
-                result: searchResult.rows,
-                length: getPageCount(searchResult.row_count, PAGE_SIZE)
-            }, () => { window.scrollTo(0, 0); });
+            let that = this;
+            backend.get_search_results(this.state.searched_item, pageNumber, (data) => {
+                that.setState({
+                    showProgress: false,
+                    result: data.rows,
+                    length: getPageCount(data.row_count, PAGE_SIZE)
+                }, () => { window.scrollTo(0, 0); });
+            });
         });
     }
 
