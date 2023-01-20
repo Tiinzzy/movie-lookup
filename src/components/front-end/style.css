@@ -417,6 +417,8 @@
     flex-direction: column;
     height: 50px;
     margin-left: auto;
+    margin-top: 10px;
+    margin-right: 20px;
     margin-bottom: 15px;
     color: #F5C518;
 }
@@ -438,7 +440,6 @@ ul.no-bullets {
 }
 
 .OpenMenuMainBox {
-    padding: 20px;
     width: 1300px;
     height: 900px;
     background-color: #333433;
@@ -447,6 +448,12 @@ ul.no-bullets {
     display: flex;
     flex-direction: row;
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.OpenMenuMainBox:-webkit-scrollbar {
+    display: none;
 }
 
 .OpenMenuDataBox {
@@ -454,21 +461,25 @@ ul.no-bullets {
     flex-direction: row;
     margin-bottom: 10px;
     border: solid 0px red;
-    margin: auto;
+    margin: 10px 0 auto 40px;
     padding: 50px;
 }
 
 .OpenMenCountBox {
     border: solid 0px blue;
+    justify-content: center;
+    padding: 5px;
     margin-right: 45px;
 }
 
 .OpenMenGenrBox {
     border: solid 0px purple;
-    margin-right: 50px;
+    padding: 5px;
+    margin-right: 60px;
 }
 
 .OpenMenLangBox {
     border: solid 0px pink;
+    padding: 5px;
     margin-right: 5px;
 }
