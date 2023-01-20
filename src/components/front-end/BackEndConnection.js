@@ -29,9 +29,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_all_movie_genres() {
+    async get_all_movie_genres(callback) {
         return axios.get('/all_movie_genres', {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
