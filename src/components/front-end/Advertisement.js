@@ -36,7 +36,7 @@ class Advertisement extends React.Component {
 
     render() {
         return (
-            <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 30 }}>
+            <Box className="AdvertisementMainBox">
                 <Fade direction="down" in={this.state.in} timeout={500}>
                     <a href="https://www.shoppersdrugmart.ca/en" target="_blank">
                         <img src={MY_ADS[this.state.randomAd]} width="1000" alt="#" style={{ border: 'solid 1px #eaeaea', animation: 'fadeIn 5s' }} />
