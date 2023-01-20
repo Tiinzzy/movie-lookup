@@ -14,7 +14,7 @@ class PageNotFound extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box style={{marginBottom:'390px'}}>
                 <Box className="PageErro404Box">
                     <Typography variant="h3" fontWeight="bolder" fontSize="100px" mr={5} style={{ textShadow: '#f0f0f0 10px 12px' }}>
                         404
