@@ -499,3 +499,16 @@ ul.no-bullets {
     align-items: center;
     align-items: center;
 }
+
+/* Footer.js */
+.FooterMainBox {
+    height: 40px;
+    border-top: solid 2px rgb(60, 60, 60);
+    text-align: center;
+    color: rgb(145, 145, 145);
+    padding-top: 10px;
+    position: relative;
+    bottom: 0;
+    margin: 150px 50px 5px 50px;
+    font-size: 8px
+}
