@@ -16,6 +16,7 @@ class HeaderMenu extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
         this.callHeaderMenu = this.callHeaderMenu.bind(this);
+        shared.callHeaderMenu = this.callHeaderMenu;
     }
 
     handleClick() {
@@ -23,6 +24,7 @@ class HeaderMenu extends React.Component {
     }
 
     callHeaderMenu(message) {
+        console.log(message)
         if (message.action === 'close_button_clicked') {
             this.setState({ open: false });
         }
