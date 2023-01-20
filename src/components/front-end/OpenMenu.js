@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Typography from '@mui/material/Typography';
+import PublicIcon from '@mui/icons-material/Public';
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
 
 import BackEndConnection from './BackEndConnection';
 import { shared } from './functions';
@@ -63,7 +66,8 @@ class OpenMenu extends React.Component {
             <Box className='OpenMenuMainBox'>
                 <Box className='OpenMenuDataBox'>
                     <Box className='OpenMenCountBox'>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 5}}>  < PublicIcon fontSize='medium'/> </span>
                             Production Country
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
@@ -74,7 +78,8 @@ class OpenMenu extends React.Component {
                         </Box>
                     </Box>
                     <Box className='OpenMenGenrBox'>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 10 }}> <TheaterComedyIcon fontSize='medium'/></span>
                             Genre
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
@@ -85,7 +90,8 @@ class OpenMenu extends React.Component {
                         </Box>
                     </Box>
                     <Box className='OpenMenLangBox'>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 10 }}><GTranslateIcon fontSize='medium'/></span>
                             Available Languages
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
