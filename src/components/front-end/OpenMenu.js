@@ -71,7 +71,7 @@ class OpenMenu extends React.Component {
                             Production Country
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
-                            {this.state.countries && this.state.countries.map((e, i) =>
+                            {this.state.countries && this.state.countries.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                 <ul key={i} className="no-bullets">
                                     <li className='OpenMenuEachLinkItem' onClick={() => this.countryClicked(e)}>{e}</li>
                                 </ul>)}
@@ -83,7 +83,7 @@ class OpenMenu extends React.Component {
                             Genre
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
-                            {this.state.genres && this.state.genres.map((e, i) =>
+                            {this.state.genres && this.state.genres.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                 <ul key={i} className="no-bullets">
                                     <li className='OpenMenuEachLinkItem' onClick={() => this.genreClicked(e)}>{e}</li>
                                 </ul>)}
@@ -95,7 +95,7 @@ class OpenMenu extends React.Component {
                             Available Languages
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
-                            {this.state.languages && this.state.languages.map((e, i) =>
+                            {this.state.languages && this.state.languages.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                 <ul key={i} className="no-bullets">
                                     <li className='OpenMenuEachLinkItem' onClick={() => this.languageClicked(e)}>{e}</li>
                                 </ul>)}
