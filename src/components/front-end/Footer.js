@@ -3,6 +3,8 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import './style.css';
+
 class Footer extends React.Component {
 
     constructor(props) {
@@ -14,7 +16,7 @@ class Footer extends React.Component {
 
     render() {
         return (
-            <Box style={{borderTop: 'solid 2px rgb(60, 60, 60)', textAlign:'center', color:'gray', paddingTop:10, margin: '150px 50px 5px 50px', fontSize:'8px'}}>
+            <Box className="FooterMainBox">
                 <Typography variant="caption">
                     Designed by Tina Vatanabadi, Copyright 2023
                 </Typography>
