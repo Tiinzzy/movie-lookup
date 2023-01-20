@@ -7,12 +7,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
+import Advertisement from './Advertisement';
 import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
 class LanguageResult extends React.Component {
     constructor(props) {
@@ -21,21 +22,24 @@ class LanguageResult extends React.Component {
             selected_language: props.selected_language.trim(),
             showProgress: false
         };
+        this.getDataForDisplay = this.getDataForDisplay.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.getDataForDisplay(1);
     }
 
-    async getDataForDisplay(e) {
-        this.setState({ showProgress: true }, async function () {
-            let pageNumber = (e - 1) * 6;
-            let languageResult = await backend.get_movies_based_on_spoken_languages(this.state.selected_language, pageNumber);
-            this.setState({
-                showProgress: false,
-                randomMovies: languageResult.rows,
-                length: getPageCount(languageResult.row_count, PAGE_SIZE)
-            }, () => { window.scrollTo(0, 0); });
+    getDataForDisplay(e) {
+        this.setState({ showProgress: true }, function () {
+            let pageNumber = (e - 1) * 10;
+            let that = this;
+            backend.get_movies_based_on_spoken_languages(this.state.selected_language, pageNumber, (data) => {
+                that.setState({
+                    showProgress: false,
+                    randomMovies: data.rows,
+                    length: getPageCount(data.row_count, PAGE_SIZE)
+                }, () => { window.scrollTo(0, 0); });
+            });
         });
     }
 
@@ -70,7 +74,7 @@ class LanguageResult extends React.Component {
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
-
+                <Advertisement />
             </Box>
         );
     }

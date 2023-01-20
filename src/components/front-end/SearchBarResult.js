@@ -7,12 +7,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
+import Advertisement from './Advertisement';
 import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
 class SearchBarResult extends React.Component {
     constructor(props) {
@@ -21,20 +22,24 @@ class SearchBarResult extends React.Component {
             searched_item: props.searched_item,
             showProgress: false
         };
+        this.getDataForDisplay = this.getDataForDisplay.bind(this);
     }
-    async componentDidMount() {
+
+    componentDidMount() {
         this.getDataForDisplay(1);
     }
 
-    async getDataForDisplay(e) {
-        this.setState({ showProgress: true }, async function () {
-            let pageNumber = (e - 1) * 6;
-            let searchResult = await backend.get_search_results(this.state.searched_item, pageNumber);
-            this.setState({
-                showProgress: false,
-                result: searchResult.rows,
-                length: getPageCount(searchResult.row_count, PAGE_SIZE)
-            }, () => { window.scrollTo(0, 0); });
+    getDataForDisplay(e) {
+        this.setState({ showProgress: true }, function () {
+            let pageNumber = (e - 1) * 10;
+            let that = this;
+            backend.get_search_results(this.state.searched_item, pageNumber, (data) => {
+                that.setState({
+                    showProgress: false,
+                    result: data.rows,
+                    length: getPageCount(data.row_count, PAGE_SIZE)
+                }, () => { window.scrollTo(0, 0); });
+            });
         });
     }
 
@@ -64,7 +69,7 @@ class SearchBarResult extends React.Component {
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
-
+                <Advertisement />
             </Box>
         );
     }

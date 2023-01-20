@@ -14,6 +14,7 @@ import HeaderMenu from './HeaderMenu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
+  height: 44,
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {

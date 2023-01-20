@@ -19,10 +19,13 @@ class TopTenMoviesGenre extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    async componentDidMount() {
-        let data = await backend.get_all_movie_genres();
-        data.unshift({ genre_name: '- ALL -', count: data.map(d => d.count).reduce((a, b) => a + b, 0) });
-        this.setState({ genres: data });
+    componentDidMount() {
+        let that = this;
+        backend.get_all_movie_genres((data) => {
+            data.unshift({ genre_name: '- ALL -', count: data.map(d => d.count).reduce((a, b) => a + b, 0) });
+            that.setState({ genres: data });
+        });
+
     }
 
     handleChange(e) {

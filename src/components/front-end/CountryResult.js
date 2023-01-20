@@ -7,12 +7,13 @@ import Pagination from '@mui/material/Pagination';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
+import Advertisement from './Advertisement';
 import { getPageCount } from './functions';
 
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
 class CountryResult extends React.Component {
     constructor(props) {
@@ -21,22 +22,24 @@ class CountryResult extends React.Component {
             showProgress: false,
             selected_country: props.selected_country.trim()
         };
-        console.log(props.selected_country)
+        this.getDataForDisplay = this.getDataForDisplay.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.getDataForDisplay(1);
     }
 
-    async getDataForDisplay(e) {
-        this.setState({ showProgress: true }, async function () {
-            let pageNumber = (e - 1) * 6;
-            let countryResult = await backend.get_movies_based_on_countries(this.state.selected_country, pageNumber);
-            this.setState({
-                showProgress: false,
-                countries: countryResult.rows,
-                length: getPageCount(countryResult.row_count, PAGE_SIZE)
-            }, () => { window.scrollTo(0, 0); });
+    getDataForDisplay(e) {
+        this.setState({ showProgress: true }, function () {
+            let pageNumber = (e - 1) * 10;
+            let that = this;
+            backend.get_movies_based_on_countries(this.state.selected_country, pageNumber, (data) => {
+                that.setState({
+                    showProgress: false,
+                    countries: data.rows,
+                    length: getPageCount(data.row_count, PAGE_SIZE)
+                }, () => { window.scrollTo(0, 0); });
+            });
         });
     }
 
@@ -74,6 +77,7 @@ class CountryResult extends React.Component {
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
+                <Advertisement />
             </Box>
         );
     }

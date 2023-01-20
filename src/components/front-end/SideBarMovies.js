@@ -12,8 +12,6 @@ import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
 
-
-
 class SideBarMovies extends React.Component {
     constructor(props) {
         super(props);
@@ -27,37 +25,41 @@ class SideBarMovies extends React.Component {
 
     componentDidMount() {
         let that = this;
-        backend.get_top_movies('', function(data) {
+        backend.get_top_movies('', function (data) {
             that.setState({ topMovies: data });
         });
     }
 
-    async callSideBarMovies(message) {
+    callSideBarMovies(message) {
         if (message.action === 'genre-has-been-selected') {
             if (message.data === '- ALL -') {
-                let topTen = await backend.get_top_movies('');
-                this.setState({ topMovies: topTen });
+                let that = this;
+                backend.get_top_movies('', function (data) {
+                    that.setState({ topMovies: data });
+                });
             } else {
-                let topTen = await backend.get_top_movies(message.data);
-                this.setState({ topMovies: topTen });
+                let that = this;
+                backend.get_top_movies(message.data, (data) => {
+                    that.setState({ topMovies: data });
+                });
             }
 
         }
     }
 
-    async movieSelected(e) {
+    movieSelected(e) {
         window.location = '/movie-clicked?movie_id=' + e
     }
 
     render() {
         return (
-            <Box className="SideMvvies">
+            <Box className="SideMovies">
                 <Typography variant="h6" fontWeight='bold' mb={1} fontSize={16}> Top Rated Movies</Typography>
                 <TopTenMoviesGenre />
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
-                    <Box className="EachSideMovieBox" key={i} onClick={() => this.movieSelected(e.id)} style={{ cursor: 'pointer' }}>
-                        <Typography variant="body1" fontWeight='600'>{e.title}</Typography>
-                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px rgb(215, 215, 215)' }}>"{cleanUp(e.tagline)}"</Typography>
+                    <Box className="EachSideMovieBox" key={i}>
+                        <Typography variant="body1" fontWeight='600' style={{ cursor: 'pointer' }} onClick={() => this.movieSelected(e.id)}>{e.title}</Typography>
+                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px #f2f2f2' }}>"{cleanUp(e.tagline)}"</Typography>
                     </Box>)}
             </Box>
         );

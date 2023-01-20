@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Typography from '@mui/material/Typography';
+import PublicIcon from '@mui/icons-material/Public';
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
 
 import BackEndConnection from './BackEndConnection';
 import { shared } from './functions';
@@ -16,6 +19,7 @@ class OpenMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
         };
         this.closeMenu = this.closeMenu.bind(this);
         this.genreClicked = this.genreClicked.bind(this);
@@ -23,71 +27,84 @@ class OpenMenu extends React.Component {
         this.languageClicked = this.languageClicked.bind(this);
     }
 
+    componentDidMount() {
+        let that = this;
+        backend.get_all_movie_genres((data) => {
+            data = data.map(e => e.genre_name).sort();
+            that.setState({ genres: data });
+        });
 
-    async componentDidMount() {
-        let genres = await backend.get_all_movie_genres();
-        genres = genres.map(e => e.genre_name).sort();
+        backend.get_spoken_languages((data) => {
+            data = data.map(e => e.languages).sort().filter(e => e !== '' && e !== "?????" && e !== "??????" && e !== "No Language");
+            that.setState({ languages: data });
+        });
 
-        let languages = await backend.get_spoken_languages();
-        languages = languages.map(e => e.languages).sort().filter(e => e !== '' && e !== "?????" && e !== "??????" && e !== "No Language");
-
-        let countries = await backend.get_production_countries();
-        countries = countries.map(e => e.countries).sort();
-
-        this.setState({ genres, languages, countries });
+        backend.get_production_countries((data) => {
+            data = data.map(e => e.countries).sort();
+            that.setState({ countries: data });
+        });
     }
 
     closeMenu() {
         shared.callHeaderMenu({ action: 'close_button_clicked' });
     }
 
-    async genreClicked(e) {
+    genreClicked(e) {
         window.location = '/genre-result?selected_genre=' + e;
     }
 
-    async countryClicked(e) {
+    countryClicked(e) {
         window.location = '/country-result?selected_country=' + e;
     }
 
-    async languageClicked(e) {
+    languageClicked(e) {
         window.location = '/language-result?selected_language=' + e;
     }
 
     render() {
         return (
-            <Box style={{ width: 1300, height: 900, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'row', overflowY: 'scroll' }}>
-                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 10 }}>
-                    <Box style={{ padding: 40 }}>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
-                            Country
+            <Box className='OpenMenuMainBox'>
+                <Box className='OpenMenuDataBox'>
+                    <Box className='OpenMenCountBox'>
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 5}}>  < PublicIcon fontSize='medium'/> </span>
+                            Production Country
                         </Typography>
-                        <Box color='white' mt={2}>
-                            {this.state.countries && this.state.countries.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.countryClicked(e)}>{e}</li>)}
+                        <Box className="OpenMenuEachItemsBox">
+                            {this.state.countries && this.state.countries.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.countryClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
-                    <Box style={{ padding: 40 }}>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
+                    <Box className='OpenMenGenrBox'>
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 10 }}> <TheaterComedyIcon fontSize='medium'/></span>
                             Genre
                         </Typography>
-                        <Box color='white' mt={2}>
-                            {this.state.genres && this.state.genres.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.genreClicked(e)}>{e}</li>)}
+                        <Box className="OpenMenuEachItemsBox">
+                            {this.state.genres && this.state.genres.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.genreClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
-                    <Box style={{ padding: 40 }}>
-                        <Typography variant='h5' fontSize="bold" color="#F5C518">
-                            Language
+                    <Box className='OpenMenLangBox'>
+                        <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
+                            <span style={{ marginRight: 10 }}><GTranslateIcon fontSize='medium'/></span>
+                            Available Languages
                         </Typography>
-                        <Box color='white' mt={2}>
-                            {this.state.languages && this.state.languages.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.languageClicked(e)}>{e}</li>)}
+                        <Box className="OpenMenuEachItemsBox">
+                            {this.state.languages && this.state.languages.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.languageClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
                 </Box>
-                <Box style={{ display: 'flex', flexDirection: 'column', height: 50, marginTop: 5, marginLeft: 'auto' }}>
+                <Box className='OpenMenuButtonBox'>
                     <IconButton onClick={() => this.closeMenu()} size="large">
-                        <HighlightOffIcon fontSize="large" />
+                        <HighlightOffIcon fontSize="large" color="inherit" />
                     </IconButton>
                 </Box>
             </Box>
