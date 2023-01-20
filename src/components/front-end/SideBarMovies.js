@@ -27,25 +27,29 @@ class SideBarMovies extends React.Component {
 
     componentDidMount() {
         let that = this;
-        backend.get_top_movies('', function(data) {
+        backend.get_top_movies('', function (data) {
             that.setState({ topMovies: data });
         });
     }
 
-    async callSideBarMovies(message) {
+    callSideBarMovies(message) {
         if (message.action === 'genre-has-been-selected') {
             if (message.data === '- ALL -') {
-                let topTen = await backend.get_top_movies('');
-                this.setState({ topMovies: topTen });
+                let that = this;
+                backend.get_top_movies('', function (data) {
+                    that.setState({ topMovies: data });
+                });
             } else {
-                let topTen = await backend.get_top_movies(message.data);
-                this.setState({ topMovies: topTen });
+                let that = this;
+                backend.get_top_movies(message.data, (data) => {
+                    that.setState({ topMovies: data });
+                });
             }
 
         }
     }
 
-    async movieSelected(e) {
+    movieSelected(e) {
         window.location = '/movie-clicked?movie_id=' + e
     }
 
