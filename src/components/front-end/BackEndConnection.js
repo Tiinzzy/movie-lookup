@@ -54,9 +54,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_production_countries() {
+    async get_production_countries(callback) {
         return axios.get('/all_movies_production_countries', {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -65,9 +68,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async if_production_country(id) {
+    async if_production_country(id, callback) {
         return axios.get('/if_movie_has_production_country?id=' + id, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -76,9 +82,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_spoken_languages() {
+    async get_spoken_languages(callback) {
         return axios.get('/all_movies_all_spoken_languages', {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -87,9 +96,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async if_spoken_languages(id) {
+    async if_spoken_languages(id, callback) {
         return axios.get('/if_movie_has_languages?id=' + id, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -98,9 +110,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async if_production_company(id) {
+    async if_production_company(id, callback) {
         return axios.get('/if_movie_has_production_company?id=' + id, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -131,9 +146,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_selected_movie(id) {
+    async get_selected_movie(id, callback) {
         return axios.get('/get_selected_movie?id=' + id, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -142,9 +160,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_genres(genre, pageNum) {
+    async get_movies_based_on_genres(genre, pageNum, callback) {
         return axios.get('/get_movies_based_on_genre?genre=' + genre + '&pageNum=' + pageNum, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -153,9 +174,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_countries(country, pageNum) {
+    async get_movies_based_on_countries(country, pageNum, callback) {
         return axios('/get_movies_based_on_country?country=' + country + '&pageNum=' + pageNum, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -164,9 +188,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_movies_based_on_spoken_languages(language, pageNum) {
+    async get_movies_based_on_spoken_languages(language, pageNum, callback) {
         return axios('/get_movies_based_on_spoken_languages?language=' + language + '&pageNum=' + pageNum, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
@@ -175,9 +202,12 @@ class BackEndConnectionImpl {
             })
     }
 
-    async get_search_results(search, pageNum) {
+    async get_search_results(search, pageNum, callback) {
         return axios('/get_search_result?search=' + search + '&pageNum=' + pageNum, {})
             .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
                 return response.data;
             })
             .catch(function (error) {
