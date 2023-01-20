@@ -480,3 +480,22 @@ ul.no-bullets {
     padding: 5px;
     margin-right: 5px;
 }
+
+/* PageNotFound.js */
+.PageErro404Box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 200px auto auto auto;
+    align-content: center;
+    align-items: center;
+}
+
+.PageErroTextBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto auto auto auto;
+    align-items: center;
+    align-items: center;
+}
