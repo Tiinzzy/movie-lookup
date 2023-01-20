@@ -9,6 +9,7 @@ import GenreResult from "./components/front-end/GenreResult";
 import CountryResult from "./components/front-end/CountryResult";
 import LanguageResult from "./components/front-end/LanguageResult";
 import SearchBarResult from "./components/front-end/SearchBarResult";
+import PageNotFound from "./components/front-end/PageNotFound";
 
 const queryParameters = new URLSearchParams(window.location.search)
 
@@ -31,7 +32,7 @@ export default function App() {
           <Route path="/country-result" element={<CountryResult selected_country={selected_country} />} />
           <Route path="/language-result" element={<LanguageResult selected_language={selected_language} />} />
           <Route path="/search-result" element={<SearchBarResult searched_item={searched_item} />} />
-          <Route path='*' element={<h3>Error</h3>} />
+          <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
       <Footer />
