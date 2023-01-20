@@ -57,8 +57,8 @@ class SideBarMovies extends React.Component {
                 <Typography variant="h6" fontWeight='bold' mb={1} fontSize={16}> Top Rated Movies</Typography>
                 <TopTenMoviesGenre />
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
-                    <Box className="EachSideMovieBox" key={i} onClick={() => this.movieSelected(e.id)}>
-                        <Typography variant="body1" fontWeight='600' style={{ cursor: 'pointer' }}>{e.title}</Typography>
+                    <Box className="EachSideMovieBox" key={i}>
+                        <Typography variant="body1" fontWeight='600' style={{ cursor: 'pointer' }} onClick={() => this.movieSelected(e.id)}>{e.title}</Typography>
                         <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px #f2f2f2' }}>"{cleanUp(e.tagline)}"</Typography>
                     </Box>)}
             </Box>
