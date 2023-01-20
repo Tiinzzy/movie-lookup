@@ -382,19 +382,93 @@
     padding: 45px;
 }
 
-.SearchBarDetailBox{
+.SearchBarDetailBox {
     margin-bottom: 20px;
 }
 
-.SearchBarTitleBox{
+.SearchBarTitleBox {
     display: flex;
     margin-bottom: 2px;
     align-items: center;
     align-content: center;
 }
 
-.SearchBarOverviewBox{
+.SearchBarOverviewBox {
     border-left: solid 2px rgb(185, 185, 185);
     padding-left: 6px;
     padding-top: 6px;
+}
+
+/* OpenMenu.js */
+.OpenMenuEachLinkItem {
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.OpenMenuEachLinkItem:hover {
+    color: rgb(198, 198, 198);
+    text-decoration: underline;
+}
+
+.OpenMenuButtonBox {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    margin-left: auto;
+    margin-bottom: 15px;
+    color: #F5C518;
+}
+
+.css-tzssek-MuiSvgIcon-root {
+    color: #F5C518 !important;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 2px;
+}
+
+.OpenMenuEachItemsBox {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+}
+
+.OpenMenuMainBox {
+    padding: 20px;
+    width: 1300px;
+    height: 900px;
+    background-color: #333433;
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+}
+
+.OpenMenuDataBox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    border: solid 0px red;
+    margin: auto;
+    padding: 50px;
+}
+
+.OpenMenCountBox {
+    border: solid 0px blue;
+    margin-right: 45px;
+}
+
+.OpenMenGenrBox {
+    border: solid 0px purple;
+    margin-right: 50px;
+}
+
+.OpenMenLangBox {
+    border: solid 0px pink;
+    margin-right: 5px;
 }
