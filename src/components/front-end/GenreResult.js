@@ -7,6 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
+import Advertisement from './Advertisement';
 import { getPageCount } from './functions';
 
 import './style.css';
@@ -72,6 +73,7 @@ class GenreResult extends React.Component {
                         <Pagination count={this.state.length} onChange={(e, i) => this.getDataForDisplay(i)} />
                     </Box>
                 </Box>
+                <Advertisement />
             </Box >
         );
     }

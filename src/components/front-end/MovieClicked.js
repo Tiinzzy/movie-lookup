@@ -6,6 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
+import Advertisement from './Advertisement';
 
 import './style.css';
 
@@ -174,6 +175,7 @@ class MovieClicked extends React.Component {
                         </Box>}
                     </Box>
                 </Box >
+                <Advertisement />
             </Box>
         );
     }
