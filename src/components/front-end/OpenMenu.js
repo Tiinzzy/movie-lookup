@@ -24,7 +24,6 @@ class OpenMenu extends React.Component {
         this.languageClicked = this.languageClicked.bind(this);
     }
 
-
     componentDidMount() {
         let that = this;
         backend.get_all_movie_genres((data) => {
@@ -61,39 +60,45 @@ class OpenMenu extends React.Component {
 
     render() {
         return (
-            <Box style={{ width: 1300, height: 900, backgroundColor: '#333433', border: 'none', borderRadius: 6, display: 'flex', flexDirection: 'row', overflowY: 'scroll' }}>
-                <Box style={{ display: 'flex', flexDirection: 'row', marginBottom: 10 }}>
-                    <Box style={{ padding: 40 }}>
+            <Box className='OpenMenuMainBox'>
+                <Box className='OpenMenuDataBox'>
+                    <Box className='OpenMenCountBox'>
                         <Typography variant='h5' fontSize="bold" color="#F5C518">
-                            Country
+                            Production Country
                         </Typography>
-                        <Box color='white' mt={2}>
+                        <Box className="OpenMenuEachItemsBox">
                             {this.state.countries && this.state.countries.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.countryClicked(e)}>{e}</li>)}
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.countryClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
-                    <Box style={{ padding: 40 }}>
+                    <Box className='OpenMenGenrBox'>
                         <Typography variant='h5' fontSize="bold" color="#F5C518">
                             Genre
                         </Typography>
-                        <Box color='white' mt={2}>
+                        <Box className="OpenMenuEachItemsBox">
                             {this.state.genres && this.state.genres.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.genreClicked(e)}>{e}</li>)}
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.genreClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
-                    <Box style={{ padding: 40 }}>
+                    <Box className='OpenMenLangBox'>
                         <Typography variant='h5' fontSize="bold" color="#F5C518">
-                            Language
+                            Available Languages
                         </Typography>
-                        <Box color='white' mt={2}>
+                        <Box className="OpenMenuEachItemsBox">
                             {this.state.languages && this.state.languages.map((e, i) =>
-                                <li style={{ marginBottom: 10, cursor: 'pointer' }} key={i} onClick={() => this.languageClicked(e)}>{e}</li>)}
+                                <ul key={i} className="no-bullets">
+                                    <li className='OpenMenuEachLinkItem' onClick={() => this.languageClicked(e)}>{e}</li>
+                                </ul>)}
                         </Box>
                     </Box>
                 </Box>
-                <Box style={{ display: 'flex', flexDirection: 'column', height: 50, marginTop: 5, marginLeft: 'auto' }}>
+                <Box className='OpenMenuButtonBox'>
                     <IconButton onClick={() => this.closeMenu()} size="large">
-                        <HighlightOffIcon fontSize="large" />
+                        <HighlightOffIcon fontSize="large" color="inherit" />
                     </IconButton>
                 </Box>
             </Box>
