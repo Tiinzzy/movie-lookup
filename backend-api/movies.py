@@ -211,7 +211,7 @@ class Movies:
     @classmethod
     def movies_based_on_genre(self, genre, pageNum):
         genre_condition = "mag.genre_count like" + "'%" + genre + "%'"
-        limit_condition = "limit " + pageNum + ",6"
+        limit_condition = "limit " + pageNum + ",10"
         db = Database()
         con, cur = db.open_database()
 
@@ -251,7 +251,7 @@ class Movies:
     @ classmethod
     def movies_based_on_country(self, country, pageNum):
         country_condition = "  mac.countries like" + "'%" + country + "%'"
-        limit_condition = "limit " + pageNum + ",6"
+        limit_condition = "limit " + pageNum + ",10"
         db = Database()
         con, cur = db.open_database()
 
@@ -292,7 +292,7 @@ class Movies:
     @ classmethod
     def movies_based_on_spoken_languages(self, language, pageNum):
         spoken_language_condition = " where masl.languages like " + "'%" + language + "%'"
-        limit_condition = "limit " + pageNum + ",6"
+        limit_condition = "limit " + pageNum + ",10"
         db = Database()
         con, cur = db.open_database()
 
@@ -337,7 +337,7 @@ class Movies:
         lang_condition = " and sl.language like " + "'%" + search + "%'"
         company_condition = " and prc.name like " + "'%" + search + "%'"
         collection_condition = " and c.name like " + "'%" + search + "%'"
-        limit_condition = "limit " + pageNum + ",6"
+        limit_condition = "limit " + pageNum + ",10"
 
         db = Database()
         con, cur = db.open_database()
