@@ -114,7 +114,8 @@ class MovieClicked extends React.Component {
                             {this.state.language !== null &&
                                 <Typography variant="body2" mt={1} mr={1}>
                                     <a href={'/language-result?selected_language=' + this.state.language}
-                                        className="linkedClass">{this.state.language}
+                                        className="linkedClass">
+                                        {this.state.language}
                                     </a>
                                     <span id="langSelectedMovie">
                                         ({this.state.lang})
@@ -150,21 +151,23 @@ class MovieClicked extends React.Component {
                         {this.state.countries !== null &&
                             <Box className="SelectedMovieDataBox">
                                 <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
-                                {this.state.countries.map((e, i) =>
+                                {this.state.countries.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                     <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
                                         <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
                                     </Typography>)}
                             </Box>}
                         {this.state.languages !== null && <Box className="SelectedMovieDataBox">
                             <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Available in:</Typography>
-                            {this.state.languages.map((e, i) =>
+                            {this.state.languages.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                 <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
-                                    <a href={'/language-result?selected_language=' + e} className="linkedClass">{e}</a>
+                                    <a href={'/language-result?selected_language=' + e} className="linkedClass">
+                                        {e}
+                                    </a>
                                 </Typography>)}
                         </Box>}
                         {this.state.company !== null && <Box className="SelectedMovieDataBox">
                             <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Company:</Typography>
-                            {this.state.company.map((e, i) =>
+                            {this.state.company.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
                                 <Typography fontSize={15} key={i} style={{ marginRight: 8, marginTop: 10 }}>
                                     {e}
                                 </Typography>)}
