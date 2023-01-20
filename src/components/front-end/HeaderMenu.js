@@ -24,7 +24,6 @@ class HeaderMenu extends React.Component {
     }
 
     callHeaderMenu(message) {
-        console.log(message)
         if (message.action === 'close_button_clicked') {
             this.setState({ open: false });
         }
