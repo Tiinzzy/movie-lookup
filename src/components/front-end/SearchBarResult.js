@@ -12,7 +12,7 @@ import { getPageCount } from './functions';
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 10;
 
 class SearchBarResult extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class SearchBarResult extends React.Component {
 
     getDataForDisplay(e) {
         this.setState({ showProgress: true }, function () {
-            let pageNumber = (e - 1) * 6;
+            let pageNumber = (e - 1) * 10;
             let that = this;
             backend.get_search_results(this.state.searched_item, pageNumber, (data) => {
                 that.setState({
