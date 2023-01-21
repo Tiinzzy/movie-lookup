@@ -11,7 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 
 import HeaderMenu from './HeaderMenu';
-import { LISTENERS, emitter } from './messaging';
+import { emitter } from './messaging';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
