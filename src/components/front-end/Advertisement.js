@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 
 import './style.css';
 
-const MY_ADS = new Array("images/pic1.jpeg", "images/pic10.webp", "images/pic11.webp", "images/pic12.webp", "images/pic15.webp", "images/pic16.webp");
+const MY_ADS = ["images/pic1.jpeg", "images/pic10.webp", "images/pic11.webp", "images/pic12.webp", "images/pic15.webp", "images/pic16.webp"];
 
 const AD_CHANGE_INTERVAL = 8000;
 
@@ -27,9 +27,9 @@ class Advertisement extends React.Component {
                     randomPic = (this.state.randomAd + 1) % MY_ADS.length;
                 }
                 let that = this;
-                window.setTimeout(function() {
+                window.setTimeout(function () {
                     that.setState({ in: true, randomAd: randomPic });
-                }, 900);                
+                }, 900);
             });
         }, AD_CHANGE_INTERVAL);
     }
@@ -38,7 +38,7 @@ class Advertisement extends React.Component {
         return (
             <Box className="AdvertisementMainBox">
                 <Fade direction="down" in={this.state.in} timeout={500}>
-                    <a href="https://www.shoppersdrugmart.ca/en" target="_blank">
+                    <a href="https://www.shoppersdrugmart.ca/en" target="_blank" rel="noreferrer">
                         <img src={MY_ADS[this.state.randomAd]} width="1000" alt="#" style={{ border: 'solid 1px #eaeaea', animation: 'fadeIn 5s' }} />
                     </a>
                 </Fade>

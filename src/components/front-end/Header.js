@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 
 import HeaderMenu from './HeaderMenu';
+import { emitter } from './messaging';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,8 +46,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+let counter = 0;
+
 export default function Header() {
   const [search, setSearch] = useState('');
+  const mounted = useRef(false);
 
   function clickedHome() {
     window.location = "/home";
@@ -64,8 +69,27 @@ export default function Header() {
     }
   }
 
+  // function searchThisText(e) {
+  //   console.log(e.detail);
+  // }
+
+  function searchThisText(args) {
+    console.log(args);
+  }
+
+  useEffect(() => {
+    mounted.current = true;
+    if (++counter === 1) {
+      // LISTENERS.getHeader().addEventListener('search-this-text', searchThisText, false);
+      emitter.on('search-this-text', searchThisText);
+    }
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} id="header-serach-box">
       <AppBar position="sticky" style={{ backgroundColor: '#333433' }}>
         <Toolbar position="static">
           <Typography
