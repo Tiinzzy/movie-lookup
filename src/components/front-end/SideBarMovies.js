@@ -9,6 +9,7 @@ import TopTenMoviesGenre from './TopTenMoviesGenre';
 import { shared, cleanUp } from './functions';
 
 import './style.css';
+import { LISTENERS, emitter } from './messaging';
 
 const backend = BackEndConnection.INSTANCE();
 
@@ -28,6 +29,7 @@ class SideBarMovies extends React.Component {
         backend.get_top_movies('', function (data) {
             that.setState({ topMovies: data });
         });
+
     }
 
     callSideBarMovies(message) {
@@ -51,6 +53,15 @@ class SideBarMovies extends React.Component {
         window.location = '/movie-clicked?movie_id=' + e
     }
 
+    sendToSearch(title) {
+        // const event = new CustomEvent('search-this-text', {
+        //     detail: { title, time: new Date() }
+        // });
+        // LISTENERS.getHeader().dispatchEvent(event);
+
+        emitter.emit('search-this-text', { title, date: new Date() });
+    }
+
     render() {
         return (
             <Box className="SideMovies">
@@ -59,7 +70,10 @@ class SideBarMovies extends React.Component {
                 {this.state.topMovies && this.state.topMovies.map((e, i) =>
                     <Box className="EachSideMovieBox" key={i}>
                         <Typography variant="body1" fontWeight='600' style={{ cursor: 'pointer' }} onClick={() => this.movieSelected(e.id)}>{e.title}</Typography>
-                        <Typography variant="body1" fontWeight='300' style={{ paddingTop: 5, borderTop: 'solid 1px #f2f2f2' }}>"{cleanUp(e.tagline)}"</Typography>
+                        <Typography variant="body1" fontWeight='300'
+                            style={{ paddingTop: 5, borderTop: 'solid 1px #f2f2f2' }}
+                            onClick={() => this.sendToSearch(e.title)}
+                        >"{cleanUp(e.tagline)}"</Typography>
                     </Box>)}
             </Box>
         );
