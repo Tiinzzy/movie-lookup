@@ -83,13 +83,13 @@ export default class CarouselSlider extends Component {
                                     <span style={{ fontSize: 14 }}>{e.vote}</span>
                                 </Box>
                                 <Box className="GenreImdbBox">
-                                    <a href={'https://www.imdb.com/title/' + e.imdb} target="_blank" id='genreClick'>
+                                    <a href={'https://www.imdb.com/title/' + e.imdb} target="_blank" id='genreClick' rel="noreferrer">
                                         <img src="/imdb.png" height="12" alt="#" />
                                     </a>
                                     <span className="GenresSlider">Genres:</span>
                                     <Box className="EachGenreBox">
                                         {e.genres.split(',').map((g, i) => (
-                                            <a key={i} title={g} target="_blank" href="#" id='genreClick' className="GenreLink">{g}</a>
+                                            <a key={i} title={g} target="_blank" href="/#" id='genreClick' className="GenreLink">{g}</a>
                                         ))}
                                     </Box>
                                 </Box>
