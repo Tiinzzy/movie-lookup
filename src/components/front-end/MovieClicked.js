@@ -132,7 +132,7 @@ class MovieClicked extends React.Component {
                                 |
                             </Typography>
                             <Box className="SelectedMovieImdbBox">
-                                <a href={'https://www.imdb.com/title/' + this.state.imdb} target="_blank">
+                                <a href={'https://www.imdb.com/title/' + this.state.imdb} target="_blank" rel="noreferrer">
                                     <img src="/imdb.png" height="20" alt="#" />
                                 </a>
                             </Box>

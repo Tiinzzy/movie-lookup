@@ -9,7 +9,7 @@ import TopTenMoviesGenre from './TopTenMoviesGenre';
 import { shared, cleanUp } from './functions';
 
 import './style.css';
-import { LISTENERS, emitter } from './messaging';
+import { emitter } from './messaging';
 
 const backend = BackEndConnection.INSTANCE();
 
