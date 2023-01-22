@@ -3,13 +3,14 @@ var app = require('express')();
 
 const NodeCache = require("node-cache");
 const nodeCache = new NodeCache();
+const DISABLE_CACHE = true;
 const USE_SIMPLE_CACHE = false;
+const CLEAR_CACHE_INTERVAL = 5; // minutes
 let simpleCache = {};
 
 setInterval(() => {
     resetCache();
-    console.log('chache cleared!');
-}, 5 * 60 * 1000);
+}, CLEAR_CACHE_INTERVAL * 60 * 1000);
 
 
 app.use('/', function handle(req, res, next) {
@@ -39,11 +40,15 @@ app.listen(3333);
 
 // ------------------------------------------------------------------------------------------------
 function getFromCache(key) {
+    if (DISABLE_CACHE) {
+        return null;
+    }
+
     console.log(new Date(), nodeCache.getStats());
 
     if (USE_SIMPLE_CACHE) {
         if (simpleCache.hasOwnProperty(key)) {
-            console.log(new Date(), key + '  =>  served from cache!');
+            console.log(new Date(), key + ' => served from cache!');
             return simpleCache[key];
         } else {
             return null;
@@ -52,7 +57,7 @@ function getFromCache(key) {
         let value = nodeCache.get(key);
         value = value || null;
         if (value !== null) {
-            console.log(new Date(), key + '  =>  served from cache!');
+            console.log(new Date(), key + ' => served from cache!');
         }
         return value;
     }
@@ -60,19 +65,24 @@ function getFromCache(key) {
 
 // ------------------------------------------------------------------------------------------------
 function putInCache(key, value) {
-    console.log(new Date(), key + '  =>  served back-end!')
-    if (USE_SIMPLE_CACHE) {
-        simpleCache[key] = value;
-    } else {
-        nodeCache.set(key, value);
+    if (!DISABLE_CACHE) {
+        console.log(new Date(), key + ' => served back-end!')
+        if (USE_SIMPLE_CACHE) {
+            simpleCache[key] = value;
+        } else {
+            nodeCache.set(key, value);
+        }
     }
 }
 
 // ------------------------------------------------------------------------------------------------
 function resetCache() {
-    if (USE_SIMPLE_CACHE) {
-        simpleCache = {};
-    } else {
-        nodeCache.flushAll();
+    if (!DISABLE_CACHE) {
+        if (USE_SIMPLE_CACHE) {
+            simpleCache = {};
+        } else {
+            nodeCache.flushAll();
+        }
+        console.log(new Date(), ' => chache cleared!');
     }
 }
