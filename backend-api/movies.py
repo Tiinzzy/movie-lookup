@@ -446,7 +446,18 @@ class Movies:
 
     @classmethod
     def submit_new_movie_rating(self, rating):
-        result = print(rating)
+        # STEP 1 RUN THIS QUERY
+        # update tests.imbd_movies m set
+        # m.vote_average = (m.vote_count*m.vote_average+{rating}) / (m.vote_count+1),
+        # m.vote_count = (m.vote_count+1)
+        # where m.id = 2016;
+
+        # STEP 2 RUN THIS QUERY
+        # select m.id, m.vote_count, m.vote_average from tests.imbd_movies m  where m.id = 2016;
+        # and return new vote_count and vote_average in the result
+        # and then in UI update the screen (STARS ...)
+
+        result = {'rating': rating}
         return result
 
 
