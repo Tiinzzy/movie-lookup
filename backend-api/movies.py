@@ -444,6 +444,11 @@ class Movies:
         result['rows'] = row_result
         return result
 
+    @classmethod
+    def submit_new_movie_rating(self, rating):
+        result = print(rating)
+        return result
+
 
 if __name__ == "__main__":
     movies = Movies.movies_based_on_spoken_languages('francais', '0')
