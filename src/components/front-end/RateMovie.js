@@ -57,7 +57,7 @@ class RateMovie extends React.Component {
         this.setState({ submittedValue: e, openDialog: false }, function () {
             let that = this;
             backend.submit_rating(this.state.submittedValue, function (data) {
-                that.setState({});
+                that.setState({ value: 0 });
             });
         });
     }
