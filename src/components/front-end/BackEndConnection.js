@@ -216,6 +216,20 @@ class BackEndConnectionImpl {
             })
     }
 
+    async submit_rating(rating, callback) {
+        return axios('/get-new-movie-rating?rating=' + rating, {})
+            .then(function (response) {
+                if (callback) {
+                    callback(response.data);
+                }
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return false;
+            })
+    }
+
 }
 
 export default class BackEndConnection {

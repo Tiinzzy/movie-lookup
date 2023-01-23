@@ -27,6 +27,9 @@ class CountryResult extends React.Component {
 
     componentDidMount() {
         this.getDataForDisplay(1);
+        let country = localStorage.getItem('country_id');
+        console.log(new Date(), country);
+        localStorage.removeItem('country_id');
     }
 
     getDataForDisplay(e) {
@@ -45,7 +48,7 @@ class CountryResult extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box >
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>

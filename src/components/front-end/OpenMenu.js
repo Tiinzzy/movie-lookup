@@ -9,7 +9,7 @@ import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 
 import BackEndConnection from './BackEndConnection';
-import { shared } from './functions';
+import { LISTENERS } from './messaging';
 
 import './style.css';
 
@@ -46,7 +46,8 @@ class OpenMenu extends React.Component {
     }
 
     closeMenu() {
-        shared.callHeaderMenu({ action: 'close_button_clicked' });
+        const event = new CustomEvent('close_button_clicked');
+        LISTENERS.getToCloseMenu().dispatchEvent(event);
     }
 
     genreClicked(e) {
@@ -55,6 +56,7 @@ class OpenMenu extends React.Component {
 
     countryClicked(e) {
         window.location = '/country-result?selected_country=' + e;
+        localStorage.setItem('country_id', e);
     }
 
     languageClicked(e) {
@@ -67,7 +69,7 @@ class OpenMenu extends React.Component {
                 <Box className='OpenMenuDataBox'>
                     <Box className='OpenMenCountBox'>
                         <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
-                            <span style={{ marginRight: 5}}>  < PublicIcon fontSize='medium'/> </span>
+                            <span style={{ marginRight: 5 }}>  < PublicIcon fontSize='medium' /> </span>
                             Production Country
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
@@ -79,7 +81,7 @@ class OpenMenu extends React.Component {
                     </Box>
                     <Box className='OpenMenGenrBox'>
                         <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
-                            <span style={{ marginRight: 10 }}> <TheaterComedyIcon fontSize='medium'/></span>
+                            <span style={{ marginRight: 10 }}> <TheaterComedyIcon fontSize='medium' /></span>
                             Genre
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">
@@ -91,7 +93,7 @@ class OpenMenu extends React.Component {
                     </Box>
                     <Box className='OpenMenLangBox'>
                         <Typography variant='h5' fontWeight="bolder" color="#F5C518" mt={1}>
-                            <span style={{ marginRight: 10 }}><GTranslateIcon fontSize='medium'/></span>
+                            <span style={{ marginRight: 10 }}><GTranslateIcon fontSize='medium' /></span>
                             Available Languages
                         </Typography>
                         <Box className="OpenMenuEachItemsBox">

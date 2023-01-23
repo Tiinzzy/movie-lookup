@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Backdrop from '@mui/material/Backdrop';
 
 import OpenMenu from './OpenMenu';
-import { shared } from './functions';
+import { LISTENERS } from './messaging';
 
 class HeaderMenu extends React.Component {
     constructor(props) {
@@ -15,24 +15,20 @@ class HeaderMenu extends React.Component {
             open: false,
         };
         this.handleClick = this.handleClick.bind(this);
-        this.callHeaderMenu = this.callHeaderMenu.bind(this);
-        shared.callHeaderMenu = this.callHeaderMenu;
+    }
+
+    componentDidMount() {
+        LISTENERS.getToCloseMenu().addEventListener('close_button_clicked',
+            () => { this.setState({ open: false }) });
     }
 
     handleClick() {
         this.setState({ open: !(this.state.open) });
     }
 
-    callHeaderMenu(message) {
-        if (message.action === 'close_button_clicked') {
-            this.setState({ open: false });
-        }
-
-    }
-
     render() {
         return (
-            <Box style={{ marginLeft: 15 }}>
+            <Box style={{ marginLeft: 15 }} id="header-menu-box">
                 <Button
                     style={{ color: "white" }}
                     id="fade-button"

@@ -197,7 +197,8 @@
 }
 
 #voteSelectedMovie {
-    font-size: 16px
+    font-size: 16px;
+    margin-right: 5px;
 }
 
 .SelectedMovieMiniDataBox {
@@ -519,4 +520,40 @@ ul.no-bullets {
     flex-direction: row;
     justify-content: center;
     margin-top: 30PX;
+}
+
+/* RateMovie.js */
+#RateMovieRatingStar {
+    color: black !important;
+}
+
+#RateMovieRatingStar:hover {
+    color: #F5C518 !important;
+}
+
+#SubmitRatingButton {
+    margin-top: 20px;
+    color: white !important;
+    background-color: #F5C518 !important;
+    font-weight: bolder;
+}
+
+.RateMovieCLoseBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 15px;
+    margin-right: 15px
+}
+
+.RateMovieStarRatingMainBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.RateMovieStarDetailBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

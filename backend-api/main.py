@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from movies import Movies
 
 import simple_cache
@@ -11,7 +11,7 @@ def all_movies():
     key = "_all-movies"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_movies())
+        result = Movies.all_movies()
         simple_cache.put(key, result)
         return result
     else:
@@ -33,93 +33,194 @@ def top_ten_movies():
 
 @app.route("/all_movie_genres")
 def all_movie_genres():
-    data = Movies.all_genres()
-    return jsonify(data)
+    key = "_all_movie_genres"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_genres()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movies_release_dates")
 def all_movies_release_dates():
-    data = Movies.all_release_dates()
-    return jsonify(data)
+    key = "_all_movies_release_dates"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_release_dates()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movies_production_countries")
 def all_movies_production_countries():
-    data = Movies.all_production_countries()
-    return jsonify(data)
+    key = "_all_movies_production_countries"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_production_countries()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movies_all_spoken_languages")
 def all_movies_all_spoken_languages():
-    data = Movies.all_spoken_languages()
-    return jsonify(data)
+    key = "_all_movies_all_spoken_languages"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_spoken_languages()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movies_all_production_companies")
 def all_movies_all_production_companies():
-    data = Movies.all_production_companies()
-    return jsonify(data)
+    key = "_all_movies_all_production_companies"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_production_companies()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movies_collections")
 def all_movies_collections():
-    data = Movies.all_collections()
-    return jsonify(data)
+    key = "_all_movies_collections"
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.all_collections()
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/get_selected_movie", methods=['GET'])
 def selected_movie_clicked():
     args = request.args
-    data = Movies.selected_movie(args.get('id'))
-    return jsonify(data)
+    key = "_get_selected_movie" + args.get('id')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.selected_movie(args.get('id'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/get_movies_based_on_genre", methods=['GET'])
 def all_movies_based_on_genre():
     args = request.args
-    data = Movies.movies_based_on_genre(args.get('genre'), args.get('pageNum'))
-    return jsonify(data)
+    key = "_get_movies_based_on_genre" + \
+        args.get('genre') + args.get('pageNum')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.movies_based_on_genre(
+            args.get('genre'), args.get('pageNum'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/get_movies_based_on_country", methods=['GET'])
 def all_movies_based_on_country():
     args = request.args
-    data = Movies.movies_based_on_country(
-        args.get('country'), args.get('pageNum'))
-    return jsonify(data)
+    key = "_get_movies_based_on_country" + \
+        args.get('country') + args.get('pageNum')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.movies_based_on_country(
+            args.get('country'), args.get('pageNum'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/get_movies_based_on_spoken_languages", methods=['GET'])
 def all_movies_based_on_spoken_languages():
     args = request.args
-    data = Movies.movies_based_on_spoken_languages(
-        args.get('language'), args.get('pageNum'))
-    return jsonify(data)
+    key = "_get_movies_based_on_spoken_languages" + \
+        args.get('language') + args.get('pageNum')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.movies_based_on_spoken_languages(
+            args.get('language'), args.get('pageNum'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/get_search_result", methods=['GET'])
 def get_all_search_results():
     args = request.args
-    data = Movies.search_result(args.get('search'), args.get('pageNum'))
-    return jsonify(data)
+    key = "_get_search_result" + args.get('search') + args.get('pageNum')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.search_result(args.get('search'), args.get('pageNum'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/if_movie_has_production_country", methods=['GET'])
 def if_movie_has_production_country():
     args = request.args
-    data = Movies.if_production_country(args.get('id'))
-    return jsonify(data)
+    key = "_if_movie_has_production_country" + args.get('id')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.if_production_country(args.get('id'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/if_movie_has_languages", methods=['GET'])
 def if_movie_has_languages():
     args = request.args
-    data = Movies.if_spoken_languages(args.get('id'))
-    return jsonify(data)
+    key = "_if_movie_has_languages" + args.get('id')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.if_spoken_languages(args.get('id'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/if_movie_has_production_company", methods=['GET'])
 def if_movie_has_company():
     args = request.args
-    data = Movies.if_production_company(args.get('id'))
-    return jsonify(data)
+    key = "_if_movie_has_production_company" + args.get('id')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.if_production_company(args.get('id'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
+
+
+@app.route("/get-new-movie-rating", methods=['GET'])
+def getting_new_movie_rating():
+    args = request.args
+    key = "_get-new-movie-rating" + args.get('rating')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.submit_new_movie_rating(args.get('rating'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result

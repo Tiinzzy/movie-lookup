@@ -6,7 +6,9 @@ ee(MyClass.prototype);
 export var emitter = new MyClass();
 
 export const LISTENERS = {
-    getHeader: () => document.getElementById('header-serach-box')
+    getHeader: () => document.getElementById('header-serach-box'),
+    getSelectedGenre: () => document.getElementById('side-movies-box'),
+    getToCloseMenu: () => document.getElementById('header-menu-box')
 }
 
 
