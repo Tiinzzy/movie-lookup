@@ -71,24 +71,27 @@ class RateMovie extends React.Component {
                     </IconButton>
 
                     <Dialog open={this.state.openDialog} onClose={() => this.closeDialog()}>
-                        <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', paddingTop: 5, paddingRight: 5 }}>
+                        <Box className="RateMovieCLoseBtn">
                             <IconButton onClick={() => this.closeDialog()}>
                                 <HighlightOffIcon />
                             </IconButton>
                         </Box>
                         <DialogTitle>
-                            <Typography style={{ textAlign: 'center', fontSize: 18 }}>Rate</Typography>
-                            <Typography style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>{this.state.title}</Typography>
+                            <Box style={{ width: 500 }}>
+                                <Typography style={{ textAlign: 'center', fontSize: 18, marginBottom: 6 }}>Rate</Typography>
+                                <Typography style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>{this.state.title}</Typography>
+                            </Box>
                         </DialogTitle>
-                        <Divider mt={1} mb={1} />
+                        <Divider mt={2} mb={2} />
                         <DialogContent>
-                            <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                                <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                            <Box className="RateMovieStarRatingMainBox">
+                                <Box className="RateMovieStarDetailBox">
                                     <Rating
                                         name="customized-10"
                                         value={this.state.value}
                                         max={10}
                                         onChange={(e, i) => this.selectRating(i)}
+                                        mb={2}
                                     />
                                     <Button variant="contained" id="SubmitRatingButton" onClick={() => this.submitRating(this.state.value)}>Rate</Button>
                                 </Box>
