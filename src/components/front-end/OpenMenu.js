@@ -56,6 +56,7 @@ class OpenMenu extends React.Component {
 
     countryClicked(e) {
         window.location = '/country-result?selected_country=' + e;
+        localStorage.setItem('country_id', e);
     }
 
     languageClicked(e) {
