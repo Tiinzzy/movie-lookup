@@ -19,7 +19,7 @@ export default function App() {
   let selected_country = queryParameters.get("selected_country");
   let selected_language = queryParameters.get("selected_language");
   let searched_item = queryParameters.get("searched_item");
-
+  
   return (
     <>
       <Header />

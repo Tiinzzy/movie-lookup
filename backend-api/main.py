@@ -1,22 +1,34 @@
 from flask import Flask, request, jsonify
-
-
 from movies import Movies
+
+import simple_cache
 
 app = Flask(__name__)
 
 
 @app.route("/all-movies")
 def all_movies():
-    result = Movies.all_movies()
-    return jsonify(result)
+    key = "_all-movies"
+    result = simple_cache.get(key)
+    if result is None:
+        result = jsonify(Movies.all_movies())
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/top-ten-movies", methods=['GET'])
 def top_ten_movies():
     args = request.args
-    print(args)
-    return Movies.top_ten_movies(args.get('genre'))
+    key = "_top-ten-movies." + args.get('genre')
+    result = simple_cache.get(key)
+    if result is None:
+        result = Movies.top_ten_movies(args.get('genre'))
+        simple_cache.put(key, result)
+        return result
+    else:
+        return result
 
 
 @app.route("/all_movie_genres")
@@ -105,9 +117,9 @@ def if_movie_has_languages():
     data = Movies.if_spoken_languages(args.get('id'))
     return jsonify(data)
 
+
 @app.route("/if_movie_has_production_company", methods=['GET'])
 def if_movie_has_company():
     args = request.args
     data = Movies.if_production_company(args.get('id'))
     return jsonify(data)
-
