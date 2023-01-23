@@ -198,7 +198,7 @@
 
 #voteSelectedMovie {
     font-size: 16px;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .SelectedMovieMiniDataBox {
@@ -527,7 +527,13 @@ ul.no-bullets {
     color: black !important;
 }
 
-/* RateMovie.js */
 #RateMovieRatingStar:hover {
     color: #F5C518 !important;
+}
+
+#SubmitRatingButton {
+    margin-top: 20px;
+    color: white !important;
+    background-color: #F5C518 !important;
+    font-weight: bolder;
 }
