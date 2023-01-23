@@ -7,9 +7,9 @@ import BackEndConnection from './BackEndConnection';
 import TopTenMoviesGenre from './TopTenMoviesGenre';
 
 import { cleanUp } from './functions';
+import { emitter, LISTENERS } from './messaging';
 
 import './style.css';
-import { emitter, LISTENERS } from './messaging';
 
 const backend = BackEndConnection.INSTANCE();
 
