@@ -98,7 +98,7 @@ class MovieClicked extends React.Component {
                             <Box className="SelectedMovieVoteBox">
                                 <span id="starSelectedMovie"><StarIcon fontSize="large" /></span>
                                 <span>{this.state.vote}/</span><span id="voteSelectedMovie">10</span>
-                                <RateMovie title={this.state.title}/>
+                                <RateMovie id={this.state.movie_id}/>
                             </Box>
                         </Box>
                         <Box className="SelectedMovieMiniDataBox">
