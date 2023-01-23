@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from movies import Movies
 
 import simple_cache
@@ -11,7 +11,7 @@ def all_movies():
     key = "_all-movies"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_movies())
+        result = Movies.all_movies()
         simple_cache.put(key, result)
         return result
     else:
@@ -36,7 +36,7 @@ def all_movie_genres():
     key = "_all_movie_genres"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_genres())
+        result = Movies.all_genres()
         simple_cache.put(key, result)
         return result
     else:
@@ -48,7 +48,7 @@ def all_movies_release_dates():
     key = "_all_movies_release_dates"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_release_dates())
+        result = Movies.all_release_dates()
         simple_cache.put(key, result)
         return result
     else:
@@ -60,7 +60,7 @@ def all_movies_production_countries():
     key = "_all_movies_production_countries"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_production_countries())
+        result = Movies.all_production_countries()
         simple_cache.put(key, result)
         return result
     else:
@@ -72,7 +72,7 @@ def all_movies_all_spoken_languages():
     key = "_all_movies_all_spoken_languages"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_spoken_languages())
+        result = Movies.all_spoken_languages()
         simple_cache.put(key, result)
         return result
     else:
@@ -84,7 +84,7 @@ def all_movies_all_production_companies():
     key = "_all_movies_all_production_companies"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_production_companies())
+        result = Movies.all_production_companies()
         simple_cache.put(key, result)
         return result
     else:
@@ -96,7 +96,7 @@ def all_movies_collections():
     key = "_all_movies_collections"
     result = simple_cache.get(key)
     if result is None:
-        result = jsonify(Movies.all_collections())
+        result = Movies.all_collections()
         simple_cache.put(key, result)
         return result
     else:
