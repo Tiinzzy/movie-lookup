@@ -19,9 +19,8 @@ class SideBarMovies extends React.Component {
         this.state = {
 
         };
+        
         this.movieSelected = this.movieSelected.bind(this);
-        // this.callSideBarMovies = this.callSideBarMovies.bind(this);
-        // shared.callSideBarMovies = this.callSideBarMovies;
     }
 
     componentDidMount() {
