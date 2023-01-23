@@ -83,14 +83,15 @@ class RateMovie extends React.Component {
                         <Divider mt={1} mb={1} />
                         <DialogContent>
                             <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                                <Rating
-                                    name="customized-10"
-                                    value={this.state.value}
-                                    max={10}
-                                    onChange={(e, i) => this.selectRating(i)}
-                                />
-                                <br />
-                                    {/* <Button variant="contained" id="SubmitRatingButton" onClick={() => this.submitRating(this.state.value)}>Rate</Button> */}
+                                <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                    <Rating
+                                        name="customized-10"
+                                        value={this.state.value}
+                                        max={10}
+                                        onChange={(e, i) => this.selectRating(i)}
+                                    />
+                                    <Button variant="contained" id="SubmitRatingButton" onClick={() => this.submitRating(this.state.value)}>Rate</Button>
+                                </Box>
                             </Box>
                         </DialogContent>
                     </Dialog>
