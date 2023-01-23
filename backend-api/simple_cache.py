@@ -3,9 +3,7 @@ import time
 CREATE_TIME = 'CREATE-_-TIME'
 RESTART_AFTER = 5  # minutes
 
-
 cache = {CREATE_TIME: time.time()}
-
 
 def get(key):
     # check for how many seconds has passed since start or last clear
