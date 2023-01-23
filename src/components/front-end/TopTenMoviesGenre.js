@@ -1,10 +1,12 @@
 import * as React from 'react';
+
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import BackEndConnection from './BackEndConnection';
-import { shared } from './functions';
+
+import { LISTENERS } from './messaging';
 
 const backend = BackEndConnection.INSTANCE();
 
@@ -30,7 +32,11 @@ class TopTenMoviesGenre extends React.Component {
 
     handleChange(e) {
         this.setState({ selectedGenre: e.target.value });
-        shared.callSideBarMovies({ action: 'genre-has-been-selected', data: e.target.value });
+
+        const event = new CustomEvent('new-genre-has-been-selected', {
+            detail: { data: e.target.value, time: new Date() }
+        });
+        LISTENERS.getSelectedGenre().dispatchEvent(event);
     }
 
     render() {
