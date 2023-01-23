@@ -51,7 +51,6 @@ class SideBarMovies extends React.Component {
     }
 
     sendToSearch(title) {
-
         emitter.emit('search-this-text', { title, date: new Date() });
     }
 
