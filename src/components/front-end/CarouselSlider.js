@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
+
+import { LISTENERS } from "./messaging";
 import { niceTitle } from './functions';
 
 import './style.css';
@@ -25,8 +27,15 @@ export default class CarouselSlider extends Component {
     }
 
     componentDidMount() {
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                this.setState({ vote: e.detail.vote });
+            }
+            , false);
+
         let that = this;
-        backend.get_movies(function(data) {
+        backend.get_movies(function (data) {
             that.setState({ randomMovies: data });
         });
     }
@@ -76,11 +85,11 @@ export default class CarouselSlider extends Component {
                 <Slider {...settings}>
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
                         <div key={i} onClick={() => this.movieSelected(e.movie_id)}>
-                            <Box className="EachMovieBox" style={{ cursor: 'pointer' }}>
+                            <Box className="EachMovieBox" style={{ cursor: 'pointer' }} id="update-movie-vote-average-box">
                                 <Box className="MovieTitleVoteBox">
                                     <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
                                     <span className="StarSpan"><StarIcon /></span>
-                                    <span style={{ fontSize: 14 }}>{e.vote}</span>
+                                    <span style={{ fontSize: 14 }}>{(e.vote * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)}</span>
                                 </Box>
                                 <Box className="GenreImdbBox">
                                     <a href={'https://www.imdb.com/title/' + e.imdb} target="_blank" id='genreClick' rel="noreferrer">
