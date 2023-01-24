@@ -1,4 +1,4 @@
-const TITLE_LENGTH = 12;
+const TITLE_LENGTH = 10;
 
 export const shared = {
     initial_render_count: 0   
