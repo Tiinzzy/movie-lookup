@@ -223,7 +223,7 @@ class Movies:
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mag.genre_count as genre from tests.imbd_movies m
+        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mag.genre_count as genre, m.vote_count as count from tests.imbd_movies m
                         join tests.movies_all_genres mag on mag.id = m.id
                         where _GENRE_CONDITION_ and m.title <> '0'
                         order by m.id
@@ -242,7 +242,8 @@ class Movies:
                  'status': row[6],
                  'runtime': row[7],
                  'vote_average': row[8],
-                 'genres': row[9]})
+                 'genres': row[9],
+                 'count': row[10]})
 
         db.close_database()
         result['rows'] = row_result
@@ -263,7 +264,7 @@ class Movies:
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mac.countries as country from tests.imbd_movies m
+        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote, mac.countries as country, vote_count as count from tests.imbd_movies m
                         join tests.movies_all_countries mac on mac.id = m.id
                         where _COUNTRY_CONDITION_ and m.title <> '0'
                         order by m.id
@@ -283,7 +284,8 @@ class Movies:
                  'status': row[6],
                  'runtime': row[7],
                  'vote_average': row[8],
-                 'country': row[9]})
+                 'country': row[9],
+                 'count': row[10]})
 
         db.close_database()
         result['rows'] = row_result
@@ -304,7 +306,7 @@ class Movies:
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute(""" select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, masl.languages languages from tests.imbd_movies m
+        cur.execute(""" select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, masl.languages languages, m.vote_count as count from tests.imbd_movies m
                         join tests.movies_all_spoken_languages masl on masl.id = m.id
                         _SPOKEN_LANGUAGE_CONDITION_ and m.title <> '0'
                         order by m.id
@@ -324,7 +326,8 @@ class Movies:
                  'status': row[6],
                  'runtime': row[7],
                  'vote_average': row[8],
-                 'languages': row[9]})
+                 'languages': row[9],
+                 'count': row[10]})
         db.close_database()
         result['rows'] = row_result
         return result
@@ -458,7 +461,7 @@ class Movies:
                 """.replace("_RATING_", rating_condition).replace("_ID_", id_condition))
 
         con.commit()
-        
+
         cur.execute("""select m.id, m.vote_count, m.vote_average, m.title from tests.imbd_movies m
                         where m.id = _ID_
                 """.replace("_ID_", id_condition))
