@@ -8,6 +8,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import BackEndConnection from './BackEndConnection';
 import Advertisement from './Advertisement';
+
+import { LISTENERS } from "./messaging";
 import { getPageCount } from './functions';
 
 import './style.css';
@@ -30,6 +32,12 @@ class CountryResult extends React.Component {
         let country = localStorage.getItem('country_id');
         console.log(new Date(), country);
         localStorage.removeItem('country_id');
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                this.setState({ vote: e.detail.vote });
+            }
+            , false);
     }
 
     getDataForDisplay(e) {
@@ -48,7 +56,7 @@ class CountryResult extends React.Component {
 
     render() {
         return (
-            <Box >
+            <Box id="update-movie-vote-average-box">
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>
@@ -63,7 +71,8 @@ class CountryResult extends React.Component {
                                         {e.title}
                                     </Typography>
                                 </a>
-                                <span className="countStar"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
+                                <span className="countStar"><StarIcon /></span>
+                                <span className="VoteCountStyle">({(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)})</span>
                             </Box>
                             <Box className="CountryResCountBox">
                                 <Typography variant="body1" mb={2}>
