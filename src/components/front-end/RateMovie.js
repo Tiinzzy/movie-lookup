@@ -14,6 +14,8 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import BackEndConnection from './BackEndConnection';
 
+import { LISTENERS } from "./messaging";
+
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
@@ -56,8 +58,13 @@ class RateMovie extends React.Component {
     submitRating(e) {
         this.setState({ submittedValue: e, openDialog: false }, function () {
             let that = this;
-            backend.submit_rating(this.state.submittedValue, function (data) {
+            backend.submit_rating(this.state.submittedValue, this.state.id, function (data) {
+                console.log(data);
                 that.setState({ value: 0 });
+                const event = new CustomEvent('movie-voting-has-been-updated', {
+                    detail: { vote: data[0].vote_average, id: data[0].id }
+                });
+                LISTENERS.getUpdateVotes().dispatchEvent(event);
             });
         });
     }

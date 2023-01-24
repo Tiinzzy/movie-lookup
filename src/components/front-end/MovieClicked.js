@@ -9,6 +9,8 @@ import BackEndConnection from './BackEndConnection';
 import Advertisement from './Advertisement';
 import RateMovie from "./RateMovie";
 
+import { LISTENERS } from "./messaging";
+
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
@@ -29,6 +31,14 @@ class MovieClicked extends React.Component {
     }
 
     componentDidMount() {
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                if (e.detail.id * 1 === this.state.movie_id * 1) {
+                    this.setState({ vote: e.detail.vote });
+                }
+            }
+            , false);
 
         this.setState({ showProgress: true }, async function () {
             backend.get_selected_movie(this.state.movie_id, (data) => {
@@ -83,7 +93,7 @@ class MovieClicked extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box id="update-movie-vote-average-box">
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>
@@ -155,7 +165,7 @@ class MovieClicked extends React.Component {
                             <Box className="SelectedMovieDataBox">
                                 <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
                                 {this.state.countries.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
-                                    <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
+                                    <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10, marginLeft: 2 }}>
                                         <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
                                     </Typography>)}
                             </Box>}

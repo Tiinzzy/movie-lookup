@@ -276,10 +276,11 @@
 
 .countStar {
     color: #F5C518;
+    margin-right: 4px;
 }
 
 .VoteCountStyle {
-    margin-left: 1px;
+    margin-left: 5px;
     color: rgb(150, 150, 150);
 }
 

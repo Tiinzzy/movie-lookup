@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
 import Advertisement from './Advertisement';
+
 import { getPageCount } from './functions';
 
 import './style.css';
@@ -57,7 +58,9 @@ class SearchBarResult extends React.Component {
                                 <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
-                                <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
+                                <span className="VoteStyle"><StarIcon /></span>
+                                {(e.vote_average * 1).toFixed(2)}
+                                <span className="VoteCountStyle">({e.vote_count})</span>
                             </Box>
                             <Box className="SearchBarOverviewBox">
                                 <Typography variant="body1" mb={2}>
