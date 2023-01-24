@@ -6,6 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 
 import BackEndConnection from './BackEndConnection';
 
+import { LISTENERS } from "./messaging";
 import { shared } from "./functions";
 
 import './style.css';
@@ -22,6 +23,13 @@ class SuggestedMovies extends React.Component {
     }
 
     componentDidMount() {
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                this.setState({ vote: e.detail.vote });
+            }
+            , false);
+
         if (shared.initial_render_count === 0) {
             shared.initial_render_count += 1;
             let that = this;
@@ -37,13 +45,14 @@ class SuggestedMovies extends React.Component {
 
     render() {
         return (
-            <Box className="SuggestedMoviesMainBox" style={{ width: window.innerWidth - 300 }}>
+            <Box className="SuggestedMoviesMainBox" style={{ width: window.innerWidth - 300 }} id="update-movie-vote-average-box">
                 {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
                     <Box key={i} mb={2}>
                         <Box className="MovieTitleBox">
                             <Typography onClick={() => this.movieSelected(e.movie_id)} variant="h6" fontWeight="bold"
                                 style={{ display: 'inline-block', cursor: 'pointer' }} key={i}>{e.title}</Typography>
-                            <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_count})</span>
+                            <span className="VoteStyle"><StarIcon /></span>{(e.vote).toFixed(2) || (this.state.vote * 1).toFixed(2)}
+                            <span className="VoteCountStyle">({e.vote_count})</span>
                         </Box>
                         <Box className="MovieOverviewBox">
                             <Typography variant="body1">
