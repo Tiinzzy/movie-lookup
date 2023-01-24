@@ -442,7 +442,8 @@ class Movies:
                  'release_date': row[8],
                  'status': row[9],
                  'runtime': row[12],
-                 'vote_average': row[15]})
+                 'vote_average': row[15],
+                 'vote_count': row[16]})
         db.close_database()
         result['rows'] = row_result
         return result
