@@ -5,6 +5,7 @@ RESTART_AFTER = 5  # minutes
 
 cache = {CREATE_TIME: time.time()}
 
+
 def get(key):
     # check for how many seconds has passed since start or last clear
     # and if it is more than RESTART_AFTER, clear the cache
@@ -37,3 +38,7 @@ def check_for_clear():
         cache.clear()
         cache[CREATE_TIME] = time.time()
         print(get_time(), " => clearing the cache!")
+
+
+def invalidate(key):
+    del cache[key]
