@@ -445,22 +445,33 @@ class Movies:
         return result
 
     @classmethod
-    def submit_new_movie_rating(self, rating):
-        # STEP 1 RUN THIS QUERY
-        # update tests.imbd_movies m set
-        # m.vote_average = (m.vote_count*m.vote_average+{rating}) / (m.vote_count+1),
-        # m.vote_count = (m.vote_count+1)
-        # where m.id = 2016;
+    def submit_new_movie_rating(self, rating, id):
+        rating_condition = rating
+        id_condition = id
 
-        # STEP 2 RUN THIS QUERY
-        # select m.id, m.vote_count, m.vote_average from tests.imbd_movies m  where m.id = 2016;
-        # and return new vote_count and vote_average in the result
-        # and then in UI update the screen (STARS ...)
+        db = Database()
+        con, cur = db.open_database()
 
-        result = {'rating': rating}
+        cur.execute("""update tests.imbd_movies m 
+                        set m.vote_average = (m.vote_count*m.vote_average + _RATING_) / (m.vote_count + 1), m.vote_count = (m.vote_count + 1)
+                        where m.id = _ID_
+                """.replace("_RATING_", rating_condition).replace("_ID_", id_condition))
+
+        con.commit()
+        
+        cur.execute("""select m.id, m.vote_count, m.vote_average, m.title from tests.imbd_movies m
+                        where m.id = _ID_
+                """.replace("_ID_", id_condition))
+
+        rows = cur.fetchall()
+        result = []
+        for row in rows:
+            result.append(
+                {'id': row[0], 'vote_count': row[1], 'vote_average': row[2], 'title': row[3]})
+        db.close_database()
         return result
 
 
 if __name__ == "__main__":
-    movies = Movies.movies_based_on_spoken_languages('francais', '0')
+    movies = Movies.submit_new_movie_rating('francais', '0')
     print(movies)
