@@ -216,8 +216,8 @@ class BackEndConnectionImpl {
             })
     }
 
-    async submit_rating(rating, callback) {
-        return axios('/get-new-movie-rating?rating=' + rating, {})
+    async submit_rating(rating, id, callback) {
+        return axios('/get-new-movie-rating?rating=' + rating + '&id=' + id, {})
             .then(function (response) {
                 if (callback) {
                     callback(response.data);
