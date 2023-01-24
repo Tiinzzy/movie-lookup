@@ -66,7 +66,8 @@ class GenreResult extends React.Component {
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
                                 <span className="VoteStyle"><StarIcon /></span>
-                                <span className="VoteCountStyle">({(e.vote_average *1).toFixed(2) || (this.state.vote * 1).toFixed(2)})</span>
+                                {(e.vote_average *1).toFixed(2) || (this.state.vote * 1).toFixed(2)}
+                                <span className="VoteCountStyle">({e.count})</span>
                             </Box>
                             <Box className="GenreResOverviewBox">
                                 <Typography variant="body1" mb={2}>
