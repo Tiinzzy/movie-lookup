@@ -216,10 +216,10 @@ def if_movie_has_company():
 @app.route("/get-new-movie-rating", methods=['GET'])
 def getting_new_movie_rating():
     args = request.args
-    key = "_get-new-movie-rating" + args.get('rating')
+    key = "_get-new-movie-rating" + args.get('rating') + args.get('id')
     result = simple_cache.get(key)
     if result is None:
-        result = Movies.submit_new_movie_rating(args.get('rating'))
+        result = Movies.submit_new_movie_rating(args.get('rating'), args.get('id'))
         simple_cache.put(key, result)
         return result
     else:
