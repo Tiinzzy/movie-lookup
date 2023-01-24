@@ -59,6 +59,7 @@ class RateMovie extends React.Component {
         this.setState({ submittedValue: e, openDialog: false }, function () {
             let that = this;
             backend.submit_rating(this.state.submittedValue, this.state.id, function (data) {
+                console.log(data);
                 that.setState({ value: 0 });
                 const event = new CustomEvent('movie-voting-has-been-updated', {
                     detail: { vote: data[0].vote_average, id: data[0].id }
