@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 
 import BackEndConnection from './BackEndConnection';
 import Advertisement from './Advertisement';
+
+import { LISTENERS } from "./messaging";
 import { getPageCount } from './functions';
 
 import './style.css';
@@ -27,6 +29,12 @@ class LanguageResult extends React.Component {
 
     componentDidMount() {
         this.getDataForDisplay(1);
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                this.setState({ vote: e.detail.vote });
+            }
+            , false);
     }
 
     getDataForDisplay(e) {
@@ -34,6 +42,7 @@ class LanguageResult extends React.Component {
             let pageNumber = (e - 1) * 10;
             let that = this;
             backend.get_movies_based_on_spoken_languages(this.state.selected_language, pageNumber, (data) => {
+                console.log(data)
                 that.setState({
                     showProgress: false,
                     randomMovies: data.rows,
@@ -45,7 +54,7 @@ class LanguageResult extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box id="update-movie-vote-average-box">
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>
@@ -57,7 +66,8 @@ class LanguageResult extends React.Component {
                                 <a className='MovieTitleLink' href={"/movie-clicked?movie_id=" + e.id}>
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
-                                <span className="VoteStyle"><StarIcon /></span>{e.vote}<span className="VoteCountStyle">({e.vote_average})</span>
+                                <span className="VoteStyle"><StarIcon /></span>
+                                <span className="VoteCountStyle">({(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)})</span>
                             </Box>
                             <Box className="LangResOverviewBox">
                                 <Typography variant="body1" mb={2}>
