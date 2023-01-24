@@ -24,6 +24,7 @@ export default class CarouselSlider extends Component {
 
         };
         this.movieSelected = this.movieSelected.bind(this);
+        this.genreClicked = this.genreClicked.bind(this);
     }
 
     componentDidMount() {
@@ -42,6 +43,10 @@ export default class CarouselSlider extends Component {
 
     movieSelected(e) {
         window.location = '/movie-clicked?movie_id=' + e
+    }
+
+    genreClicked(e) {
+        window.location = '/genre-result?selected_genre=' + e;
     }
 
     render() {
@@ -84,10 +89,15 @@ export default class CarouselSlider extends Component {
             <div>
                 <Slider {...settings}>
                     {this.state.randomMovies && this.state.randomMovies.map((e, i) =>
-                        <div key={i} onClick={() => this.movieSelected(e.movie_id)}>
-                            <Box className="EachMovieBox" style={{ cursor: 'pointer' }} id="update-movie-vote-average-box">
+                        <div key={i}>
+                            <Box className="EachMovieBox" id="update-movie-vote-average-box">
                                 <Box className="MovieTitleVoteBox">
-                                    <Typography title={e.title} variant="h6" fontWeight="bold" style={{ fontSize: 14 }} key={i}>{niceTitle(e.title)}</Typography>
+                                    <Typography title={e.title} variant="h6" fontWeight="bold"
+                                        style={{ fontSize: 14, cursor: 'pointer' }}
+                                        key={i}
+                                        onClick={() => this.movieSelected(e.movie_id)}>
+                                        {niceTitle(e.title)}
+                                    </Typography>
                                     <span className="StarSpan"><StarIcon /></span>
                                     <span style={{ fontSize: 14 }}>{(e.vote * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)}</span>
                                 </Box>
@@ -98,7 +108,9 @@ export default class CarouselSlider extends Component {
                                     <span className="GenresSlider">Genres:</span>
                                     <Box className="EachGenreBox">
                                         {e.genres.split(',').map((g, i) => (
-                                            <a key={i} title={g} target="_blank" href="/#" id='genreClick' className="GenreLink">{g}</a>
+                                            <a key={i} title={g} target="_blank" href="/#" id='genreClick' className="GenreLink"
+                                                onClick={() => this.genreClicked(g)}>{g}
+                                            </a>
                                         ))}
                                     </Box>
                                 </Box>
