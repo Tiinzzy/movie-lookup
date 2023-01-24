@@ -34,7 +34,7 @@ class MovieClicked extends React.Component {
 
         LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
             (e) => {
-                if (e.detail.id === this.state.movie_id) {
+                if (e.detail.id * 1 === this.state.movie_id * 1) {
                     this.setState({ vote: e.detail.vote });
                 }
             }
