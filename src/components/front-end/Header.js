@@ -92,11 +92,12 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }} id="header-serach-box">
       <AppBar position="sticky" style={{ backgroundColor: '#333433' }}>
         <Toolbar position="static">
+          <img src="images/camera.png" height="40" style={{ marginLeft: 16, cursor: 'pointer' }} onClick={clickedHome} />
           <Typography
             variant="h6"
             noWrap
             component="div"
-            style={{ color: '#F5C518', fontWeight: '900', marginLeft: 15, cursor: 'pointer' }} onClick={clickedHome}>
+            style={{ color: '#F5C518', fontWeight: '900', marginLeft: 4, cursor: 'pointer' }} onClick={clickedHome}>
             Box Office
           </Typography>
           <HeaderMenu />
