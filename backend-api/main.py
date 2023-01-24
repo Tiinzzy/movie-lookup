@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from movies import Movies
 
 import simple_cache
@@ -103,10 +103,15 @@ def all_movies_collections():
         return result
 
 
+def invalidate_movie(id):
+    key = "_get_selected_movie." + id
+    simple_cache.invalidate(key)
+
+
 @app.route("/get_selected_movie", methods=['GET'])
 def selected_movie_clicked():
     args = request.args
-    key = "_get_selected_movie" + args.get('id')
+    key = "_get_selected_movie." + args.get('id')
     result = simple_cache.get(key)
     if result is None:
         result = Movies.selected_movie(args.get('id'))
@@ -216,11 +221,6 @@ def if_movie_has_company():
 @app.route("/get-new-movie-rating", methods=['GET'])
 def getting_new_movie_rating():
     args = request.args
-    key = "_get-new-movie-rating" + args.get('rating') + args.get('id')
-    result = simple_cache.get(key)
-    if result is None:
-        result = Movies.submit_new_movie_rating(args.get('rating'), args.get('id'))
-        simple_cache.put(key, result)
-        return result
-    else:
-        return result
+    result = Movies.submit_new_movie_rating(args.get('rating'), args.get('id'))
+    invalidate_movie(args.get('id'))
+    return jsonify(result)
