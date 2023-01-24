@@ -42,7 +42,6 @@ class LanguageResult extends React.Component {
             let pageNumber = (e - 1) * 10;
             let that = this;
             backend.get_movies_based_on_spoken_languages(this.state.selected_language, pageNumber, (data) => {
-                console.log(data)
                 that.setState({
                     showProgress: false,
                     randomMovies: data.rows,
@@ -67,7 +66,8 @@ class LanguageResult extends React.Component {
                                     <Typography variant="h6" fontWeight="bold" style={{ display: 'inline-block' }}>{e.title}</Typography>
                                 </a>
                                 <span className="VoteStyle"><StarIcon /></span>
-                                <span className="VoteCountStyle">({(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)})</span>
+                                {(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)}
+                                <span className="VoteCountStyle">({e.count})</span>
                             </Box>
                             <Box className="LangResOverviewBox">
                                 <Typography variant="body1" mb={2}>
