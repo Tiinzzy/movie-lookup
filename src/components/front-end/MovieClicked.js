@@ -9,6 +9,8 @@ import BackEndConnection from './BackEndConnection';
 import Advertisement from './Advertisement';
 import RateMovie from "./RateMovie";
 
+import { LISTENERS } from "./messaging";
+
 import './style.css';
 
 const backend = BackEndConnection.INSTANCE();
@@ -29,6 +31,12 @@ class MovieClicked extends React.Component {
     }
 
     componentDidMount() {
+
+        LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
+            (e) => {
+                this.setState({ vote: e.detail.data });
+            }
+            , false);
 
         this.setState({ showProgress: true }, async function () {
             backend.get_selected_movie(this.state.movie_id, (data) => {
@@ -83,7 +91,7 @@ class MovieClicked extends React.Component {
 
     render() {
         return (
-            <Box>
+            <Box id="movie-clicked-box">
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>
