@@ -34,7 +34,9 @@ class MovieClicked extends React.Component {
 
         LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
             (e) => {
-                this.setState({ vote: e.detail.data });
+                if (e.detail.id === this.state.movie_id) {
+                    this.setState({ vote: e.detail.vote });
+                }
             }
             , false);
 
@@ -91,7 +93,7 @@ class MovieClicked extends React.Component {
 
     render() {
         return (
-            <Box id="movie-clicked-box">
+            <Box id="update-movie-vote-average-box">
                 {this.state.showProgress ?
                     <Box className="LoadingBarBox"><LinearProgress color="inherit" /></Box> :
                     <Box className="LoadingBarBoxSize"></Box>
