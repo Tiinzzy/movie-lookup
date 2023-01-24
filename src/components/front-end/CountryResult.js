@@ -72,7 +72,8 @@ class CountryResult extends React.Component {
                                     </Typography>
                                 </a>
                                 <span className="countStar"><StarIcon /></span>
-                                <span className="VoteCountStyle">({(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)})</span>
+                                {(e.vote_average * 1).toFixed(2) || (this.state.vote * 1).toFixed(2)}
+                                <span className="VoteCountStyle">({e.count})</span>
                             </Box>
                             <Box className="CountryResCountBox">
                                 <Typography variant="body1" mb={2}>
