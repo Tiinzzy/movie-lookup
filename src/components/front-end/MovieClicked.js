@@ -165,7 +165,7 @@ class MovieClicked extends React.Component {
                             <Box className="SelectedMovieDataBox">
                                 <Typography style={{ fontWeight: 'bold', marginRight: 6, marginTop: 10 }}>Production Countries:</Typography>
                                 {this.state.countries.map(e => e.charAt(0).toUpperCase() + e.slice(1)).map((e, i) =>
-                                    <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10 }}>
+                                    <Typography fontSize={15} key={i} style={{ marginRight: 4, marginTop: 10, marginLeft: 2 }}>
                                         <a href={'/country-result?selected_country=' + e} className="linkedClass"> {e}</a>
                                     </Typography>)}
                             </Box>}
