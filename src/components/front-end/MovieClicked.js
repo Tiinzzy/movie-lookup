@@ -25,7 +25,8 @@ class MovieClicked extends React.Component {
             languages: null,
             genre: null,
             language: null,
-            countries: null
+            countries: null,
+            vote: 0
         };
 
     }
@@ -35,7 +36,7 @@ class MovieClicked extends React.Component {
         LISTENERS.getUpdateVotes().addEventListener('movie-voting-has-been-updated',
             (e) => {
                 if (e.detail.id * 1 === this.state.movie_id * 1) {
-                    this.setState({ vote: e.detail.vote });
+                    this.setState({ vote: e.detail.vote * 1 });
                 }
             }
             , false);
@@ -51,7 +52,7 @@ class MovieClicked extends React.Component {
                     that.setState({ language: null })
                 }
                 that.setState({
-                    vote: data[0].vote_average,
+                    vote: data[0].vote_average * 1,
                     title: data[0].title, status: data[0].status,
                     time: data[0].runtime, date: data[0].release_date,
                     overview: data[0].overview, lang: data[0].original_language.toUpperCase(),
@@ -105,11 +106,11 @@ class MovieClicked extends React.Component {
                             <Typography variant="h3" fontWeight="bold" fontSize="35px" >
                                 {this.state.title}
                             </Typography>
-                            <Box className="SelectedMovieVoteBox">
+                            {this.state.vote >= 0 && <Box className="SelectedMovieVoteBox">
                                 <span id="starSelectedMovie"><StarIcon fontSize="large" /></span>
                                 <span>{(this.state.vote * 1).toFixed(2)}/</span><span id="voteSelectedMovie">10</span>
                                 <RateMovie id={this.state.movie_id} />
-                            </Box>
+                            </Box>}
                         </Box>
                         <Box className="SelectedMovieMiniDataBox">
                             <Typography variant="body2" mt={1} mr={1}>
