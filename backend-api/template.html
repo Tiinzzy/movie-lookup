@@ -6,28 +6,21 @@
         {title}
     </title>
     <style>
-        body {
+        body {{
             display: flex;
             flex-direction: column;
             align-items: left;
             margin-top: 20px;
             margin-left: 20px;
             margin-right: 20px;
-        }
+        }}
 
-        .RowDetail {
+        .RowDetail {{
             display: flex;
             flex-direction: row;
             align-items: center;
             align-content: center;
-        }
-
-        .GenreStyle {
-            border: solid 1px black;
-            border-radius: 18px;
-            margin-right: 16px;
-            padding: 10px;
-        }
+        }}
     </style>
 </head>
 
@@ -38,7 +31,7 @@
                 {title}
             </h1>
             <span style='font-size:35px; margin-left: 16px;'>&#9734;</span>
-            <span style="font-size: 25px; margin-left: 6px;">4.5/</span>
+            <span style="font-size: 25px; margin-left: 6px;">{vote_average}/</span>
             <span style="font-size: 18px;">10</span>
         </div>
         <div class="RowDetail">
@@ -53,9 +46,8 @@
         </div>
         <hr />
         <div class="RowDetail" style="margin-top: 25px;">
-            <span class="GenreStyle">Adventure</span>
-            <span class="GenreStyle">Science Fiction</span>
-            <span class="GenreStyle">Family</span>
+            <h3>Genres:</h3>
+            <span style="margin-left: 8px;">{genres}</span>
         </div>
         <p style="font-size: 18px;">
             {overview}
@@ -63,13 +55,13 @@
 
         <span class="RowDetail">
             <h3>Production Countries:</h3>
-            <span style="margin-left: 8px;">Russia</span>
+            <span style="margin-left: 8px;">{countries}</span>
 
         </span>
 
         <span class="RowDetail">
             <h3>Available in:</h3>
-            <span style="margin-left: 8px;">Pусский</span>
+            <span style="margin-left: 8px;">{spoken_languages}</span>
         </span>
     </Div>
 
