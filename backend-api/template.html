@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {title}
+    </title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .RowDetail {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
+        }
+
+        .GenreStyle {
+            border: solid 1px black;
+            border-radius: 18px;
+            margin-right: 16px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="RowDetail">
+            <h1>
+                {title}
+            </h1>
+            <span style='font-size:35px; margin-left: 16px;'>&#9734;</span>
+            <span style="font-size: 25px; margin-left: 6px;">4.5/</span>
+            <span style="font-size: 18px;">10</span>
+        </div>
+        <div class="RowDetail">
+            <p style="font-size: 18px;">{release_date}</p>
+            <span style="font-weight: bold; margin-left: 10px; margin-right: 10px;">|</span>
+            <p style="font-size: 18px;">{runtime} min</p>
+            <span style="font-weight: bold; margin-left: 10px; margin-right: 10px;">|</span>
+            <p style="font-size: 18px;">{language}</p>
+            <p style="font-size: 18px; margin-left: 6px;">({original_language})</p>
+            <span style="font-weight: bold; margin-left: 10px; margin-right: 10px;">|</span>
+            <p style="font-size: 18px;">{status}</p>
+        </div>
+        <hr />
+        <div class="RowDetail" style="margin-top: 25px;">
+            <span class="GenreStyle">Adventure</span>
+            <span class="GenreStyle">Science Fiction</span>
+            <span class="GenreStyle">Family</span>
+        </div>
+        <p style="font-size: 18px;">
+            {overview}
+        </p>
+
+        <span class="RowDetail">
+            <h3>Production Countries:</h3>
+            <span style="margin-left: 8px;">Russia</span>
+
+        </span>
+
+        <span class="RowDetail">
+            <h3>Available in:</h3>
+            <span style="margin-left: 8px;">Pусский</span>
+        </span>
+    </Div>
+
+</body>
+
+</html>
