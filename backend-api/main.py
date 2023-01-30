@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_file
 from movies import Movies
-from create_pdf import create_pdf_for_download
+import create_pdf
 
 import simple_cache
 
@@ -230,14 +230,8 @@ def getting_new_movie_rating():
 @app.route("/get-movies-pdf", methods=['GET'])
 def get_movies_pdf():
     args = request.args
-    create_pdf_for_download(args.get('id'))
+    path_to_file = create_pdf.create_pdf_for_download(args.get('id'))
+    print(path_to_file)
 
-    movie_data = Movies.selected_movie(args.get('id'))
-    movie_data = movie_data[0]
-    title = movie_data['title']
+    return send_file(path_to_file, as_attachment=True)
 
-    pdf_path = "/home/tina/Documents/projects/movie-lookup/backend-api/pdf-files/" + \
-        title + '-download.pdf'
-    return send_file(pdf_path, as_attachment=True)
-
-    # return pdf
