@@ -23,6 +23,9 @@ def create_pdf_for_download(id):
 
     countries = production_country_data['countries']
 
+    if countries == None:
+        countries = 'No data available'
+
     # /////////////////////////////////////////////////////////////////////////////////////////////////
 
     spoken_language_data = Movies.if_spoken_languages(id)
@@ -30,12 +33,18 @@ def create_pdf_for_download(id):
 
     spoken_languages = spoken_language_data['languages']
 
+    if spoken_languages == None:
+        spoken_languages = 'No data available'
+
     # /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    # production_company_data = Movies.if_production_company('38329')
-    # production_company_data = production_company_data[0]
+    production_company_data = Movies.if_production_company('38329')
+    production_company_data = production_company_data[0]
 
-    # company = production_company_data['company']
+    company = production_company_data['company']
+
+    if company == None:
+        company = 'No data available'
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -45,7 +54,7 @@ def create_pdf_for_download(id):
     html_file = html_file.format(language=language, release_date=release_date,
                                  title=title, overview=overview, original_language=original_language,
                                  status=status, runtime=runtime, vote_average=vote_average, spoken_languages=spoken_languages, countries=countries,
-                                 genres=genres)
+                                 genres=genres, company=company)
 
     return pdfkit.from_string(html_file, "/home/tina/Documents/projects/movie-lookup/backend-api/pdf-files/"+title + '-download.pdf')
 
