@@ -16,11 +16,12 @@ class GetPdf extends React.Component {
         this.downloadMoviePdf = this.downloadMoviePdf.bind(this);
     }
 
-    async downloadMoviePdf() {
-        let url = 'http://localhost:5000/get-movies-pdf?id=' + this.state.id;
+    downloadMoviePdf() {
+        let url = 'http://localhost:3333/download?id=' + this.state.id;
         var link = document.createElement('a');
         link.href = url;
         link.download = 'file.pdf';
+        console.log(link);
         link.dispatchEvent(new MouseEvent('click'));
     }
 
