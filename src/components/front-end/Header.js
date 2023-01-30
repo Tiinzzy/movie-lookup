@@ -92,7 +92,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }} id="header-serach-box">
       <AppBar position="sticky" style={{ backgroundColor: '#333433' }}>
         <Toolbar position="static">
-          <img src="images/camera.png" height="40" style={{ marginLeft: 16, cursor: 'pointer' }} onClick={clickedHome} />
+          <img alt="camera-img" src="images/camera.png" height="40" style={{ marginLeft: 16, cursor: 'pointer' }} onClick={clickedHome} />
           <Typography
             variant="h6"
             noWrap

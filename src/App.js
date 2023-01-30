@@ -14,12 +14,13 @@ import PageNotFound from "./components/front-end/PageNotFound";
 const queryParameters = new URLSearchParams(window.location.search)
 
 export default function App() {
+
   let movie_id = queryParameters.get("movie_id");
   let selected_genre = queryParameters.get("selected_genre");
   let selected_country = queryParameters.get("selected_country");
   let selected_language = queryParameters.get("selected_language");
   let searched_item = queryParameters.get("searched_item");
-  
+
   return (
     <>
       <Header />
@@ -32,10 +33,11 @@ export default function App() {
           <Route path="/country-result" element={<CountryResult selected_country={selected_country} />} />
           <Route path="/language-result" element={<LanguageResult selected_language={selected_language} />} />
           <Route path="/search-result" element={<SearchBarResult searched_item={searched_item} />} />
-          <Route path='*' element={<PageNotFound/>} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <Footer />
     </>
   );
 };
+

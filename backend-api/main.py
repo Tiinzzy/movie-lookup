@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from movies import Movies
+import create_pdf
 
 import simple_cache
 
@@ -224,3 +225,11 @@ def getting_new_movie_rating():
     result = Movies.submit_new_movie_rating(args.get('rating'), args.get('id'))
     invalidate_movie(args.get('id'))
     return jsonify(result)
+
+
+@app.route("/get-movies-pdf", methods=['GET'])
+def get_movies_pdf():
+    args = request.args
+    path_to_file = create_pdf.create_pdf_for_download(args.get('id'))
+    return send_file(path_to_file, as_attachment=True)
+
