@@ -1,6 +1,13 @@
 from database import Database
 
 
+def read_sql_file(sql_filename):
+    file = open("sql/"+sql_filename, "r")
+    content = file.read()
+    file.close()
+    return content
+
+
 class Movies:
     def __init__(self):
         pass
@@ -343,39 +350,8 @@ class Movies:
         con, cur = db.open_database()
 
         result = {}
-        cur.execute("""
-        select count(*) from (
-                    select m.id AS id
-                    from tests.imbd_movies m 
-                    _TITLE_ 
-                    union
-                    select m.id AS id
-                    from tests.imbd_movies m
-                    join tests.movie_production_countries mpc on m.id = mpc.movie_id
-                    join tests.production_countries pc on pc.initials = mpc.country_initial _COUNTRY_
-                    union
-                    select m.id AS id
-                    from tests.imbd_movies m
-                    join tests.movies_genre mg on m.id = mg.movie_id
-                    join tests.genres g on g.id = mg.genre_id _GENRE_
-                    union
-                    select m.id AS id
-                    from tests.imbd_movies m
-                    join tests.movies_spoken_languages msl on m.id = msl.movie_id
-                    join tests.spoken_languages sl on sl.initial = msl.language_initial _LANGUAGE_
-                    union
-                    select m.id AS id
-                    from tests.imbd_movies m
-                    join tests.movies_production_companies mprc on m.id = mprc.movie_id
-                    join tests.production_companies prc on prc.id = mprc.production_company_id _COMPANY_
-                    union
-                    select m.id as id
-                    from tests.imbd_movies m 
-                    join tests.movie_collections mc on mc.movie_id = m.id
-                    join tests.collections c on mc.collection_id = c.id _COLLECTION_
-                    order by id 
-                        ) all_ids
-                """.replace('_TITLE_', title_condition)
+        cur.execute(read_sql_file('search_result.sql')
+                    .replace('_TITLE_', title_condition)
                     .replace('_COUNTRY_', country_condition)
                     .replace('_GENRE_', genre_condition)
                     .replace('_LANGUAGE_', lang_condition)
