@@ -2,6 +2,13 @@ import pdfkit
 from movies import Movies
 
 
+PDF_DIRECTORY = "/var/tmp/"
+
+
+def safe_title(title):
+    return title.replace(' ', '-')
+
+
 def create_pdf_for_download(id):
     movie_data = Movies.selected_movie(id)
     movie_data = movie_data[0]
@@ -56,7 +63,7 @@ def create_pdf_for_download(id):
                                  status=status, runtime=runtime, vote_average=vote_average, spoken_languages=spoken_languages, countries=countries,
                                  genres=genres, company=company)
 
-    return pdfkit.from_string(html_file, "/home/tina/Documents/projects/movie-lookup/backend-api/pdf-files/"+title + '-download.pdf')
+    path_to_file = PDF_DIRECTORY + safe_title(title) + '-download.pdf'
+    pdfkit.from_string(html_file, path_to_file)
 
-
-create_pdf_for_download('11549')
+    return path_to_file
