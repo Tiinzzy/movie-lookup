@@ -231,7 +231,5 @@ def getting_new_movie_rating():
 def get_movies_pdf():
     args = request.args
     path_to_file = create_pdf.create_pdf_for_download(args.get('id'))
-    print(path_to_file)
-
     return send_file(path_to_file, as_attachment=True)
 
