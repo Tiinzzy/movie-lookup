@@ -47,5 +47,7 @@ def create_pdf_for_download(id):
                                  status=status, runtime=runtime, vote_average=vote_average, spoken_languages=spoken_languages, countries=countries,
                                  genres=genres)
 
-    return pdfkit.from_string(html_file, title + '-download.pdf')
+    return pdfkit.from_string(html_file, "/home/tina/Documents/projects/movie-lookup/backend-api/pdf-files/"+title + '-download.pdf')
 
+
+create_pdf_for_download('11549')
