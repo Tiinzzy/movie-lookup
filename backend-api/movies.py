@@ -195,9 +195,6 @@ class Movies:
             group by imdb, title, overview, original_language, release_date, status, runtime, vote_average, id, language;
                 """.replace("_ID_CONDITION_", id_condition)
 
-        print()
-        print(sql)
-        print()
         cur.execute(sql)
 
         rows = cur.fetchall()
@@ -478,4 +475,3 @@ class Movies:
 
 if __name__ == "__main__":
     movies = Movies.submit_new_movie_rating('francais', '0')
-    print(movies)
