@@ -13,9 +13,16 @@ setInterval(() => {
 }, CLEAR_CACHE_INTERVAL * 60 * 1000);
 
 
-app.use('/', function handle(req, res, next) {
-    let url = req.originalUrl.replaceAll('/', '_');
+app.use('/download', function (req, res) {
+    let url = 'http://localhost:5000/' + req.originalUrl.replace('download', 'get-movies-pdf');
+    console.log(1, url);
+    res.redirect(url);
+});
 
+
+app.use('/api', function handle(req, res, next) {
+    let url = req.originalUrl.replaceAll('/', '_');
+    console.log(2, url);
     if (url === '_reset') {
         resetCache();
         return res.send({ 'message': 'all cache entries invalidated.' });
@@ -34,6 +41,7 @@ app.use('/', function handle(req, res, next) {
         })(req, res, next)
     }
 });
+
 
 app.listen(3333);
 
