@@ -235,7 +235,9 @@ def get_movies_pdf():
     movie_data = Movies.selected_movie(args.get('id'))
     movie_data = movie_data[0]
     title = movie_data['title']
-    
-    return send_file(title + '-download.pdf', as_attachment=True)
+
+    pdf_path = "/home/tina/Documents/projects/movie-lookup/backend-api/pdf-files/" + \
+        title + '-download.pdf'
+    return send_file(pdf_path, as_attachment=True)
 
     # return pdf
