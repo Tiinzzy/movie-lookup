@@ -109,7 +109,7 @@ class Movies:
         db = Database()
         con, cur = db.open_database()
         cur.execute("""select masl.languages as languages from tests.imbd_movies m
-                        join tests.movies_all_spoken_languages masl on masl.id = m.id
+                        left join tests.movies_all_spoken_languages masl on masl.id = m.id
                         _ID_
                         """.replace('_ID_', id_condition))
 
@@ -139,7 +139,7 @@ class Movies:
         db = Database()
         con, cur = db.open_database()
         cur.execute("""select mac.countries as country from tests.imbd_movies m
-                join tests.movies_all_countries mac on mac.id = m.id
+                left join tests.movies_all_countries mac on mac.id = m.id
                 _ID_
                 """.replace('_ID_', id_condition))
 
@@ -156,7 +156,7 @@ class Movies:
         db = Database()
         con, cur = db.open_database()
         cur.execute("""select mapc.companies as companies from tests.imbd_movies m
-                        join tests.movies_all_production_companies mapc on mapc.id = m.id
+                        left join tests.movies_all_production_companies mapc on mapc.id = m.id
                         _ID_
                     """.replace('_ID_', id_condition))
 
