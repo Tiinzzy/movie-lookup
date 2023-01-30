@@ -49,4 +49,3 @@ def create_pdf_for_download(id):
 
     return pdfkit.from_string(html_file, title + '-download.pdf')
 
-
