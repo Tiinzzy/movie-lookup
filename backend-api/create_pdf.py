@@ -45,7 +45,7 @@ def create_pdf_for_download(id):
 
     # /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    production_company_data = Movies.if_production_company('38329')
+    production_company_data = Movies.if_production_company(id)
     production_company_data = production_company_data[0]
 
     company = production_company_data['company']
