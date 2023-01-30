@@ -12,6 +12,7 @@ import RateMovie from "./RateMovie";
 import { LISTENERS } from "./messaging";
 
 import './style.css';
+import GetPdf from "./GetPdf";
 
 const backend = BackEndConnection.INSTANCE();
 
@@ -149,6 +150,7 @@ class MovieClicked extends React.Component {
                                     <img src="/imdb.png" height="20" alt="#" />
                                 </a>
                             </Box>
+                            <GetPdf />
                         </Box>
                         {this.state.genre !== null && <Box className="SelectedMovieGenreBox">
                             {this.state.genre.split(',').map((e, i) =>
