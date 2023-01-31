@@ -20,12 +20,7 @@ class Movies:
     def all_movies(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute(''' SELECT m.title, m.vote_average, m.overview, m.vote_count, m.imdb_id, mal.genre_count, m.id FROM tests.imbd_movies m
-                        join tests.movies_all_genres mal on mal.title = m.title
-                        where m.title <> '0' and m.vote_average <> '0' and m.overview <> '0'
-                        order by rand()
-                        limit 12;
-                        ''')
+        cur.execute(read_sql_file('all_movies.sql'))
         rows = cur.fetchall()
         result = []
         for row in rows:
@@ -39,13 +34,8 @@ class Movies:
         more_condition = "" if genre is None else " and g.name like '%" + genre + "%' "
         db = Database()
         con, cur = db.open_database()
-        cur.execute("""
-        select distinct m.id, m.title, m.tagline, m.vote_average, m.vote_count from tests.imbd_movies m
-            join tests.movies_genre mg on m.id = mg.movie_id
-            join tests.genres g on g.id = mg.genre_id _MORE_CONDITION_ and m.title <> '0' and m.vote_average <> '0'
-            order by m.vote_average*m.vote_count desc
-            limit 10;
-        """.replace("_MORE_CONDITION_", more_condition))
+        cur.execute(read_sql_file('top_ten_movies.sql').replace(
+            "_MORE_CONDITION_", more_condition))
 
         rows = cur.fetchall()
         result = []
@@ -59,10 +49,7 @@ class Movies:
     def all_genres(self):
         db = Database()
         con, cur = db.open_database()
-        cur.execute('''select g.name, count(*) from tests.movies_genre mg
-                        join tests.genres g on mg.genre_id = g.id
-                        group by g.name
-                        order by count(*) desc;''')
+        cur.execute(read_sql_file('all_genres.sql'))
 
         rows = cur.fetchall()
         genres = []
@@ -303,19 +290,14 @@ class Movies:
         con, cur = db.open_database()
 
         result = {}
-        cur.execute(""" select count(*) from tests.imbd_movies m
-                        join tests.movies_all_spoken_languages masl on masl.id = m.id
-                        _SPOKEN_LANGUAGE_CONDITION_ and m.title <> '0'
-                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition))
+        cur.execute(read_sql_file('movies_spoken_lang_count.sql')
+                    .replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition))
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute(""" select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, masl.languages languages, m.vote_count as count from tests.imbd_movies m
-                        join tests.movies_all_spoken_languages masl on masl.id = m.id
-                        _SPOKEN_LANGUAGE_CONDITION_ and m.title <> '0'
-                        order by m.id
-                        _LIMIT_CONDITION_
-                        """.replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition).replace("_LIMIT_CONDITION_", limit_condition))
+        cur.execute(read_sql_file('movies_spoken_lang.sql')
+                    .replace("_SPOKEN_LANGUAGE_CONDITION_", spoken_language_condition)
+                    .replace("_LIMIT_CONDITION_", limit_condition))
 
         rows = cur.fetchall()
         row_result = []
@@ -395,16 +377,14 @@ class Movies:
         db = Database()
         con, cur = db.open_database()
 
-        cur.execute("""update tests.imbd_movies m 
-                        set m.vote_average = (m.vote_count*m.vote_average + _RATING_) / (m.vote_count + 1), m.vote_count = (m.vote_count + 1)
-                        where m.id = _ID_
-                """.replace("_RATING_", rating_condition).replace("_ID_", id_condition))
+        cur.execute(read_sql_file('update_movie_rating.sql')
+                    .replace("_RATING_", rating_condition)
+                    .replace("_ID_", id_condition))
 
         con.commit()
 
-        cur.execute("""select m.id, m.vote_count, m.vote_average, m.title from tests.imbd_movies m
-                        where m.id = _ID_
-                """.replace("_ID_", id_condition))
+        cur.execute(read_sql_file('get_the_updated_movie_vote.sql')
+                    .replace("_ID_", id_condition))
 
         rows = cur.fetchall()
         result = []
