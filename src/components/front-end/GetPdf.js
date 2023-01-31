@@ -21,7 +21,6 @@ class GetPdf extends React.Component {
         var link = document.createElement('a');
         link.href = url;
         link.download = 'file.pdf';
-        console.log(link);
         link.dispatchEvent(new MouseEvent('click'));
     }
 
