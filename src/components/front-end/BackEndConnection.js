@@ -113,10 +113,14 @@ class BackEndConnectionImpl {
     async if_production_company(id, callback) {
         return axios.get('/api/if_movie_has_production_company?id=' + id, {})
             .then(function (response) {
-                if (callback) {
-                    callback(response.data);
+                if (response.data[0].company === null) {
+                    return false
+                } else {
+                    if (callback) {
+                        callback(response.data);
+                    }
+                    return response.data;
                 }
-                return response.data;
             })
             .catch(function (error) {
                 console.log(error);
