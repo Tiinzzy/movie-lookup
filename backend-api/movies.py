@@ -102,10 +102,8 @@ class Movies:
         id_condition = 'where m.id = ' + id
         db = Database()
         con, cur = db.open_database()
-        cur.execute("""select masl.languages as languages from tests.imbd_movies m
-                        left join tests.movies_all_spoken_languages masl on masl.id = m.id
-                        _ID_
-                        """.replace('_ID_', id_condition))
+        cur.execute(read_sql_file('if_movie_spoken_lang.sql')
+                    .replace('_ID_', id_condition))
 
         rows = cur.fetchall()
         genres = []
@@ -132,10 +130,8 @@ class Movies:
         id_condition = 'where m.id = ' + id
         db = Database()
         con, cur = db.open_database()
-        cur.execute("""select mac.countries as country from tests.imbd_movies m
-                left join tests.movies_all_countries mac on mac.id = m.id
-                _ID_
-                """.replace('_ID_', id_condition))
+        cur.execute(read_sql_file('if_movie_product_count.sql')
+                    .replace('_ID_', id_condition))
 
         rows = cur.fetchall()
         genres = []
@@ -149,10 +145,8 @@ class Movies:
         id_condition = 'where m.id = ' + id
         db = Database()
         con, cur = db.open_database()
-        cur.execute("""select mapc.companies as companies from tests.imbd_movies m
-                        left join tests.movies_all_production_companies mapc on mapc.id = m.id
-                        _ID_
-                    """.replace('_ID_', id_condition))
+        cur.execute(read_sql_file('if_movie_product_comp.sql')
+                    .replace('_ID_', id_condition))
 
         rows = cur.fetchall()
         genres = []
@@ -179,23 +173,25 @@ class Movies:
         id_condition = " m.id =" + id
         db = Database()
         con, cur = db.open_database()
-        sql = """select imdb, title, overview, original_language, release_date, status, runtime, vote_average, GROUP_CONCAT(genres SEPARATOR ', ') as genres, id, language from (
-                select m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, g.name genres, m.id as id, sl.language as language from tests.imbd_movies m
-                left join tests.movies_genre mg on m.id = mg.movie_id
-                left join tests.genres g on g.id = mg.genre_id
-                left join tests.spoken_languages sl on sl.initial = m.original_language
-                where _ID_CONDITION_
-                ) as t2
-            group by imdb, title, overview, original_language, release_date, status, runtime, vote_average, id, language;
-                """.replace("_ID_CONDITION_", id_condition)
-
+        sql = read_sql_file('clicked_movie.sql').replace(
+            "_ID_CONDITION_", id_condition)
         cur.execute(sql)
 
         rows = cur.fetchall()
         result = []
         for row in rows:
             result.append(
-                {'imdb': row[0], 'title': row[1], 'overview': row[2], 'original_language': row[3], 'release_date': row[4], 'status': row[5], 'runtime': row[6], 'vote_average': row[7], 'genres': row[8], 'id': row[9], 'language': row[10]})
+                {'imdb': row[0],
+                 'title': row[1],
+                 'overview': row[2],
+                 'original_language': row[3],
+                 'release_date': row[4],
+                 'status': row[5],
+                 'runtime': row[6],
+                 'vote_average': row[7],
+                 'genres': row[8],
+                 'id': row[9],
+                 'language': row[10]})
         db.close_database()
         return result
 
@@ -207,19 +203,14 @@ class Movies:
         con, cur = db.open_database()
 
         result = {}
-        cur.execute("""select count(*) from tests.imbd_movies m
-                        join tests.movies_all_genres mag on mag.id = m.id
-                        where _GENRE_CONDITION_ and m.title <> '0'
-                """.replace("_GENRE_CONDITION_", genre_condition))
+        cur.execute(read_sql_file('movies_based_genre_count.sql')
+                    .replace("_GENRE_CONDITION_", genre_condition))
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote_average, mag.genre_count as genre, m.vote_count as count from tests.imbd_movies m
-                        join tests.movies_all_genres mag on mag.id = m.id
-                        where _GENRE_CONDITION_ and m.title <> '0'
-                        order by m.id
-                        _LIMIT_CONDITION_
-                """.replace("_GENRE_CONDITION_", genre_condition).replace("_LIMIT_CONDITION_", limit_condition))
+        cur.execute(read_sql_file('movies_based_genre.sql')
+                    .replace("_GENRE_CONDITION_", genre_condition)
+                    .replace("_LIMIT_CONDITION_", limit_condition))
         rows = cur.fetchall()
         row_result = []
         for row in rows:
@@ -248,19 +239,14 @@ class Movies:
         con, cur = db.open_database()
 
         result = {}
-        cur.execute("""select count(*) from tests.imbd_movies m
-                        join tests.movies_all_countries mac on mac.id = m.id
-                        where _COUNTRY_CONDITION_ and m.title <> '0'
-                """.replace("_COUNTRY_CONDITION_", country_condition))
+        cur.execute(read_sql_file('movies_based_country_count.sql')
+                    .replace("_COUNTRY_CONDITION_", country_condition))
         rows = cur.fetchall()
         result['row_count'] = rows[0][0]
 
-        cur.execute("""select m.id as id, m.imdb_id as imdb, m.title as title, m.overview as overview, m.original_language as original_language, m.release_date as release_date, m.status as status, m.runtime, m.vote_average as vote, mac.countries as country, vote_count as count from tests.imbd_movies m
-                        join tests.movies_all_countries mac on mac.id = m.id
-                        where _COUNTRY_CONDITION_ and m.title <> '0'
-                        order by m.id
-                        _LIMIT_CONDITION_
-                """.replace("_COUNTRY_CONDITION_", country_condition).replace("_LIMIT_CONDITION_", limit_condition))
+        cur.execute(read_sql_file('movies_based_country.sql')
+                    .replace("_COUNTRY_CONDITION_", country_condition)
+                    .replace("_LIMIT_CONDITION_", limit_condition))
 
         rows = cur.fetchall()
         row_result = []
