@@ -1,4 +1,4 @@
-select count(*) from (
+select * from (
     select m.id AS id
     from tests.imbd_movies m 
     _TITLE_ 
@@ -28,4 +28,7 @@ select count(*) from (
     join tests.movie_collections mc on mc.movie_id = m.id
     join tests.collections c on mc.collection_id = c.id _COLLECTION_
     order by id 
+    _LIMIT_
 ) all_ids
+join tests.imbd_movies m 
+on all_ids.id= m.id 
